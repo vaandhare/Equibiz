@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/NoActionBarTheme"
-    tools:context=".UserInfo.LoginActivity">
+    tools:context=".userInfo.LoginActivity">
 
     <TextView
         android:id="@+id/tv_register"

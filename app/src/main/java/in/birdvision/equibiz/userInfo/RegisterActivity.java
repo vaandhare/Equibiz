@@ -1,4 +1,4 @@
-package in.birdvision.equibiz.UserInfo;
+package in.birdvision.equibiz.userInfo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
