@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBarTheme">
-        <activity android:name=".product.ProductActivity"></activity>
+        <activity android:name=".userInfo.VerificationActivity"></activity>
+        <activity android:name=".userInfo.BusinessDetailsActivity" />
+        <activity android:name=".product.ProductActivity" />
         <activity android:name=".product.Category1Activity" />
         <activity android:name=".category.AllCategoryActivity" />
         <activity

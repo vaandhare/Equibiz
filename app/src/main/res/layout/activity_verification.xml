@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/NoActionBarTheme"
+    tools:context=".userInfo.VerificationActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_account_verification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/playfair_display"
+            android:text="@string/account_verification"
+            android:textColor="@color/dark_blue"
+            android:textSize="35sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_sub_account_verification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/playfair_display"
+            android:paddingStart="15dp"
+            android:paddingEnd="25dp"
+            android:text="@string/share_the_following_details_to_have_a_verified_account"
+            android:textColor="@color/dark_blue"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_account_verification" />
+
+        <LinearLayout
+            android:id="@+id/linear_layout_document_upload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tv_sub_account_verification">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/dark_blue" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/document_upload"
+                android:textColor="@color/dark_blue" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/dark_blue" />
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etv_gstin_number"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="25dp"
+            android:hint="@string/gstin_number"
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_document_upload">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_gstin_upload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:gravity="end"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/etv_gstin_number">
+
+            <TextView
+                android:id="@+id/tv_select_gstin_file"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_blue"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/btn_gstin_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/button_bg"
+                android:text="@string/upload" />
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etv_pan_card_number"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="25dp"
+            android:hint="@string/pan_number"
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_gstin_upload">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_pan_card_upload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:gravity="end"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/etv_pan_card_number">
+
+            <TextView
+                android:id="@+id/tv_select_pan_card_file"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_blue"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/btn_pan_card_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/button_bg"
+                android:text="@string/upload" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_file_upload_instruction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:gravity="end"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:text="@string/file_type_should_be_png_jpg_jpeg_size_500kb"
+            android:textColor="@color/red"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_pan_card_upload" />
+
+
+        <LinearLayout
+            android:id="@+id/linear_layout_bank_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tv_file_upload_instruction">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/dark_blue" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/bank_details"
+                android:textColor="@color/dark_blue" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/dark_blue" />
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/spinner_bank_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:hint="@string/bank_name"
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_bank_details">
+
+            <AutoCompleteTextView
+                android:id="@+id/autocomplete_bank_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--        <Spinner-->
+        <!--            android:id="@+id/business_type_spinner"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="45dp"-->
+        <!--            android:layout_marginLeft="25dp"-->
+        <!--            android:layout_marginRight="25dp"-->
+        <!--            android:layout_marginTop="15dp"-->
+        <!--            android:background="@drawable/spinner_bg"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/etv_business_name"/>-->
+
+        <!--        <Spinner-->
+        <!--            android:id="@+id/business_nature_spinner"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="45dp"-->
+        <!--            android:layout_marginLeft="25dp"-->
+        <!--            android:layout_marginRight="25dp"-->
+        <!--            android:layout_marginTop="15dp"-->
+        <!--            android:background="@drawable/spinner_bg"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/business_type_spinner"/>-->
+
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/etv_business_address"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/business_nature_spinner"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:layout_marginLeft="25dp"-->
+        <!--            android:hint="@string/address_of_registered_office"-->
+        <!--            android:layout_marginRight="25dp"-->
+        <!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">-->
+
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:paddingStart="10dp"-->
+        <!--                android:paddingEnd="10dp"-->
+        <!--                android:textColor="@color/black"-->
+        <!--                android:gravity="center_vertical"-->
+        <!--                android:fontFamily="@font/montserrat" />-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/etv_business_address_pincode"-->
+        <!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="15dp"-->
+        <!--            android:hint="@string/pincode"-->
+        <!--            android:layout_marginRight="25dp"-->
+        <!--            android:layout_marginLeft="25dp"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/etv_business_address">-->
+
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:fontFamily="@font/montserrat"-->
+        <!--                android:gravity="center_vertical"-->
+        <!--                android:paddingStart="10dp"-->
+        <!--                android:paddingEnd="10dp"-->
+        <!--                android:singleLine="true"-->
+        <!--                android:inputType="number"-->
+        <!--                android:maxLength="6"-->
+        <!--                android:textColor="@color/black" />-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <!--        <LinearLayout-->
+        <!--            android:id="@+id/linear_layout_partner_view"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            android:gravity="center_vertical"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/etv_business_address_pincode"-->
+        <!--            android:layout_margin="15dp">-->
+
+        <!--            <View-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:layout_height="1dp"-->
+        <!--                android:background="@color/dark_blue"/>-->
+
+        <!--            <TextView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:text="@string/partner_details"-->
+        <!--                android:padding="5dp"-->
+        <!--                android:textColor="@color/dark_blue"/>-->
+
+        <!--            <View-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:layout_height="1dp"-->
+        <!--                android:background="@color/dark_blue"/>-->
+        <!--        </LinearLayout>-->
+
+        <!--        <LinearLayout-->
+        <!--            android:id="@+id/linear_layout_partner_details"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/linear_layout_partner_view"-->
+        <!--            android:baselineAligned="false">-->
+
+        <!--            <com.google.android.material.textfield.TextInputLayout-->
+        <!--                android:id="@+id/etv_partner_first_name"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginLeft="25dp"-->
+        <!--                android:hint="@string/first_name"-->
+        <!--                android:layout_marginRight="25dp"-->
+        <!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">-->
+
+        <!--                <com.google.android.material.textfield.TextInputEditText-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:paddingStart="10dp"-->
+        <!--                    android:paddingEnd="10dp"-->
+        <!--                    android:textColor="@color/black"-->
+        <!--                    android:gravity="center_vertical"-->
+        <!--                    android:singleLine="true"-->
+        <!--                    android:fontFamily="@font/montserrat" />-->
+        <!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+        <!--            <com.google.android.material.textfield.TextInputLayout-->
+        <!--                android:id="@+id/etv_partner_last_name"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginStart="5dp"-->
+        <!--                android:hint="@string/last_name"-->
+        <!--                android:layout_marginEnd="25dp"-->
+        <!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">-->
+
+        <!--                <com.google.android.material.textfield.TextInputEditText-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:paddingStart="10dp"-->
+        <!--                    android:paddingEnd="10dp"-->
+        <!--                    android:textColor="@color/black"-->
+        <!--                    android:gravity="center_vertical"-->
+        <!--                    android:singleLine="true"-->
+        <!--                    android:fontFamily="@font/montserrat" />-->
+        <!--            </com.google.android.material.textfield.TextInputLayout>-->
+        <!--        </LinearLayout>-->
+
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/etv_partner_country_code"-->
+        <!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="25dp"-->
+        <!--            android:layout_marginTop="15dp"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/linear_layout_partner_details">-->
+
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:fontFamily="@font/montserrat"-->
+        <!--                android:gravity="center"-->
+        <!--                android:padding="10dp"-->
+        <!--                android:inputType="phone"-->
+        <!--                android:singleLine="true"-->
+        <!--                android:text="@string/_91"-->
+        <!--                android:maxLength="4"-->
+        <!--                android:textColor="@color/black" />-->
+
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/etv_partner_mobile_number"-->
+        <!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="95dp"-->
+        <!--            android:layout_marginEnd="25dp"-->
+        <!--            android:layout_marginTop="15dp"-->
+        <!--            app:layout_constraintStart_toEndOf="@id/etv_partner_country_code"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/linear_layout_partner_details">-->
+
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:fontFamily="@font/montserrat"-->
+        <!--                android:gravity="center_vertical"-->
+        <!--                android:padding="10dp"-->
+        <!--                android:hint="@string/mobile_number"-->
+        <!--                android:singleLine="true"-->
+        <!--                android:inputType="phone"-->
+        <!--                android:maxLength="10"-->
+        <!--                android:textColor="@color/black" />-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <!--        <LinearLayout-->
+        <!--            android:id="@+id/linear_layout_contact_person_view"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            android:gravity="center_vertical"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/etv_partner_mobile_number"-->
+        <!--            android:layout_margin="15dp">-->
+
+        <!--            <View-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:layout_height="1dp"-->
+        <!--                android:background="@color/dark_blue"/>-->
+
+        <!--            <TextView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:text="@string/contact_persons_details_optional"-->
+        <!--                android:padding="5dp"-->
+        <!--                android:textColor="@color/dark_blue"/>-->
+
+        <!--            <View-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:layout_height="1dp"-->
+        <!--                android:background="@color/dark_blue"/>-->
+        <!--        </LinearLayout>-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/ContactPerson1_tv"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="@string/name_of_person_1"-->
+        <!--            android:fontFamily="@font/montserrat"-->
+        <!--            android:textColor="@color/dark_blue"-->
+        <!--            android:layout_marginStart="25dp"-->
+        <!--            android:textStyle="bold"-->
+        <!--            android:padding="5dp"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/linear_layout_contact_person_view" />-->
+
+        <!--        <LinearLayout-->
+        <!--            android:id="@+id/linear_layout_contact_person1"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/ContactPerson1_tv"-->
+        <!--            android:baselineAligned="false">-->
+
+        <!--            <com.google.android.material.textfield.TextInputLayout-->
+        <!--                android:id="@+id/etv_contact1_first_name"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginLeft="25dp"-->
+        <!--                android:hint="@string/first_name"-->
+        <!--                android:layout_marginRight="25dp"-->
+        <!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">-->
+
+        <!--                <com.google.android.material.textfield.TextInputEditText-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:paddingStart="10dp"-->
+        <!--                    android:paddingEnd="10dp"-->
+        <!--                    android:textColor="@color/black"-->
+        <!--                    android:gravity="center_vertical"-->
+        <!--                    android:singleLine="true"-->
+        <!--                    android:fontFamily="@font/montserrat" />-->
+        <!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+        <!--            <com.google.android.material.textfield.TextInputLayout-->
+        <!--                android:id="@+id/etv_contact1_last_name"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginStart="5dp"-->
+        <!--                android:hint="@string/last_name"-->
+        <!--                android:layout_marginEnd="25dp"-->
+        <!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">-->
+
+        <!--                <com.google.android.material.textfield.TextInputEditText-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:paddingStart="10dp"-->
+        <!--                    android:paddingEnd="10dp"-->
+        <!--                    android:textColor="@color/black"-->
+        <!--                    android:gravity="center_vertical"-->
+        <!--                    android:singleLine="true"-->
+        <!--                    android:fontFamily="@font/montserrat" />-->
+        <!--            </com.google.android.material.textfield.TextInputLayout>-->
+        <!--        </LinearLayout>-->
+
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/etv_contact1_country_code"-->
+        <!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="25dp"-->
+        <!--            android:layout_marginTop="15dp"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/linear_layout_contact_person1">-->
+
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:fontFamily="@font/montserrat"-->
+        <!--                android:gravity="center"-->
+        <!--                android:padding="10dp"-->
+        <!--                android:inputType="phone"-->
+        <!--                android:singleLine="true"-->
+        <!--                android:text="@string/_91"-->
+        <!--                android:maxLength="4"-->
+        <!--                android:textColor="@color/black" />-->
+
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/etv_contact1_mobile_number"-->
+        <!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="95dp"-->
+        <!--            android:layout_marginEnd="25dp"-->
+        <!--            android:layout_marginTop="15dp"-->
+        <!--            app:layout_constraintStart_toEndOf="@id/etv_contact1_country_code"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/linear_layout_contact_person1">-->
+
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:fontFamily="@font/montserrat"-->
+        <!--                android:gravity="center_vertical"-->
+        <!--                android:padding="10dp"-->
+        <!--                android:hint="@string/mobile_number"-->
+        <!--                android:singleLine="true"-->
+        <!--                android:inputType="phone"-->
+        <!--                android:maxLength="10"-->
+        <!--                android:textColor="@color/black" />-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/ContactPerson2_tv"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="@string/name_of_person_2"-->
+        <!--            android:fontFamily="@font/montserrat"-->
+        <!--            android:textColor="@color/dark_blue"-->
+        <!--            android:layout_marginStart="25dp"-->
+        <!--            android:textStyle="bold"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:padding="5dp"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/etv_contact1_mobile_number" />-->
+
+        <!--        <LinearLayout-->
+        <!--            android:id="@+id/linear_layout_contact_person2"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/ContactPerson2_tv"-->
+        <!--            android:baselineAligned="false">-->
+
+        <!--            <com.google.android.material.textfield.TextInputLayout-->
+        <!--                android:id="@+id/etv_contact2_first_name"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginLeft="25dp"-->
+        <!--                android:hint="@string/first_name"-->
+        <!--                android:layout_marginRight="25dp"-->
+        <!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">-->
+
+        <!--                <com.google.android.material.textfield.TextInputEditText-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:paddingStart="10dp"-->
+        <!--                    android:paddingEnd="10dp"-->
+        <!--                    android:textColor="@color/black"-->
+        <!--                    android:gravity="center_vertical"-->
+        <!--                    android:singleLine="true"-->
+        <!--                    android:fontFamily="@font/montserrat" />-->
+        <!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+        <!--            <com.google.android.material.textfield.TextInputLayout-->
+        <!--                android:id="@+id/etv_contact2_last_name"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginStart="5dp"-->
+        <!--                android:hint="@string/last_name"-->
+        <!--                android:layout_marginEnd="25dp"-->
+        <!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">-->
+
+        <!--                <com.google.android.material.textfield.TextInputEditText-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:paddingStart="10dp"-->
+        <!--                    android:paddingEnd="10dp"-->
+        <!--                    android:textColor="@color/black"-->
+        <!--                    android:gravity="center_vertical"-->
+        <!--                    android:singleLine="true"-->
+        <!--                    android:fontFamily="@font/montserrat" />-->
+        <!--            </com.google.android.material.textfield.TextInputLayout>-->
+        <!--        </LinearLayout>-->
+
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/etv_contact2_country_code"-->
+        <!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="25dp"-->
+        <!--            android:layout_marginTop="15dp"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/linear_layout_contact_person2">-->
+
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:fontFamily="@font/montserrat"-->
+        <!--                android:gravity="center"-->
+        <!--                android:padding="10dp"-->
+        <!--                android:inputType="phone"-->
+        <!--                android:singleLine="true"-->
+        <!--                android:text="@string/_91"-->
+        <!--                android:maxLength="4"-->
+        <!--                android:textColor="@color/black" />-->
+
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/etv_contact2_mobile_number"-->
+        <!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="95dp"-->
+        <!--            android:layout_marginEnd="25dp"-->
+        <!--            android:layout_marginTop="15dp"-->
+        <!--            app:layout_constraintStart_toEndOf="@id/etv_contact2_country_code"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/linear_layout_contact_person2">-->
+
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:fontFamily="@font/montserrat"-->
+        <!--                android:gravity="center_vertical"-->
+        <!--                android:padding="10dp"-->
+        <!--                android:hint="@string/mobile_number"-->
+        <!--                android:singleLine="true"-->
+        <!--                android:inputType="phone"-->
+        <!--                android:maxLength="10"-->
+        <!--                android:textColor="@color/black" />-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <!--        <Button-->
+        <!--            android:id="@+id/btn_save_and_next"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/etv_contact2_mobile_number"-->
+        <!--            android:text="@string/save_next"-->
+        <!--            android:background="@drawable/button_bg"-->
+        <!--            android:layout_marginLeft="25dp"-->
+        <!--            android:layout_marginRight="25dp"-->
+        <!--            android:layout_marginTop="15dp"/>-->
+
+        <!--        <View-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="1dp"-->
+        <!--            android:background="@color/white"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/btn_save_and_next" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -16,7 +16,7 @@
         android:text="@string/register"
         android:textSize="20sp"
         android:fontFamily="@font/montserrat"
-        android:textColor="@color/black"
+        android:textColor="@color/dark_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,8 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:textColor="@color/black"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="70dp"
+        android:textColor="@color/dark_blue"
         android:fontFamily="@font/playfair_display"
         android:text="@string/welcome_back_text"
         android:textSize="40sp"
@@ -38,8 +38,9 @@
         android:id="@+id/tv_sub_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/dark_blue"
         android:fontFamily="@font/playfair_display"
+        android:textStyle="bold"
         android:text="@string/login_back_text"
         app:layout_constraintStart_toStartOf="@+id/tv_welcome_back"
         android:textSize="18sp"
@@ -52,19 +53,21 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/tv_sub_welcome"
         android:layout_marginTop="50dp"
+        android:hint="@string/mobile_number"
         android:layout_marginLeft="25dp"
-        android:hint="@string/email_text"
         android:layout_marginRight="25dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textColor="@color/black"
+            android:fontFamily="@font/montserrat"
             android:gravity="center_vertical"
-            android:fontFamily="@font/montserrat" />
+            android:inputType="phone"
+            android:maxLength="10"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,6 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/remember_text"
+        android:textColor="@color/dark_blue"
         android:fontFamily="@font/montserrat"
         app:layout_constraintStart_toStartOf="@+id/etv_login_password"
         app:layout_constraintTop_toBottomOf="@+id/etv_login_password" />
@@ -110,13 +114,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="25dp"
+        android:textColor="@color/dark_blue"
         android:textSize="15sp"
         app:layout_constraintTop_toBottomOf="@+id/etv_login_password" />
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="60dp"
         android:layout_marginRight="25dp"
@@ -129,72 +134,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switchCompat" />
 
-
-    <LinearLayout
-        android:id="@+id/login_view_linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login">
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="25dp"
-            android:background="#000"
-            android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:textColor="@color/black"
-            android:paddingRight="20dp"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/or_text"
-            android:textSize="20sp" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginEnd="25dp"
-            android:background="#000"
-            android:layout_weight="1" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/login_view_linearLayout">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_with_text"
-            android:fontFamily="@font/montserrat"
-            android:textSize="20sp"/>
-
-        <ImageView
-            android:id="@+id/img_login_google"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/icon_google"
-            android:layout_marginStart="30dp"
-            android:contentDescription="@string/google"/>
-
-        <ImageView
-            android:id="@+id/img_login_facebook"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/icon_facebook"
-            android:layout_marginStart="30dp"
-            android:contentDescription="@string/facebook"/>
-
-    </LinearLayout>
-    
 </androidx.constraintlayout.widget.ConstraintLayout>
