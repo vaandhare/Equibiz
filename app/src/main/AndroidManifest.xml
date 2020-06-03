@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="in.birdvision.equibiz">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,10 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBarTheme">
-        <activity android:name=".userInfo.VerificationActivity"></activity>
+        <activity android:name=".orders.OrderActivity"></activity>
+        <activity android:name=".notifications.NotificationActivity" />
+        <activity android:name=".product.ProductListActivity" />
+        <activity android:name=".userInfo.VerificationActivity" />
         <activity android:name=".userInfo.BusinessDetailsActivity" />
         <activity android:name=".product.ProductActivity" />
-        <activity android:name=".product.Category1Activity" />
         <activity android:name=".category.AllCategoryActivity" />
         <activity
             android:name=".userInfo.UserProfile"
@@ -30,9 +36,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/NoActionBarTheme" />
     </application>
 
 </manifest>

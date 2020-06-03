@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".product.Category1Activity">
+    tools:context=".product.ProductActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/category1_toolbar"
@@ -14,6 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/dark_blue"
         app:menu="@menu/cart_share"
         tools:ignore="RtlSymmetry">
 
@@ -21,7 +22,7 @@
             android:id="@+id/img_back_all_category"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:contentDescription="@string/user_profile"
+            android:contentDescription="TODO"
             android:src="@drawable/ic_keyboard_arrow_left" />
 
         <TextView
@@ -32,7 +33,7 @@
             android:fontFamily="@font/montserrat"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:layout_marginStart="25sp"/>
     </com.google.android.material.appbar.MaterialToolbar>
 
@@ -56,47 +57,91 @@
                 android:contentDescription="@string/product_poster_image"
                 android:src="@drawable/mobile_product_sample" />
 
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_bookmark"
                 android:fontFamily="@font/montserrat"
-                android:padding="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="@string/product_name"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/product_specifications"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@color/gray" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/montserrat"
                     android:gravity="center_vertical"
-                    android:text="₹000"
+                    android:paddingStart="40dp"
+                    android:text="Total Stock"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="40dp"
+                    android:text="Average Price"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center_vertical"
+                    android:paddingStart="70dp"
+                    android:paddingEnd="5dp"
+                    android:text="---"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/yellow"
-                    android:drawableEnd="@drawable/ic_star"
                     android:fontFamily="@font/montserrat"
                     android:gravity="center"
-                    android:padding="5dp"
-                    android:text="4.5"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="90dp"
+                    android:text="---"
                     android:textAlignment="textEnd"
-                    android:textColor="@color/black"
+                    android:textColor="@color/dark_blue"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     tools:ignore="RtlCompat" />
@@ -113,18 +158,199 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/montserrat"
-                android:text="@string/specifications"
+                android:text="@string/technical_specifications"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/lorem_epsum"
-                android:textSize="12dp" />
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp">
+
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:stretchColumns="*">
+
+                    <TableRow>
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="@string/ram"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="6 GB"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="@string/expandable_upto"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="512 GB"
+                            android:textColor="@color/black" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="@string/internal_storage"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="32 GB"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="@string/front_camera"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="12 MP"
+                            android:textColor="@color/black" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="@string/primary_camera"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="48MP"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="@string/os"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="Luffy"
+                            android:textColor="@color/black" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="@string/battery_capacity"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="1200Mhz"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="@string/network"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="4G"
+                            android:textColor="@color/black" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="@string/sim_slots"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="2"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="@string/dimensions"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="9000*5000"
+                            android:textColor="@color/black" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="@string/screen_size"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="5"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="@string/processor"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:padding="5dp"
+                            android:text="Octa Core"
+                            android:textColor="@color/black" />
+                    </TableRow>
+                </TableLayout>
+            </HorizontalScrollView>
 
             <View
                 android:layout_width="match_parent"
@@ -136,42 +362,138 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginBottom="20dp"
                 android:fontFamily="@font/montserrat"
-                android:text="@string/user_reviews"
+                android:text="@string/seller"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_margin="10dp"
-                android:background="@color/gray" />
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:fontFamily="@font/montserrat"
-                android:text="@string/lorem_epsum"
-                android:textSize="12dp" />
+                android:padding="10dp"
+                android:text="@string/seller_name"
+                android:textColor="@color/black" />
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:gravity="center"
+                android:stretchColumns="*">
+
+                <TableRow>
+
+                    <TextView
+                        android:fontFamily="@font/montserrat"
+                        android:padding="5dp"
+                        android:text="@string/total_quantity"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:fontFamily="@font/montserrat"
+                        android:padding="5dp"
+                        android:text="97"
+                        android:textColor="@color/black" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:fontFamily="@font/montserrat"
+                        android:padding="5dp"
+                        android:text="Price per unit (₹)"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:fontFamily="@font/montserrat"
+                        android:padding="5dp"
+                        android:text="500"
+                        android:textColor="@color/black" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:fontFamily="@font/montserrat"
+                        android:padding="5dp"
+                        android:text="Location"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:fontFamily="@font/montserrat"
+                        android:padding="5dp"
+                        android:text="Pune"
+                        android:textColor="@color/black" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:fontFamily="@font/montserrat"
+                        android:padding="5dp"
+                        android:text="@string/color"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:fontFamily="@font/montserrat"
+                        android:padding="5dp"
+                        android:text="Blue"
+                        android:textColor="@color/black" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:fontFamily="@font/montserrat"
+                        android:padding="5dp"
+                        android:text="Delivery Time (Days)"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:fontFamily="@font/montserrat"
+                        android:padding="5dp"
+                        android:text="T+1"
+                        android:textColor="@color/black" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:fontFamily="@font/montserrat"
+                        android:padding="5dp"
+                        android:text="@string/order_quantity"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:fontFamily="@font/montserrat"
+                        android:hint="5"
+                        android:inputType="number"
+                        android:padding="5dp"
+                        android:textColor="@color/black" />
+                </TableRow>
+            </TableLayout>
+
+            <Button
+                android:id="@+id/add_to_cart_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/button_bg"
+                android:text="@string/add_to_cart"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/add_to_cart_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_bg"
-        android:text="@string/add_to_cart"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

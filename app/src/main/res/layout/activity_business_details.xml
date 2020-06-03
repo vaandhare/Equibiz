@@ -31,7 +31,7 @@
             android:fontFamily="@font/playfair_display"
             android:paddingStart="25dp"
             android:paddingEnd="25dp"
-            android:text="@string/you_are_registered_fill_up_the_following_details_regarding_your_business"
+            android:text="@string/you_are_registered"
             android:textColor="@color/dark_blue"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"

@@ -11,6 +11,7 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/profile_toolbar"
         android:layout_width="match_parent"
+        android:background="@color/dark_blue"
         android:layout_height="wrap_content"
         app:menu="@menu/cart_search_menu"
         android:paddingEnd="10dp"
@@ -45,11 +46,32 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="7dp"
+                            android:text="@string/you_are_logged_in_as" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="7dp"
+                            android:text="@string/buyer"
+                            android:textColor="@color/dark_blue" />
+
+                    </LinearLayout>
+
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_marginTop="15dp"
                         android:src="@drawable/ic_user"
+                        android:tint="@color/dark_blue"
                         android:layout_gravity="center_horizontal"
                         android:contentDescription="@string/user_profile"/>
 
@@ -98,7 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 app:cardBackgroundColor="@color/white">
@@ -111,55 +133,179 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Order History"
+                        android:text="@string/business_details"
                         android:padding="7dp"
                         android:fontFamily="@font/montserrat"/>
 
-                    <LinearLayout
+                    <TableLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_margin="10dp">
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="15dp"
+                        android:stretchColumns="*">
+
+                        <TableRow>
+
+                            <TextView
+                                android:text="@string/business_name"
+                                android:textColor="@color/dark_blue"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:text="BirdVision Consulting PVT LTD"
+                                android:textColor="@color/black" />
+                        </TableRow>
+
+                        <TableRow android:paddingTop="5dp">
+
+                            <TextView
+                                android:text="@string/business_type"
+                                android:textColor="@color/dark_blue"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:text="Private Limited Company"
+                                android:textColor="@color/black" />
+                        </TableRow>
+
+                        <TableRow android:paddingTop="5dp">
+
+                            <TextView
+                                android:text="@string/owner_first_name"
+                                android:textColor="@color/dark_blue"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:text="ABC"
+                                android:textColor="@color/black" />
+                        </TableRow>
+
+                        <TableRow android:paddingTop="5dp">
+
+                            <TextView
+                                android:text="@string/owner_last_name"
+                                android:textColor="@color/dark_blue"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:text="XYZ"
+                                android:textColor="@color/black" />
+                        </TableRow>
+
+                        <TableRow android:paddingTop="5dp">
+
+                            <TextView
+                                android:text="@string/owner_mobile"
+                                android:textColor="@color/dark_blue"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:text="+91 9900000000"
+                                android:textColor="@color/black" />
+                        </TableRow>
 
                         <TextView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:text="@string/product_image"
-                            android:gravity="center"
-                            android:background="@drawable/circle_bg"/>
+                            android:paddingTop="5dp"
+                            android:text="@string/office_registered_address"
+                            android:textColor="@color/dark_blue"
+                            android:textStyle="bold" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="15dp"
-                            android:orientation="vertical">
+                        <TextView
+                            android:text="111, XYZ, ABC, Pune-04"
+                            android:textColor="@color/black" />
+                    </TableLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="5dp">
+
+                <TextView
+                    android:id="@+id/UP_orders_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:padding="10dp"
+                    android:text="@string/order_history"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="15sp" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Wallet Details"
+                        android:padding="7dp"
+                        android:fontFamily="@font/montserrat"/>
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="15dp"
+                        android:stretchColumns="*">
+
+                        <TableRow>
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/product_name"
-                                android:fontFamily="@font/montserrat"
-                                android:textColor="@color/black"
-                                android:textSize="20sp" />
+                                android:text="@string/total_balance"
+                                android:textColor="@color/dark_blue"
+                                android:textStyle="bold" />
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/product_price"
-                                android:fontFamily="@font/montserrat"
-                                android:textColor="@color/black"
-                                android:textSize="15sp" />
+                                android:text="000"
+                                android:textColor="@color/black" />
+                        </TableRow>
+
+                        <TableRow android:paddingTop="5dp">
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/purchase_date"
-                                android:fontFamily="@font/montserrat"
-                                android:textColor="@color/black"
-                                android:textSize="15sp" />
+                                android:text="@string/available_balance"
+                                android:textColor="@color/dark_blue"
+                                android:textStyle="bold" />
 
-                        </LinearLayout>
-                    </LinearLayout>
+                            <TextView
+                                android:text="000"
+                                android:textColor="@color/black" />
+                        </TableRow>
+
+                        <TableRow android:paddingTop="5dp">
+
+                            <TextView
+                                android:text="@string/pending_balance"
+                                android:textColor="@color/dark_blue"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:text="000"
+                                android:textColor="@color/black" />
+                        </TableRow>
+                    </TableLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -170,7 +316,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
                         android:fontFamily="@font/montserrat"
-                        android:text="Click here to check order history"
+                        android:text="Click here to fill wallet."
                         android:padding="10dp"/>
 
                 </LinearLayout>
@@ -193,19 +339,90 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Saved Address"
+                        android:text="@string/confidential_details"
                         android:padding="7dp"
                         android:fontFamily="@font/montserrat"/>
 
-                    <TextView
+                    <TableLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="ABC, Pune, Maharashtra - 411001"
-                        android:textColor="@color/black"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginBottom="10dp"
-                        android:fontFamily="@font/montserrat"/>
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="15dp"
+                        android:stretchColumns="*">
+
+                        <TableRow>
+
+                            <TextView
+                                android:text="@string/pan_number"
+                                android:textColor="@color/dark_blue"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:text="xxxxxxxx"
+                                android:textColor="@color/black" />
+                        </TableRow>
+
+                        <TableRow android:paddingTop="5dp">
+
+                            <TextView
+                                android:text="@string/bank_name"
+                                android:textColor="@color/dark_blue"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:text="State Bank of India"
+                                android:textColor="@color/black" />
+                        </TableRow>
+
+                        <TableRow android:paddingTop="5dp">
+
+                            <TextView
+                                android:text="@string/account_number"
+                                android:textColor="@color/dark_blue"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:text="xxxxxxxxxxxxx"
+                                android:textColor="@color/black" />
+                        </TableRow>
+
+                        <TableRow android:paddingTop="5dp">
+
+                            <TextView
+                                android:text="@string/ifsc_number"
+                                android:textColor="@color/dark_blue"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:text="xxxxxxx"
+                                android:textColor="@color/black" />
+                        </TableRow>
+
+                        <TableRow android:paddingTop="5dp">
+
+                            <TextView
+                                android:text="@string/bank_branch"
+                                android:textColor="@color/dark_blue"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:text="Shivaji Nagar"
+                                android:textColor="@color/black" />
+                        </TableRow>
+
+                        <TableRow android:paddingTop="5dp">
+
+                            <TextView
+                                android:text="@string/bank_city"
+                                android:textColor="@color/dark_blue"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:text="Pune"
+                                android:textColor="@color/black" />
+                        </TableRow>
+                    </TableLayout>
 
                     <View
                         android:layout_width="match_parent"
@@ -217,54 +434,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
                         android:fontFamily="@font/montserrat"
-                        android:text="Click here to add more address."
-                        android:padding="10dp"/>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="5dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                app:cardBackgroundColor="@color/white">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Payment Options"
-                        android:padding="7dp"
-                        android:fontFamily="@font/montserrat"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Save your payment mode for faster transactions. Your details are secured with us."
-                        android:textColor="@color/black"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginBottom="10dp"
-                        android:fontFamily="@font/montserrat"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/gray"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Add new payment mode."
+                        android:text="Click here to view confidential details"
                         android:padding="10dp"/>
 
                 </LinearLayout>
@@ -283,7 +453,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="Change Password"
+                    android:text="@string/change_personal_details"
                     android:gravity="center"
                     android:fontFamily="@font/montserrat" />
             </androidx.cardview.widget.CardView>
@@ -300,7 +470,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="FAQ"
+                    android:text="@string/faq"
                     android:gravity="center"
                     android:fontFamily="@font/montserrat" />
             </androidx.cardview.widget.CardView>
@@ -317,7 +487,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="Customer Support"
+                    android:text="@string/support"
                     android:gravity="center"
                     android:fontFamily="@font/montserrat" />
             </androidx.cardview.widget.CardView>
@@ -334,7 +504,41 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="About us"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:text="@string/terms_and_conditions" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:text="@string/private_policy" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="@string/about_company"
                     android:gravity="center"
                     android:fontFamily="@font/montserrat" />
             </androidx.cardview.widget.CardView>
@@ -352,7 +556,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="Log out"
+                    android:text="@string/logout"
                     android:gravity="center"
                     android:fontFamily="@font/montserrat" />
             </androidx.cardview.widget.CardView>

@@ -38,13 +38,13 @@ public class BusinessDetailsActivity extends AppCompatActivity {
         //Business Type Spinner
         business_type_spinner = findViewById(R.id.business_type_spinner);
         editTextBusinessTypeFilledExposedDropdown = findViewById(R.id.autocomplete_business_type);
-        ArrayAdapter adapterBT = new ArrayAdapter(BusinessDetailsActivity.this, R.layout.dropdown_menu, BusinessType);
+        ArrayAdapter adapterBT = new ArrayAdapter<>(BusinessDetailsActivity.this, R.layout.dropdown_menu, BusinessType);
         editTextBusinessTypeFilledExposedDropdown.setAdapter(adapterBT);
 
         //Business Nature Spinner
         business_nature_spinner = findViewById(R.id.business_nature_spinner);
         editTextBusinessNatureFilledExposedDropdown = findViewById(R.id.autocomplete_business_nature);
-        ArrayAdapter adapterBN = new ArrayAdapter(BusinessDetailsActivity.this, R.layout.dropdown_menu, BusinessNature);
+        ArrayAdapter adapterBN = new ArrayAdapter<>(BusinessDetailsActivity.this, R.layout.dropdown_menu, BusinessNature);
         editTextBusinessNatureFilledExposedDropdown.setAdapter(adapterBN);
 
     }
