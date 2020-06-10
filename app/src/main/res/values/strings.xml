@@ -123,4 +123,24 @@
     <string name="about_company">About Company</string>
     <string name="logout">Logout</string>
     <string name="change_personal_details">Change Personal Details</string>
+    <string name="order_confirming_msg">You are about to make the following action. \nPlease Check the Details before confirming.</string>
+    <string name="delivery_location">Delivery Location</string>
+    <string name="time">Time</string>
+    <string name="pickup_location">Pickup Location</string>
+    <string name="additional_time">Additional Time</string>
+    <string name="delivery_charges">Delivery Charges</string>
+    <string name="delivery_charges_rate_card">Delivery Charges Rate Card</string>
+    <string name="price_per_unit">Price Per Unit (₹)</string>
+    <string name="total_cost">Total Cost (₹)</string>
+    <string name="pre_book_amount">Pre-Book Amount</string>
+    <string name="pre_book_amount_note">Pre-Book amount is 10% of Total-Cost</string>
+    <string name="insurance_50">Insurance (₹50)</string>
+    <string name="waller_balance_deduction_note">₹ 1000 will be deducted from your wallet Balance.</string>
+    <string name="cancel">Cancel</string>
+    <string name="pre_order_now">Pre-Order Now</string>
+    <string name="book_now">Book Now</string>
+    <string name="close">Close</string>
+    <string name="your_order_is_successfully_pre_booked_and_will_be_ordered_after_verification">Your order is successfully pre-booked and will be ordered after verification.</string>
+    <string name="success">Success!!</string>
+    <string name="verify">Verify</string>
 </resources>

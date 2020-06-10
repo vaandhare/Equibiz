@@ -48,12 +48,13 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etv_login_email"
+        android:id="@+id/etv_login_mobile_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/tv_sub_welcome"
         android:layout_marginTop="50dp"
         android:hint="@string/mobile_number"
+        app:errorTextColor="@color/red"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
@@ -75,9 +76,10 @@
         android:id="@+id/etv_login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/etv_login_email"
+        app:errorTextColor="@color/red"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="25dp"
+        app:layout_constraintTop_toBottomOf="@+id/etv_login_mobile_number"
         android:hint="@string/password_text"
         android:layout_marginRight="25dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -133,5 +135,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switchCompat" />
+
+
+    <TextView
+        android:id="@+id/aaaa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="22"
+        app:layout_constraintTop_toBottomOf="@id/btn_login" />
+
+    <TextView
+        android:id="@+id/bbbbb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="22"
+        app:layout_constraintTop_toBottomOf="@id/aaaa" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

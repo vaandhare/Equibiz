@@ -13,16 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBarTheme">
-        <activity android:name=".orders.OrderActivity"></activity>
+        <activity android:name=".orders.ConfirmOrderActivity" />
+        <activity android:name=".orders.OrderActivity" />
         <activity android:name=".notifications.NotificationActivity" />
         <activity android:name=".product.ProductListActivity" />
         <activity android:name=".userInfo.VerificationActivity" />
         <activity android:name=".userInfo.BusinessDetailsActivity" />
         <activity android:name=".product.ProductActivity" />
-        <activity android:name=".category.AllCategoryActivity" />
         <activity
             android:name=".userInfo.UserProfile"
-            android:parentActivityName=".MainActivity"
             android:theme="@style/NoActionBarTheme" />
         <activity
             android:name=".userInfo.RegisterActivity"

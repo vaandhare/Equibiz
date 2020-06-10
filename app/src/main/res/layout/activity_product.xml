@@ -405,7 +405,7 @@
                     <TextView
                         android:fontFamily="@font/montserrat"
                         android:padding="5dp"
-                        android:text="Price per unit (₹)"
+                        android:text="@string/price_per_unit"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 
@@ -478,19 +478,21 @@
                         android:hint="5"
                         android:inputType="number"
                         android:padding="5dp"
+                        android:importantForAutofill="no"
+                        android:maxLength="3"
                         android:textColor="@color/black" />
                 </TableRow>
             </TableLayout>
 
             <Button
-                android:id="@+id/add_to_cart_btn"
+                android:id="@+id/btn_pro_book_now"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="50dp"
                 android:background="@drawable/button_bg"
-                android:text="@string/add_to_cart"
+                android:text="@string/book_now"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 

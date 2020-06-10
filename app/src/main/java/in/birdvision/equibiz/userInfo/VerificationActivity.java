@@ -1,5 +1,6 @@
 package in.birdvision.equibiz.userInfo;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -25,6 +26,12 @@ import java.util.regex.Pattern;
 
 import in.birdvision.equibiz.R;
 import in.birdvision.equibiz.product.ProductListActivity;
+import in.birdvision.equibiz.userInfo.ifsc_api.APIInterface;
+import in.birdvision.equibiz.userInfo.ifsc_api.IFSC;
+import in.birdvision.equibiz.userInfo.ifsc_api.RasorpayApiService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VerificationActivity extends AppCompatActivity {
 
@@ -33,106 +40,35 @@ public class VerificationActivity extends AppCompatActivity {
     AutoCompleteTextView editTextBankNameFilledExposedDropdown;
     private static final String IFSC_CODE = "[A-Z]{4}[0-9]{6,7}";
     TextInputLayout TIL_spinner_bank_name, TIL_pan_card, TIL_gstin_number, TIL_ifsc_code;
-    Button BTN_gstin_img, BTN_pan_img, BTN_save_submit, BTN_previous;
+    Button BTN_gstin_img, BTN_pan_img, BTN_save_submit, BTN_previous, BTN_verify_ifsc;
     String et_value_pan_card, et_value_gstin, et_ifsc_code;
     String imagePath;
-    TextView TV_gstin_file_name, TV_pan_file_name;
+    TextView TV_gstin_file_name, TV_pan_file_name, TV_bank_branch_details;
 
+    String str_bank_city, str_bank_address, str_bank_branch, str_bank_name;
     String[] Bank_Names = new String[]{"Allahabad Bank", "Andhra Bank", "Axis Bank", "Bank of Bahrain and Kuwait",
             "Bank of Baroda - Corporate Banking", "Bank of Baroda - Retail Banking", "Bank of India", "Bank of Maharashtra", "Canara Bank",
             "Oriental Bank of Commerce", "State Bank of India", "UCO Bank", "Union Bank of India", "Yes Bank Ltd"};
+
+    APIInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verification);
         initializeIDs();
-        BTN_previous.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(VerificationActivity.this, BusinessDetailsActivity.class));
-            }
-        });
 
-        Objects.requireNonNull(TIL_pan_card.getEditText()).addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                et_value_pan_card = Objects.requireNonNull(TIL_pan_card.getEditText()).getText().toString();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                TIL_pan_card.setErrorEnabled(false);
-            }
-        });
-
-        Objects.requireNonNull(TIL_gstin_number.getEditText()).addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                et_value_gstin = TIL_gstin_number.getEditText().getText().toString();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                TIL_gstin_number.setErrorEnabled(false);
-            }
-        });
-
-        Objects.requireNonNull(TIL_ifsc_code.getEditText()).addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                et_ifsc_code = TIL_ifsc_code.getEditText().getText().toString();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                TIL_ifsc_code.setErrorEnabled(false);
-            }
-        });
-
-//        BTN_gstin_img.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                requestImage();
-//                TV_gstin_file_name.setText(imagePath);
-//            }
-//        });
-//
-//        BTN_pan_img.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                requestImage();
-//                TV_pan_file_name.setText(imagePath);
-//            }
-//        });
-
-        BTN_save_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                et_value_pan_card = TIL_pan_card.getEditText().getText().toString();
-                et_value_gstin = TIL_gstin_number.getEditText().getText().toString();
-                et_ifsc_code = TIL_ifsc_code.getEditText().getText().toString();
-
-                if (patternMatchers()) {
-                    startActivity(new Intent(VerificationActivity.this, ProductListActivity.class));
-                }
-            }
-        });
+    private boolean IFSCPatternMatcher() {
+        Pattern ifsc_pattern = Pattern.compile(IFSC_CODE);
+        Matcher ifsc_matcher = ifsc_pattern.matcher(this.et_ifsc_code);
+        if (!ifsc_matcher.matches() || this.et_ifsc_code.isEmpty()) {
+            TIL_ifsc_code.setError("Invalid IFSC Code");
+            TIL_ifsc_code.findFocus();
+            return false;
+        }
+        return true;
     }
 
     private boolean patternMatchers() {
@@ -143,9 +79,6 @@ public class VerificationActivity extends AppCompatActivity {
         Pattern pan_pattern = Pattern.compile(PAN_CARD_MATCHER);
         Matcher pan_matcher = pan_pattern.matcher(this.et_value_pan_card);
 
-        Pattern ifsc_pattern = Pattern.compile(IFSC_CODE);
-        Matcher ifsc_matcher = ifsc_pattern.matcher(this.et_ifsc_code);
-
         if (!gstin_matcher.matches() || this.et_value_gstin.isEmpty()) {
             TIL_gstin_number.setError("Invalid GSTIN Number");
             TIL_gstin_number.findFocus();
@@ -155,12 +88,6 @@ public class VerificationActivity extends AppCompatActivity {
         if (!pan_matcher.matches() || this.et_value_pan_card.isEmpty()) {
             TIL_pan_card.setError("Invalid PAN Number");
             TIL_pan_card.findFocus();
-            return false;
-        }
-
-        if (!ifsc_matcher.matches() || this.et_ifsc_code.isEmpty()) {
-            TIL_ifsc_code.setError("Invalid IFSC Code");
-            TIL_ifsc_code.findFocus();
             return false;
         }
         return true;
@@ -218,9 +145,126 @@ public class VerificationActivity extends AppCompatActivity {
         BTN_pan_img = findViewById(R.id.btn_pan_card_upload);
         BTN_save_submit = findViewById(R.id.btn_save_and_submit_va);
         BTN_previous = findViewById(R.id.btn_previous_va);
+        BTN_verify_ifsc = findViewById(R.id.btn_verify_ifsc);
 
         TV_gstin_file_name = findViewById(R.id.tv_select_gstin_file);
         TV_pan_file_name = findViewById(R.id.tv_select_pan_card_file);
+        TV_bank_branch_details = findViewById(R.id.tv_av_bank_branch_details);
+
+        BTN_previous.setOnClickListener(v -> startActivity(new
+                Intent(VerificationActivity.this, BusinessDetailsActivity.class)));
+
+        Objects.requireNonNull(TIL_pan_card.getEditText()).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                et_value_pan_card = Objects.requireNonNull(TIL_pan_card.getEditText()).getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                TIL_pan_card.setErrorEnabled(false);
+            }
+        });
+
+        Objects.requireNonNull(TIL_gstin_number.getEditText()).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                et_value_gstin = TIL_gstin_number.getEditText().getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                TIL_gstin_number.setErrorEnabled(false);
+            }
+        });
+
+        Objects.requireNonNull(TIL_ifsc_code.getEditText()).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                et_ifsc_code = TIL_ifsc_code.getEditText().getText().toString();
+                BTN_verify_ifsc.setVisibility(View.VISIBLE);
+                TV_bank_branch_details.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                TIL_ifsc_code.setErrorEnabled(false);
+            }
+        });
+
+//        BTN_gstin_img.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                requestImage();
+//                TV_gstin_file_name.setText(imagePath);
+//            }
+//        });
+//
+//        BTN_pan_img.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                requestImage();
+//                TV_pan_file_name.setText(imagePath);
+//            }
+//        });
+
+        BTN_save_submit.setOnClickListener(v -> {
+            et_value_pan_card = TIL_pan_card.getEditText().getText().toString();
+            et_value_gstin = TIL_gstin_number.getEditText().getText().toString();
+
+            if (patternMatchers()) {
+                startActivity(new Intent(VerificationActivity.this, ProductListActivity.class));
+            }
+        });
+
+        BTN_verify_ifsc.setOnClickListener(v -> {
+            et_ifsc_code = TIL_ifsc_code.getEditText().getText().toString();
+            if (IFSCPatternMatcher()) {
+                verifyIFSCode();
+                TV_bank_branch_details.setVisibility(View.VISIBLE);
+                BTN_verify_ifsc.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
+    private void verifyIFSCode() {
+        apiInterface = RasorpayApiService.getApiClient().create(APIInterface.class);
+        Call<IFSC> ifscCall = apiInterface.getIFSCCode(et_ifsc_code);
+        ifscCall.enqueue(new Callback<IFSC>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(Call<IFSC> call, Response<IFSC> response) {
+                IFSC ifsc = response.body();
+                assert ifsc != null;
+                str_bank_city = ifsc.getCITY();
+                str_bank_branch = ifsc.getBRANCH();
+                str_bank_address = ifsc.getADDRESS();
+                str_bank_name = ifsc.getBANK();
+
+                TV_bank_branch_details.setText("Branch Name: " + str_bank_branch);
+            }
+
+            @Override
+            public void onFailure(Call<IFSC> call, Throwable t) {
+                Toast.makeText(VerificationActivity.this, "Error in verifying IFSC code.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }
