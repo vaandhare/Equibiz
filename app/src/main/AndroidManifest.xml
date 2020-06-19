@@ -7,16 +7,22 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/NoActionBarTheme">
         <activity android:name=".orders.ConfirmOrderActivity" />
         <activity android:name=".orders.OrderActivity" />
         <activity android:name=".notifications.NotificationActivity" />
-        <activity android:name=".product.ProductListActivity" />
+        <activity android:name=".product.ProductListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".userInfo.VerificationActivity" />
         <activity android:name=".userInfo.BusinessDetailsActivity" />
         <activity android:name=".product.ProductActivity" />
@@ -29,11 +35,7 @@
         <activity
             android:name=".userInfo.LoginActivity"
             android:theme="@style/NoActionBarTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

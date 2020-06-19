@@ -306,61 +306,32 @@
             android:layout_marginStart="25dp"
             android:fontFamily="@font/montserrat"
             android:padding="5dp"
-            android:text="@string/name_of_person_1"
+            android:text="@string/person_1_details"
             android:textColor="@color/dark_blue"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/linear_layout_contact_person_view" />
 
-        <LinearLayout
-            android:id="@+id/linear_layout_contact_person1"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etv_contact1_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:orientation="horizontal"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_weight="1"
+            android:hint="@string/full_name"
             app:layout_constraintTop_toBottomOf="@id/ContactPerson1_tv">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/etv_contact1_first_name"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_weight="1"
-                android:hint="@string/first_name">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:gravity="center_vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:singleLine="true"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/etv_contact1_last_name"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="25dp"
-                android:layout_weight="1"
-                android:hint="@string/last_name">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:gravity="center_vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:singleLine="true"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                android:fontFamily="@font/montserrat"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etv_contact1_country_code"
@@ -370,7 +341,7 @@
             android:layout_marginStart="25dp"
             android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linear_layout_contact_person1">
+            app:layout_constraintTop_toBottomOf="@id/etv_contact1_name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -395,7 +366,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="25dp"
             app:layout_constraintStart_toEndOf="@id/etv_contact1_country_code"
-            app:layout_constraintTop_toBottomOf="@+id/linear_layout_contact_person1">
+            app:layout_constraintTop_toBottomOf="@+id/etv_contact1_name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -418,61 +389,31 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/montserrat"
             android:padding="5dp"
-            android:text="@string/name_of_person_2"
+            android:text="@string/person_2_details"
             android:textColor="@color/dark_blue"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/etv_contact1_mobile_number" />
 
-        <LinearLayout
-            android:id="@+id/linear_layout_contact_person2"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etv_contact2_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:orientation="horizontal"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:hint="@string/full_name"
             app:layout_constraintTop_toBottomOf="@id/ContactPerson2_tv">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/etv_contact2_first_name"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_weight="1"
-                android:hint="@string/first_name">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:gravity="center_vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:singleLine="true"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/etv_contact2_last_name"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="25dp"
-                android:layout_weight="1"
-                android:hint="@string/last_name">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:gravity="center_vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:singleLine="true"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                android:fontFamily="@font/montserrat"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etv_contact2_country_code"
@@ -482,7 +423,7 @@
             android:layout_marginStart="25dp"
             android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linear_layout_contact_person2">
+            app:layout_constraintTop_toBottomOf="@id/etv_contact2_name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -507,7 +448,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="25dp"
             app:layout_constraintStart_toEndOf="@id/etv_contact2_country_code"
-            app:layout_constraintTop_toBottomOf="@+id/linear_layout_contact_person2">
+            app:layout_constraintTop_toBottomOf="@+id/etv_contact2_name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -533,6 +474,20 @@
             android:text="@string/save_next"
             app:layout_constraintTop_toBottomOf="@id/etv_contact2_mobile_number" />
 
+        <TextView
+            android:id="@+id/tv_save_resume_later"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="25dp"
+            android:gravity="center_horizontal"
+            android:text="@string/save_resume_later"
+            android:textColor="@color/dark_blue"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/btn_save_and_next" />
+
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -540,7 +495,7 @@
             android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_save_and_next" />
+            app:layout_constraintTop_toBottomOf="@id/tv_save_resume_later" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

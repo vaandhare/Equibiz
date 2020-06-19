@@ -1,4 +1,4 @@
-package in.birdvision.equibiz.userInfo.ifsc_api;
+package in.birdvision.equibiz.API.ifsc_api;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

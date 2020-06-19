@@ -38,251 +38,26 @@
 
     </com.google.android.material.appbar.MaterialToolbar>
 
-    <ScrollView
-        android:id="@+id/category1_srollbar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/category_bottomnavbar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/category1_toolbar">
+        app:layout_constraintTop_toBottomOf="@id/category1_toolbar"
+        app:layout_constraintVertical_weight="1">
 
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_productList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/items_products_recyclerview" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/product_card1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
-                app:cardBackgroundColor="@color/gray"
-                app:cardCornerRadius="15dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_margin="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/circle_bg"
-                        android:gravity="center"
-                        android:text="@string/product_image" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="15dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat"
-                            android:text="@string/product_name"
-                            android:textColor="@color/dark_blue"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat"
-                            android:text="@string/product_specifications"
-                            android:textColor="@color/dark_blue"
-                            android:textSize="15sp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/montserrat"
-                                android:gravity="center_vertical"
-                                android:paddingStart="5dp"
-                                android:paddingEnd="5dp"
-                                android:text="Total Stock"
-                                android:textColor="@color/dark_blue"
-                                android:textSize="10sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/montserrat"
-                                android:gravity="center"
-                                android:paddingStart="5dp"
-                                android:paddingEnd="5dp"
-                                android:text="Average Price"
-                                android:textAlignment="textEnd"
-                                android:textColor="@color/dark_blue"
-                                android:textSize="10sp"
-                                android:textStyle="bold"
-                                tools:ignore="RtlCompat" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/montserrat"
-                                android:gravity="center_vertical"
-                                android:paddingStart="5dp"
-                                android:paddingEnd="5dp"
-                                android:text="---"
-                                android:textColor="@color/dark_blue"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/montserrat"
-                                android:gravity="center"
-                                android:paddingStart="5dp"
-                                android:paddingEnd="5dp"
-                                android:text="---"
-                                android:textAlignment="textEnd"
-                                android:textColor="@color/dark_blue"
-                                android:textSize="15sp"
-                                android:textStyle="bold"
-                                tools:ignore="RtlCompat" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/product_card2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
-                app:cardBackgroundColor="@color/gray"
-                app:cardCornerRadius="15dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_margin="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/circle_bg"
-                        android:gravity="center"
-                        android:text="@string/product_image" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="15dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat"
-                            android:text="@string/product_name"
-                            android:textColor="@color/dark_blue"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat"
-                            android:text="@string/product_specifications"
-                            android:textColor="@color/dark_blue"
-                            android:textSize="15sp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/montserrat"
-                                android:gravity="center_vertical"
-                                android:paddingStart="5dp"
-                                android:paddingEnd="5dp"
-                                android:text="Total Stock"
-                                android:textColor="@color/dark_blue"
-                                android:textSize="10sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/montserrat"
-                                android:gravity="center"
-                                android:paddingStart="5dp"
-                                android:paddingEnd="5dp"
-                                android:text="Average Price"
-                                android:textAlignment="textEnd"
-                                android:textColor="@color/dark_blue"
-                                android:textSize="10sp"
-                                android:textStyle="bold"
-                                tools:ignore="RtlCompat" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/montserrat"
-                                android:gravity="center_vertical"
-                                android:paddingStart="5dp"
-                                android:paddingEnd="5dp"
-                                android:text="---"
-                                android:textColor="@color/dark_blue"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/montserrat"
-                                android:gravity="center"
-                                android:paddingStart="5dp"
-                                android:paddingEnd="5dp"
-                                android:text="---"
-                                android:textAlignment="textEnd"
-                                android:textColor="@color/dark_blue"
-                                android:textSize="15sp"
-                                android:textStyle="bold"
-                                tools:ignore="RtlCompat" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/category_bottomnavbar"
