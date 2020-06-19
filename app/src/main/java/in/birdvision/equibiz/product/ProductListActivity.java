@@ -13,23 +13,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.SocketTimeoutException;
+import java.util.List;
 
 import in.birdvision.equibiz.API.equibizAPI.EquibizApiService;
 import in.birdvision.equibiz.API.equibizAPI.Equibiz_API_Interface;
 import in.birdvision.equibiz.API.equibizAPI.product.productList.ProductListResponse;
+import in.birdvision.equibiz.API.equibizAPI.product.productList.Productdatum;
 import in.birdvision.equibiz.R;
 import in.birdvision.equibiz.userInfo.UserProfile;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductListActivity extends AppCompatActivity {
+public class ProductListActivity extends AppCompatActivity implements AdapterProductList.OnItemClickListener {
+
+    public static final String EXTRA_COLOR = "productColor";
+    public static final String EXTRA_RAM = "productRam";
+    public static final String EXTRA_INTERNAL_MEMORY = "productInternalMemory";
+    public static final String EXTRA_PRO_ID = "productID";
 
     ImageView user_profile;
     Equibiz_API_Interface equibiz_api_interface;
     AdapterProductList adapterProductList;
     RecyclerView productRecyclerView;
     ProgressDialog progressDialog;
+    List<Productdatum> getProductdata;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,7 @@ public class ProductListActivity extends AppCompatActivity {
         productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         adapterProductList = new AdapterProductList(ProductListActivity.this);
         productRecyclerView.setAdapter(adapterProductList);
+        adapterProductList.setOnItemClickListener(ProductListActivity.this);
 
         productListResponse();
 
@@ -64,7 +73,8 @@ public class ProductListActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     ProductListResponse productListResponse = response.body();
                     assert productListResponse != null;
-                    adapterProductList.setProductdata(productListResponse.getProductdata());
+                    getProductdata = productListResponse.getProductdata();
+                    adapterProductList.setProductdata(getProductdata);
                 }
                 assert response.body() != null;
                 Toast.makeText(ProductListActivity.this, response.body().getStatus(), Toast.LENGTH_SHORT).show();
@@ -79,5 +89,18 @@ public class ProductListActivity extends AppCompatActivity {
                     Toast.makeText(ProductListActivity.this, t.toString(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(ProductListActivity.this, ProductActivity.class);
+        Productdatum productdata = getProductdata.get(position);
+
+        intent.putExtra(EXTRA_COLOR, productdata.get_id().getColor());
+        intent.putExtra(EXTRA_INTERNAL_MEMORY, productdata.get_id().getInternalMemory());
+        intent.putExtra(EXTRA_PRO_ID, productdata.get_id().getProId());
+        intent.putExtra(EXTRA_RAM, productdata.get_id().getRamMob());
+
+        startActivity(intent);
     }
 }

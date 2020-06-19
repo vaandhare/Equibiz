@@ -23,6 +23,15 @@ public class AdapterProductList extends RecyclerView.Adapter<AdapterProductList.
 
     Context context;
     List<Productdatum> productdata;
+    private static OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener itemClickListener) {
+        onItemClickListener = itemClickListener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
 
     public AdapterProductList(Context context) {
         this.context = context;
@@ -80,6 +89,15 @@ public class AdapterProductList extends RecyclerView.Adapter<AdapterProductList.
             productSpecifications = itemView.findViewById(R.id.IPR_product_specifications);
             totalStock = itemView.findViewById(R.id.IPR_total_stock);
             avgPRice = itemView.findViewById(R.id.IPR_avg_price);
+
+            itemView.setOnClickListener(v -> {
+                if (onItemClickListener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        onItemClickListener.onItemClick(position);
+                    }
+                }
+            });
         }
     }
 }
