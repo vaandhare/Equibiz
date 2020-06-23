@@ -134,7 +134,6 @@
     <string name="pre_book_amount">Pre-Book Amount</string>
     <string name="pre_book_amount_note">Pre-Book amount is 10% of Total-Cost</string>
     <string name="insurance_50">Insurance (₹50)</string>
-    <string name="waller_balance_deduction_note">₹ 1000 will be deducted from your wallet Balance.</string>
     <string name="cancel">Cancel</string>
     <string name="pre_order_now">Pre-Order Now</string>
     <string name="book_now">Book Now</string>
@@ -150,4 +149,6 @@
     <string name="send_otp">Send Otp</string>
     <string name="enter_otp">Enter OTP</string>
     <string name="save_resume_later"><![CDATA[Save & Resume Later]]></string>
+    <string name="bank_branch_name">Bank Branch Name</string>
+
 </resources>

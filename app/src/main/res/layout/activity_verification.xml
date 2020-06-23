@@ -233,6 +233,25 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/spinner_bank_branch_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:hint="@string/bank_branch_name"
+            app:layout_constraintTop_toBottomOf="@id/spinner_bank_name">
+
+            <AutoCompleteTextView
+                android:id="@+id/autocomplete_bank_branch_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etv_account_holder_name"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
@@ -241,7 +260,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="25dp"
             android:hint="@string/account_holder_name"
-            app:layout_constraintTop_toBottomOf="@id/spinner_bank_name">
+            app:layout_constraintTop_toBottomOf="@id/spinner_bank_branch_name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -277,6 +296,7 @@
                 android:paddingEnd="10dp"
                 android:singleLine="true"
                 android:textColor="@color/black" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -302,6 +322,7 @@
                 android:paddingEnd="10dp"
                 android:singleLine="true"
                 android:textColor="@color/black" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -331,6 +352,7 @@
                 android:layout_marginStart="20dp"
                 android:background="@drawable/button_bg"
                 android:text="@string/verify" />
+
         </LinearLayout>
 
         <LinearLayout

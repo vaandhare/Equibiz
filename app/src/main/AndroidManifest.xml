@@ -16,13 +16,7 @@
         <activity android:name=".orders.ConfirmOrderActivity" />
         <activity android:name=".orders.OrderActivity" />
         <activity android:name=".notifications.NotificationActivity" />
-        <activity android:name=".product.ProductListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".product.ProductListActivity" />
         <activity android:name=".userInfo.VerificationActivity" />
         <activity android:name=".userInfo.BusinessDetailsActivity" />
         <activity android:name=".product.ProductActivity" />
@@ -35,7 +29,10 @@
         <activity
             android:name=".userInfo.LoginActivity"
             android:theme="@style/NoActionBarTheme">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

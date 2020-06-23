@@ -1,5 +1,6 @@
 package in.birdvision.equibiz.API.equibizAPI;
 
+import in.birdvision.equibiz.API.equibizAPI.orders.PreBookingResponse;
 import in.birdvision.equibiz.API.equibizAPI.product.productDetails.ProductDetailsResponse;
 import in.birdvision.equibiz.API.equibizAPI.product.productList.ProductListResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.BankDetailsResponse;
@@ -35,11 +36,13 @@ public interface Equibiz_API_Interface {
     Call<UploadDocuments> uploadDocuments(@Body UploadDocuments uploadDocuments);
 
     //Product
-
     @POST("getproducts")
     Call<ProductListResponse> allProductResponse(@Body ProductListResponse allProductsResponse);
 
     @POST("getproductdetails")
     Call<ProductDetailsResponse> productDetailsResponse(@Body ProductDetailsResponse productDetailsResponse);
+
+    @POST("prebooking")
+    Call<PreBookingResponse> preBookingResponse(@Body PreBookingResponse preBookingResponse);
 
 }

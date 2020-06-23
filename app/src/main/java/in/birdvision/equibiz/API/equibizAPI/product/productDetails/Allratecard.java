@@ -9,6 +9,7 @@ public class Allratecard implements Serializable {
 
     @SerializedName("__v")
     private long _V;
+    @SerializedName("_id")
     private String _id;
     private long delcharges;
     private long deltime;

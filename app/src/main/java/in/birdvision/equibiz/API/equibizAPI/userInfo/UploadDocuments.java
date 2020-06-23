@@ -4,8 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class UploadDocuments {
 
-    @SerializedName("filepath")
-    private String filepath;
     @SerializedName("label")
     private String label;
     @SerializedName("role")
@@ -14,22 +12,20 @@ public class UploadDocuments {
     private String userobjid;
     @SerializedName("whichtype")
     private String whichtype;
+    @SerializedName("documentimages")
+    private byte[] documentimages;
 
     @SerializedName("status")
     private String status;
     @SerializedName("docverified")
     private String docverified;
 
-    public UploadDocuments(String filepath, String label, String role, String userobjid, String whichtype) {
-        this.filepath = filepath;
+    public UploadDocuments(String label, String role, String userobjid, String whichtype, byte[] documentimages) {
         this.label = label;
         this.role = role;
         this.userobjid = userobjid;
         this.whichtype = whichtype;
-    }
-
-    public String getFilepath() {
-        return filepath;
+        this.documentimages = documentimages;
     }
 
     public String getLabel() {
@@ -46,6 +42,10 @@ public class UploadDocuments {
 
     public String getWhichtype() {
         return whichtype;
+    }
+
+    public byte[] getDocumentimages() {
+        return documentimages;
     }
 
     public String getStatus() {

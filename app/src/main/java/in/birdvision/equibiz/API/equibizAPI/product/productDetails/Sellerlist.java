@@ -13,6 +13,7 @@ public class Sellerlist {
     private String color;
     @SerializedName("internal_memory")
     private String internalMemory;
+    @SerializedName("location")
     private String location;
     @SerializedName("product_id")
     private String productId;

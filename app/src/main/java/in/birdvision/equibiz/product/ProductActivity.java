@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,8 @@ public class ProductActivity extends AppCompatActivity {
 
     EditText sellerOrderQuantity;
 
+    String COColor, CODeliveryLocation, COTime, COOrderQuantity, COPPU, COProID, COSellerID, COSellerProID,
+            CORateCardID;
     List<Allratecard> allratecards = new ArrayList<>();
 
     @Override
@@ -66,7 +69,20 @@ public class ProductActivity extends AppCompatActivity {
         productDetailsResponse();
 
         addToCartBtn.setOnClickListener(v -> {
+            COOrderQuantity = sellerOrderQuantity.getText().toString();
             Intent intent = new Intent(ProductActivity.this, ConfirmOrderActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("AllRateCards", (Serializable) allratecards);
+            intent.putExtra("BUNDLE", bundle);
+            intent.putExtra("CO_Color", COColor);
+            intent.putExtra("CO_DeliveryLocation", CODeliveryLocation);
+            intent.putExtra("CO_DeliveryTime", COTime);
+            intent.putExtra("CO_OrderQuantity", COOrderQuantity);
+            intent.putExtra("CO_PPU", COPPU);
+            intent.putExtra("CO_ProID", COProID);
+            intent.putExtra("CO_SellerID", COSellerID);
+            intent.putExtra("CO_SellerProID", COSellerProID);
+            intent.putExtra("CO_RateCardID", CORateCardID);
             startActivity(intent);
         });
 
@@ -111,6 +127,7 @@ public class ProductActivity extends AppCompatActivity {
                 ProductDetailsResponse productDetailsResponse1 = response.body();
                 if (productDetailsResponse1 != null) {
                     allratecards = productDetailsResponse1.getAllratecards();
+                    CORateCardID = allratecards.get(0).get_id();
                     changeUIData(productDetailsResponse1);
                 }
             }
@@ -139,8 +156,8 @@ public class ProductActivity extends AppCompatActivity {
 
         String ram = productdatum.getRamMob();
         String internalMemory = productdatum.getInternalMemory();
-        String color = productdatum.getColor();
-        productSpecs.setText("( " + ram + " GB/ " + internalMemory + " GB/ " + color + " )");
+        COColor = productdatum.getColor();
+        productSpecs.setText("( " + ram + " GB/ " + internalMemory + " GB/ " + COColor + " )");
 
         totalStock.setText(String.valueOf(productdatum.getStocksum()));
         avgPrice.setText(String.valueOf(productdatum.getAvgpricesum()));
@@ -158,12 +175,17 @@ public class ProductActivity extends AppCompatActivity {
         productProcessor.setText(productdatum.getProductinfo().getpProcessor());
 
         Sellerlist sellerlist = productDetailsResponse1.getSellerlist().get(0);
-
+        COPPU = String.valueOf(sellerlist.getAvgPrice());
+        CODeliveryLocation = sellerlist.getLocation();
+        COTime = sellerlist.getTimeToDel();
+        COProID = sellerlist.getProductId();
+        COSellerID = sellerlist.getUserId();
+        COSellerProID = sellerlist.get_id();
         sellerTotalQuantity.setText(String.valueOf(sellerlist.getAvailableStock()));
-        sellerPPU.setText(String.valueOf(sellerlist.getAvgPrice()));
-        sellerLocation.setText(sellerlist.getLocation());
+        sellerPPU.setText(COPPU);
+        sellerLocation.setText(CODeliveryLocation);
         sellerColor.setText(sellerlist.getColor());
-        sellerDeliveryTime.setText(sellerlist.getTimeToDel());
+        sellerDeliveryTime.setText(COTime);
     }
 
     private void initializeIDs() {

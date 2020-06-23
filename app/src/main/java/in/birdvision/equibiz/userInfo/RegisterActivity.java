@@ -103,11 +103,15 @@ public class RegisterActivity extends AppCompatActivity {
             String password = Objects.requireNonNull(TIL_password.getEditText()).getText().toString();
             String confirm_password = Objects.requireNonNull(TIL_confirm_pass.getEditText()).getText().toString();
 
-            if (confirm_password.equals(password)) {
-                userPassword = confirm_password;
-                registerPersonalDetails();
-            } else
-                TIL_confirm_pass.setError("Password doesn't match.");
+            if (password.isEmpty() || password.length() < 6)
+                TIL_password.setError("Password should be less than 6 chars");
+            else {
+                if (confirm_password.equals(password)) {
+                    userPassword = confirm_password;
+                    registerPersonalDetails();
+                } else
+                    TIL_confirm_pass.setError("Password doesn't match.");
+            }
         });
 
         tvLogin.setOnClickListener(v -> startActivity(new Intent(RegisterActivity.this, LoginActivity.class)));
@@ -126,6 +130,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         final RegistrationResponse registrationResponse = new RegistrationResponse(encryptedCountryCode, encryptedEmailID, encryptedFirstName,
                 encryptedLastName, encryptedMobileNo, encryptedOTP, encryptedPassword, encryptedUserRole);
+
         Call<RegistrationResponse> registrationResponseCall = equibiz_api_interface.registrationResponse(registrationResponse);
 
         registrationResponseCall.enqueue(new Callback<RegistrationResponse>() {
@@ -139,8 +144,10 @@ public class RegisterActivity extends AppCompatActivity {
                     editor.putString("UserObjID", userObjId);
                     editor.putString("encryptedUserRole", encryptedUserRole);
                     editor.apply();
-
-                    startActivity(new Intent(RegisterActivity.this, BusinessDetailsActivity.class));
+                    if (response1.getStatus().equals("success"))
+                        startActivity(new Intent(RegisterActivity.this, BusinessDetailsActivity.class));
+                    else
+                        Toast.makeText(RegisterActivity.this, response1.getStatus(), Toast.LENGTH_SHORT).show();
                 }
             }
 

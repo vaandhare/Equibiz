@@ -1,7 +1,9 @@
 package in.birdvision.equibiz.userInfo;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -105,12 +107,20 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (response1.getStatus().equals("success") && response1.getData().getBankverified().equals("false"))
                     startActivity(new Intent(LoginActivity.this, VerificationActivity.class));
                 else if (response1.getStatus().equals("success") && response1.getData().getBusinessverified().equals("true")
-                        && response1.getData().getBankverified().equals("true"))
+                        && response1.getData().getBankverified().equals("true")) {
+                    if (response1.getData().getUsertype().equals(String.valueOf(1))) {
+                        SharedPreferences mySharedPreferences = LoginActivity.this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = mySharedPreferences.edit();
+                        editor.putString("BuyerID", response1.getData().get_id());
+                        editor.apply();
+                    }
                     startActivity(new Intent(LoginActivity.this, ProductListActivity.class));
-                else if (response1.getStatus().equals("wrongpass") || response1.getStatus().equals("nodata"))
+
+                } else if (response1.getStatus().equals("wrongpass") || response1.getStatus().equals("nodata"))
                     tvLoginError.setVisibility(View.VISIBLE);
                 else
                     Toast.makeText(LoginActivity.this, response1.getStatus(), Toast.LENGTH_SHORT).show();
+
             }
 
             @Override

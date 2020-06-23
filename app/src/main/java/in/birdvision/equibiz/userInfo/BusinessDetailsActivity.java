@@ -77,6 +77,8 @@ public class BusinessDetailsActivity extends AppCompatActivity {
 
     private void registerBusinessDetails() {
 
+        String poc1name = "", poc1cc = "", poc1mob = "", poc2name = "", poc2cc = "", poc2mob = "";
+
         SharedPreferences mySharedPreferences = this.getSharedPreferences("User_ObjID", Context.MODE_PRIVATE);
         String userObjId = mySharedPreferences.getString("UserObjID", "xxxxx");
         encryptedUserRole = mySharedPreferences.getString("encryptedUserRole", "xxxxx");
@@ -90,12 +92,12 @@ public class BusinessDetailsActivity extends AppCompatActivity {
         String pdlname = Objects.requireNonNull(TIL_PD_fName.getEditText()).getText().toString();
         String pdCC = Objects.requireNonNull(TIL_PD_CC.getEditText()).getText().toString();
         String pdMob = Objects.requireNonNull(TIL_PD_mob.getEditText()).getText().toString();
-        String poc1name = Objects.requireNonNull(TIL_POC1_name.getEditText()).getText().toString();
-        String poc1cc = Objects.requireNonNull(TIL_POC1_CC.getEditText()).getText().toString();
-        String poc1mob = Objects.requireNonNull(TIL_POC1_mob.getEditText()).getText().toString();
-        String poc2name = Objects.requireNonNull(TIL_POC2_name.getEditText()).getText().toString();
-        String poc2cc = Objects.requireNonNull(TIL_POC2_CC.getEditText()).getText().toString();
-        String poc2mob = Objects.requireNonNull(TIL_POC2_Mob.getEditText()).getText().toString();
+        poc1name = Objects.requireNonNull(TIL_POC1_name.getEditText()).getText().toString();
+        poc1cc = Objects.requireNonNull(TIL_POC1_CC.getEditText()).getText().toString();
+        poc1mob = Objects.requireNonNull(TIL_POC1_mob.getEditText()).getText().toString();
+        poc2name = Objects.requireNonNull(TIL_POC2_name.getEditText()).getText().toString();
+        poc2cc = Objects.requireNonNull(TIL_POC2_CC.getEditText()).getText().toString();
+        poc2mob = Objects.requireNonNull(TIL_POC2_Mob.getEditText()).getText().toString();
 
         try {
             cipherBName = encrypt(bname.getBytes());

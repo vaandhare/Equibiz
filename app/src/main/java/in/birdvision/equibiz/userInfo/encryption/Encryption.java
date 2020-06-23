@@ -19,8 +19,7 @@ public class Encryption {
             SecretKeySpec keySpec = new SecretKeySpec(ENCRYPT_DECRYPT_KEY.getEncoded(), "AES");
             IvParameterSpec ivSpec = new IvParameterSpec(KEY);
             cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
-            byte[] cipherText = cipher.doFinal(plaintext);
-            return cipherText;
+            return cipher.doFinal(plaintext);
         } catch (Exception e) {
             e.printStackTrace();
         }

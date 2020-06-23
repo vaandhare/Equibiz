@@ -36,9 +36,9 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvCO_color"
                 android:fontFamily="@font/montserrat"
                 android:padding="5dp"
-                android:text="Black"
                 android:textColor="@color/black" />
         </TableRow>
 
@@ -52,9 +52,9 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvCO_delivery_location"
                 android:fontFamily="@font/montserrat"
                 android:padding="5dp"
-                android:text="Pune"
                 android:textColor="@color/black" />
         </TableRow>
 
@@ -68,9 +68,9 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvCO_time"
                 android:fontFamily="@font/montserrat"
                 android:padding="5dp"
-                android:text="T+1 \n(After Confirmed transaction)"
                 android:textColor="@color/black" />
         </TableRow>
 
@@ -99,9 +99,9 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvCO_additional_time"
                 android:fontFamily="@font/montserrat"
                 android:padding="5dp"
-                android:text="3 days"
                 android:textColor="@color/black" />
         </TableRow>
 
@@ -115,9 +115,9 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvCO_delivery_charges"
                 android:fontFamily="@font/montserrat"
                 android:padding="5dp"
-                android:text="₹100"
                 android:textColor="@color/black" />
         </TableRow>
 
@@ -138,9 +138,9 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvCO_order_quantity"
                 android:fontFamily="@font/montserrat"
                 android:padding="5dp"
-                android:text="10"
                 android:textColor="@color/black" />
         </TableRow>
 
@@ -154,9 +154,9 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvCO_PPU"
                 android:fontFamily="@font/montserrat"
                 android:padding="5dp"
-                android:text="₹1000"
                 android:textColor="@color/black" />
         </TableRow>
 
@@ -170,9 +170,9 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvCO_total_cost"
                 android:fontFamily="@font/montserrat"
                 android:padding="5dp"
-                android:text="₹10000"
                 android:textColor="@color/black" />
         </TableRow>
 
@@ -186,9 +186,9 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvCO_pre_book_amount"
                 android:fontFamily="@font/montserrat"
                 android:padding="5dp"
-                android:text="₹1000"
                 android:textColor="@color/black" />
         </TableRow>
 
@@ -202,6 +202,7 @@
     </TableLayout>
 
     <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbCO_insurance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -209,11 +210,11 @@
         android:text="@string/insurance_50" />
 
     <TextView
+        android:id="@+id/tvCO_amount_deduction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:gravity="center"
-        android:text="@string/waller_balance_deduction_note"
         android:textColor="@color/green"
         android:textSize="20sp"
         android:textStyle="bold" />

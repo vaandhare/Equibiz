@@ -53,8 +53,13 @@
             <ImageView
                 android:id="@+id/product_poster_imag"
                 android:layout_width="match_parent"
-                android:layout_height="225dp"
+                android:layout_height="250dp"
                 android:contentDescription="@string/product_poster_image" />
+
+            <!--            <androidx.viewpager2.widget.ViewPager2-->
+            <!--                android:id="@+id/product_poster_view_pager2"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="250dp"/>-->
 
             <TextView
                 android:id="@+id/tvP_product_name"
