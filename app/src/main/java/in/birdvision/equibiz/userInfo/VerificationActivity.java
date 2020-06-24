@@ -246,12 +246,14 @@ public class VerificationActivity extends AppCompatActivity {
 
         TIL_spinner_bank_name = findViewById(R.id.spinner_bank_name);
         etvACBankName = findViewById(R.id.autocomplete_bank_name);
-        ArrayAdapter adapter = new ArrayAdapter<>(VerificationActivity.this, R.layout.dropdown_menu, resources.getStringArray(R.array.bank_names));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(VerificationActivity.this,
+                R.layout.dropdown_menu, resources.getStringArray(R.array.bank_names));
         etvACBankName.setAdapter(adapter);
 
         TIL_spinner_bank_branch_name = findViewById(R.id.spinner_bank_branch_name);
         etvACBankBranchName = findViewById(R.id.autocomplete_bank_branch_name);
-        ArrayAdapter adapter1 = new ArrayAdapter<>(VerificationActivity.this, R.layout.dropdown_menu, resources.getStringArray(R.array.bankBranchNames));
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(VerificationActivity.this,
+                R.layout.dropdown_menu, resources.getStringArray(R.array.bankBranchNames));
         etvACBankBranchName.setAdapter(adapter1);
 
         TIL_pan_card = findViewById(R.id.etv_pan_card_number);

@@ -47,7 +47,7 @@ public class ProductActivity extends AppCompatActivity {
     Equibiz_API_Interface equibiz_api_interface;
 
     //UI
-    ImageView productImg1, productImg2, productImg3;
+    ImageView productImg1;
     TextView productName, productSpecs, totalStock, avgPrice, productRam, productExpandableMemory, productInternalMemory,
             productFrontCam, productPrimaryCam, productOS, productBattery, productNetwork, productSims,
             productDimensions, productScreenSize, productProcessor, sellerTotalQuantity, sellerPPU, sellerLocation,

@@ -64,19 +64,19 @@ public class LoginActivity extends AppCompatActivity {
 
         tvBuyer.setOnClickListener(v -> {
             userRole = 1;
-            tvSeller.setBackgroundColor(getResources().getColor(R.color.gray));
-            tvSeller.setTextColor(getResources().getColor(R.color.dark_blue));
-            tvBuyer.setBackgroundColor(getResources().getColor(R.color.dark_blue));
-            tvBuyer.setTextColor(getResources().getColor(R.color.gray));
+            tvSeller.setBackgroundColor(getColor(R.color.gray));
+            tvSeller.setTextColor(getColor(R.color.dark_blue));
+            tvBuyer.setBackgroundColor(getColor(R.color.dark_blue));
+            tvBuyer.setTextColor(getColor(R.color.gray));
             tvLoginAs.setText(R.string.you_are_login_as_a_buyer);
         });
 
         tvSeller.setOnClickListener(v -> {
             userRole = 2;
-            tvBuyer.setBackgroundColor(getResources().getColor(R.color.gray));
-            tvBuyer.setTextColor(getResources().getColor(R.color.dark_blue));
-            tvSeller.setBackgroundColor(getResources().getColor(R.color.dark_blue));
-            tvSeller.setTextColor(getResources().getColor(R.color.gray));
+            tvBuyer.setBackgroundColor(getColor(R.color.gray));
+            tvBuyer.setTextColor(getColor(R.color.dark_blue));
+            tvSeller.setBackgroundColor(getColor(R.color.dark_blue));
+            tvSeller.setTextColor(getColor(R.color.gray));
             tvLoginAs.setText(R.string.you_are_login_as_seller);
         });
 

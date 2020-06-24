@@ -58,15 +58,16 @@
                             android:text="@string/you_are_logged_in_as" />
 
                         <TextView
+                            android:id="@+id/tvUP_userType"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="7dp"
-                            android:text="@string/buyer"
                             android:textColor="@color/dark_blue" />
 
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/imgUP_userProfile"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_marginTop="15dp"
@@ -76,9 +77,9 @@
                         android:contentDescription="@string/user_profile"/>
 
                     <TextView
+                        android:id="@+id/tvUP_userName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/user_name"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
                         android:textSize="20sp"
@@ -92,20 +93,20 @@
                         android:padding="10dp">
 
                         <TextView
+                            android:id="@+id/tvUP_mobileNo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="+91 9988776655"
                             android:textSize="15sp"
                             android:textColor="@color/black"
                             android:textAlignment="textStart"
                             android:fontFamily="@font/montserrat" />
 
                         <TextView
+                            android:id="@+id/tvUP_email"
                             android:layout_width="wrap_content"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="user@gmail.com"
                             android:layout_gravity="end"
                             android:textSize="15sp"
                             android:textColor="@color/black"
@@ -153,7 +154,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:text="BirdVision Consulting PVT LTD"
+                                android:id="@+id/tvUP_businessName"
                                 android:textColor="@color/black" />
                         </TableRow>
 
@@ -165,7 +166,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:text="Private Limited Company"
+                                android:id="@+id/tvUP_businessType"
                                 android:textColor="@color/black" />
                         </TableRow>
 
@@ -177,7 +178,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:text="ABC"
+                                android:id="@+id/tvUP_partnerFirstName"
                                 android:textColor="@color/black" />
                         </TableRow>
 
@@ -189,7 +190,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:text="XYZ"
+                                android:id="@+id/tvUP_partnerLastName"
                                 android:textColor="@color/black" />
                         </TableRow>
 
@@ -201,7 +202,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:text="+91 9900000000"
+                                android:id="@+id/tvUP_partnerMobile"
                                 android:textColor="@color/black" />
                         </TableRow>
 
@@ -212,7 +213,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:text="111, XYZ, ABC, Pune-04"
+                            android:id="@+id/tvUP_officeAddress"
                             android:textColor="@color/black" />
                     </TableLayout>
 
@@ -257,29 +258,63 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Wallet Details"
+                        android:text="@string/wallet_details"
                         android:padding="7dp"
-                        android:fontFamily="@font/montserrat"/>
+                        android:fontFamily="@font/montserrat" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:orientation="horizontal"
+                        android:paddingBottom="5dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/total_balance"
+                            android:textColor="@color/dark_blue"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvUP_totalBalance"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray" />
+
+                    <TextView
+                        android:id="@+id/tvUP_btnFillWallet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
+                        android:padding="10dp"
+                        android:text="@string/click_here_to_view_wallet_details_fill_wallet"
+                        android:textSize="15sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray" />
 
                     <TableLayout
+                        android:id="@+id/tableWallet"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
                         android:paddingBottom="15dp"
+                        android:visibility="gone"
                         android:stretchColumns="*">
-
-                        <TableRow>
-
-                            <TextView
-                                android:text="@string/total_balance"
-                                android:textColor="@color/dark_blue"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:text="000"
-                                android:textColor="@color/black" />
-                        </TableRow>
 
                         <TableRow android:paddingTop="5dp">
 
@@ -289,7 +324,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:text="000"
+                                android:id="@+id/tvUP_availableBalance"
                                 android:textColor="@color/black" />
                         </TableRow>
 
@@ -301,24 +336,21 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:text="000"
+                                android:id="@+id/tvUP_pendingBalance"
                                 android:textColor="@color/black" />
                         </TableRow>
                     </TableLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/gray"/>
-
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/tvUP_fillWallet"
                         android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Click here to fill wallet."
-                        android:padding="10dp"/>
-
+                        android:layout_width="match_parent"
+                        android:gravity="center_horizontal"
+                        android:padding="8dp"
+                        android:text="Fill Wallet"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -337,109 +369,86 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tvUP_btnConfidentialDetails"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/confidential_details"
-                        android:padding="7dp"
-                        android:fontFamily="@font/montserrat"/>
+                        android:fontFamily="@font/montserrat"
+                        android:padding="10dp"
+                        android:text="@string/click_here_to_view_confidential_details"
+                        android:textSize="15sp" />
 
                     <TableLayout
+                        android:id="@+id/tableConfidential"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
                         android:paddingBottom="15dp"
+                        android:visibility="gone"
                         android:stretchColumns="*">
 
                         <TableRow>
-
                             <TextView
                                 android:text="@string/pan_number"
                                 android:textColor="@color/dark_blue"
                                 android:textStyle="bold" />
-
                             <TextView
-                                android:text="xxxxxxxx"
+                                android:id="@+id/tvUP_panCard"
                                 android:textColor="@color/black" />
                         </TableRow>
 
                         <TableRow android:paddingTop="5dp">
-
                             <TextView
                                 android:text="@string/bank_name"
                                 android:textColor="@color/dark_blue"
                                 android:textStyle="bold" />
-
                             <TextView
-                                android:text="State Bank of India"
+                                android:id="@+id/tvUP_bankName"
                                 android:textColor="@color/black" />
                         </TableRow>
 
                         <TableRow android:paddingTop="5dp">
-
                             <TextView
                                 android:text="@string/account_number"
                                 android:textColor="@color/dark_blue"
                                 android:textStyle="bold" />
-
                             <TextView
-                                android:text="xxxxxxxxxxxxx"
+                                android:id="@+id/tvUP_accNumber"
                                 android:textColor="@color/black" />
                         </TableRow>
 
                         <TableRow android:paddingTop="5dp">
-
                             <TextView
                                 android:text="@string/ifsc_number"
                                 android:textColor="@color/dark_blue"
                                 android:textStyle="bold" />
-
                             <TextView
-                                android:text="xxxxxxx"
+                                android:id="@+id/tvUP_ifscCode"
                                 android:textColor="@color/black" />
                         </TableRow>
 
                         <TableRow android:paddingTop="5dp">
-
                             <TextView
                                 android:text="@string/bank_branch"
                                 android:textColor="@color/dark_blue"
                                 android:textStyle="bold" />
-
                             <TextView
-                                android:text="Shivaji Nagar"
+                                android:id="@+id/tvUP_bankBranch"
                                 android:textColor="@color/black" />
                         </TableRow>
 
                         <TableRow android:paddingTop="5dp">
-
                             <TextView
                                 android:text="@string/bank_city"
                                 android:textColor="@color/dark_blue"
                                 android:textStyle="bold" />
-
                             <TextView
-                                android:text="Pune"
+                                android:id="@+id/tvUP_bankCity"
                                 android:textColor="@color/black" />
                         </TableRow>
                     </TableLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/gray"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Click here to view confidential details"
-                        android:padding="10dp"/>
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

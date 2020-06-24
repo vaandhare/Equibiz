@@ -150,5 +150,8 @@
     <string name="enter_otp">Enter OTP</string>
     <string name="save_resume_later"><![CDATA[Save & Resume Later]]></string>
     <string name="bank_branch_name">Bank Branch Name</string>
+    <string name="wallet_details">Wallet Details</string>
+    <string name="click_here_to_view_confidential_details">Click here to view confidential details</string>
+    <string name="click_here_to_view_wallet_details_fill_wallet">Click here to view wallet details/fill wallet.</string>
 
 </resources>

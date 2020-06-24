@@ -202,15 +202,14 @@ public class BusinessDetailsActivity extends AppCompatActivity {
         //Business Type Spinner
         TIL_b_type_spinner = findViewById(R.id.business_type_spinner);
         editTextBusinessTypeFilledExposedDropdown = findViewById(R.id.autocomplete_business_type);
-        ArrayAdapter adapterBT = new ArrayAdapter<>(BusinessDetailsActivity.this, R.layout.dropdown_menu, BusinessType);
+        ArrayAdapter<String> adapterBT = new ArrayAdapter<>(BusinessDetailsActivity.this, R.layout.dropdown_menu, BusinessType);
         editTextBusinessTypeFilledExposedDropdown.setAdapter(adapterBT);
 
         //Business Nature Spinner
         TIL_b_nature_spinner = findViewById(R.id.business_nature_spinner);
         editTextBusinessNatureFilledExposedDropdown = findViewById(R.id.autocomplete_business_nature);
-        ArrayAdapter adapterBN = new ArrayAdapter<>(BusinessDetailsActivity.this, R.layout.dropdown_menu, BusinessNature);
+        ArrayAdapter<String> adapterBN = new ArrayAdapter<>(BusinessDetailsActivity.this, R.layout.dropdown_menu, BusinessNature);
         editTextBusinessNatureFilledExposedDropdown.setAdapter(adapterBN);
-
 
     }
 }

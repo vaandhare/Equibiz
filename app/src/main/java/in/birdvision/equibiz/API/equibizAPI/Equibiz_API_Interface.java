@@ -9,6 +9,9 @@ import in.birdvision.equibiz.API.equibizAPI.userInfo.LoginResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.OtpResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.RegistrationResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.UploadDocuments;
+import in.birdvision.equibiz.API.equibizAPI.userInfo.profile.UserProfileResponse;
+import in.birdvision.equibiz.API.equibizAPI.userInfo.profile.WalletDetailsResponse;
+import in.birdvision.equibiz.API.equibizAPI.userInfo.profile.confidentalData.ConfidentialDetailsResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -16,7 +19,6 @@ import retrofit2.http.POST;
 public interface Equibiz_API_Interface {
 
     //UserInfo (Login & Register)
-
     @POST("login")
     Call<LoginResponse> loginUser(@Body LoginResponse loginResponse);
 
@@ -44,5 +46,17 @@ public interface Equibiz_API_Interface {
 
     @POST("prebooking")
     Call<PreBookingResponse> preBookingResponse(@Body PreBookingResponse preBookingResponse);
+
+    //User Profile
+    @POST("getalldetailsofbuyer")
+    Call<UserProfileResponse> userProfileResponse(@Body UserProfileResponse userProfileResponse);
+
+    //Wallet
+    @POST("getwalletdetails")
+    Call<WalletDetailsResponse> walletDetailsResponse(@Body WalletDetailsResponse walletDetailsResponse);
+
+    //Confidential Data
+    @POST("getconfdetails")
+    Call<ConfidentialDetailsResponse> confidentialDetailsResponse(@Body ConfidentialDetailsResponse confidentialDetailsResponse);
 
 }
