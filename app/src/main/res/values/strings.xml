@@ -153,5 +153,6 @@
     <string name="wallet_details">Wallet Details</string>
     <string name="click_here_to_view_confidential_details">Click here to view confidential details</string>
     <string name="click_here_to_view_wallet_details_fill_wallet">Click here to view wallet details/fill wallet.</string>
+    <string name="ohh_nooo_n_no_results_found">Ohh Nooo!! \n No Results Found</string>
 
 </resources>

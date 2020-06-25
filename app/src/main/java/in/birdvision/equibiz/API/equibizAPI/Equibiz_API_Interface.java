@@ -14,6 +14,8 @@ import in.birdvision.equibiz.API.equibizAPI.userInfo.profile.WalletDetailsRespon
 import in.birdvision.equibiz.API.equibizAPI.userInfo.profile.confidentalData.ConfidentialDetailsResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface Equibiz_API_Interface {
@@ -38,25 +40,43 @@ public interface Equibiz_API_Interface {
     Call<UploadDocuments> uploadDocuments(@Body UploadDocuments uploadDocuments);
 
     //Product
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
     @POST("getproducts")
-    Call<ProductListResponse> allProductResponse(@Body ProductListResponse allProductsResponse);
+    Call<ProductListResponse> allProductResponse(
+            @Body ProductListResponse allProductsResponse,
+            @Header("Authorization") String auth);
 
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
     @POST("getproductdetails")
-    Call<ProductDetailsResponse> productDetailsResponse(@Body ProductDetailsResponse productDetailsResponse);
+    Call<ProductDetailsResponse> productDetailsResponse(
+            @Body ProductDetailsResponse productDetailsResponse,
+            @Header("Authorization") String auth);
 
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
     @POST("prebooking")
-    Call<PreBookingResponse> preBookingResponse(@Body PreBookingResponse preBookingResponse);
+    Call<PreBookingResponse> preBookingResponse(
+            @Body PreBookingResponse preBookingResponse,
+            @Header("Authorization") String auth);
 
     //User Profile
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
     @POST("getalldetailsofbuyer")
-    Call<UserProfileResponse> userProfileResponse(@Body UserProfileResponse userProfileResponse);
+    Call<UserProfileResponse> userProfileResponse(
+            @Body UserProfileResponse userProfileResponse,
+            @Header("Authorization") String auth);
 
     //Wallet
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
     @POST("getwalletdetails")
-    Call<WalletDetailsResponse> walletDetailsResponse(@Body WalletDetailsResponse walletDetailsResponse);
+    Call<WalletDetailsResponse> walletDetailsResponse(
+            @Body WalletDetailsResponse walletDetailsResponse,
+            @Header("Authorization") String auth);
 
     //Confidential Data
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
     @POST("getconfdetails")
-    Call<ConfidentialDetailsResponse> confidentialDetailsResponse(@Body ConfidentialDetailsResponse confidentialDetailsResponse);
+    Call<ConfidentialDetailsResponse> confidentialDetailsResponse(
+            @Body ConfidentialDetailsResponse confidentialDetailsResponse,
+            @Header("Authorization") String auth);
 
 }

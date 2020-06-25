@@ -112,6 +112,7 @@ public class LoginActivity extends AppCompatActivity {
                         SharedPreferences mySharedPreferences = LoginActivity.this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = mySharedPreferences.edit();
                         editor.putString("BuyerID", response1.getData().get_id());
+                        editor.putString("LoginToken", response1.getToken());
                         editor.apply();
                     }
                     startActivity(new Intent(LoginActivity.this, ProductListActivity.class));

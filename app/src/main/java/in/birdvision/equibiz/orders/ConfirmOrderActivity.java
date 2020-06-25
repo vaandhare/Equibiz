@@ -157,12 +157,14 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
 
     @SuppressLint("SetTextI18n")
     private void preOrderBooking() {
+        SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
+        String token = mySharedPreferences.getString("LoginToken", "xxxxx");
 
         final PreBookingResponse preBookingResponse = new PreBookingResponse(encryptedBuyerID, encryptedFinalPriceToDeduct,
                 encryptedInsurance, encryptedProID, encryptedQuantityOrdered, encryptedRateCardID, encryptedSellerID,
                 encryptedSellerProID, encryptedSellerTime, encryptedTotalPrice, encryptedUnitPrice);
 
-        Call<PreBookingResponse> preBookingResponseCall = equibiz_api_interface.preBookingResponse(preBookingResponse);
+        Call<PreBookingResponse> preBookingResponseCall = equibiz_api_interface.preBookingResponse(preBookingResponse, "Bearer " + token);
 
         preBookingResponseCall.enqueue(new Callback<PreBookingResponse>() {
             @Override

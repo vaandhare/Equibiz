@@ -1,7 +1,9 @@
 package in.birdvision.equibiz.userInfo;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -42,6 +45,9 @@ public class UserProfile extends AppCompatActivity {
     Equibiz_API_Interface equibiz_api_interface;
     String userID, encryptedUserID;
     byte[] cipherUserID;
+
+    private BiometricPrompt biometricPrompt;
+    private BiometricPrompt.PromptInfo promptInfo;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -84,12 +90,49 @@ public class UserProfile extends AppCompatActivity {
         });
 
         backImg.setOnClickListener(v -> onBackPressed());
+
+//        Executor executor = ContextCompat.getMainExecutor(this);
+//        biometricPrompt = new BiometricPrompt(UserProfile.this, executor, new BiometricPrompt.AuthenticationCallback() {
+//            @Override
+//            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+//                super.onAuthenticationError(errorCode, errString);
+//                if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
+//                    Toast.makeText(getApplicationContext(), "Authentication Canceled", Toast.LENGTH_SHORT).show();
+//                } else
+//                    Toast.makeText(getApplicationContext(), "Authentication error: " + errString, Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+//                super.onAuthenticationSucceeded(result);
+//                Toast.makeText(getApplicationContext(), "Authentication succeeded!", Toast.LENGTH_SHORT).show();
+//                getWalletResponse();
+//            }
+//
+//            @Override
+//            public void onAuthenticationFailed() {
+//                super.onAuthenticationFailed();
+//                Toast.makeText(getApplicationContext(), "Authentication failed", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        promptInfo = new BiometricPrompt.PromptInfo.Builder()
+//                .setTitle("Verify to See Hidden Credentials")
+//                .setNegativeButtonText("Cancel")
+//                .build();
+
+//        BTNFillWallet.setOnClickListener(view -> biometricPrompt.authenticate(promptInfo));
     }
 
+
     private void getConfidentialResponse() {
+
+        SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
+        String token = mySharedPreferences.getString("LoginToken", "xxxxx");
+
         final ConfidentialDetailsResponse detailsResponse = new ConfidentialDetailsResponse(userID);
 
-        Call<ConfidentialDetailsResponse> detailsResponseCall = equibiz_api_interface.confidentialDetailsResponse(detailsResponse);
+        Call<ConfidentialDetailsResponse> detailsResponseCall = equibiz_api_interface.confidentialDetailsResponse(detailsResponse, "Bearer " + token);
 
         detailsResponseCall.enqueue(new Callback<ConfidentialDetailsResponse>() {
             @Override
@@ -122,9 +165,13 @@ public class UserProfile extends AppCompatActivity {
     }
 
     private void getWalletResponse() {
+
+        SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
+        String token = mySharedPreferences.getString("LoginToken", "xxxxx");
+
         final WalletDetailsResponse detailsResponse = new WalletDetailsResponse(userID);
 
-        Call<WalletDetailsResponse> walletDetailsResponseCall = equibiz_api_interface.walletDetailsResponse(detailsResponse);
+        Call<WalletDetailsResponse> walletDetailsResponseCall = equibiz_api_interface.walletDetailsResponse(detailsResponse, "Bearer " + token);
 
         walletDetailsResponseCall.enqueue(new Callback<WalletDetailsResponse>() {
             @Override
@@ -199,8 +246,11 @@ public class UserProfile extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
+        String token = mySharedPreferences.getString("LoginToken", "xxxxx");
+
         final UserProfileResponse userProfileResponse = new UserProfileResponse(userID);
-        Call<UserProfileResponse> userProfileResponseCall = equibiz_api_interface.userProfileResponse(userProfileResponse);
+        Call<UserProfileResponse> userProfileResponseCall = equibiz_api_interface.userProfileResponse(userProfileResponse, "Bearer " + token);
 
         userProfileResponseCall.enqueue(new Callback<UserProfileResponse>() {
             @Override

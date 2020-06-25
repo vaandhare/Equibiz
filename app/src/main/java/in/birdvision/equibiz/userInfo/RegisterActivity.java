@@ -95,6 +95,8 @@ public class RegisterActivity extends AppCompatActivity {
                 TIL_confirm_pass.setVisibility(View.VISIBLE);
                 BTN_register.setVisibility(View.VISIBLE);
                 BTN_verify_OTP.setVisibility(View.GONE);
+                TIL_country_code.setEnabled(false);
+                TIL_mobile_no.setEnabled(false);
                 Toast.makeText(RegisterActivity.this, "Mobile Number Verified", Toast.LENGTH_SHORT).show();
             }
         });

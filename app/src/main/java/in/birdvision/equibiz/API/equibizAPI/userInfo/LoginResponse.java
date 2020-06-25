@@ -15,10 +15,17 @@ public class LoginResponse {
     @SerializedName("data")
     private Data data;
 
+    @SerializedName("token")
+    private String token;
+
     public LoginResponse(String email, String password, String role) {
         this.email = email;
         this.password = password;
         this.role = role;
+    }
+
+    public String getToken() {
+        return token;
     }
 
     public String getEmail() {

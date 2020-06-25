@@ -1,7 +1,9 @@
 package in.birdvision.equibiz.product;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -116,10 +118,13 @@ public class ProductActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
+        String token = mySharedPreferences.getString("LoginToken", "xxxxx");
+
         final ProductDetailsResponse productDetailsResponse = new ProductDetailsResponse(encryptedColor,
                 encryptedInternalMemory, encryptedID, encryptedRam);
 
-        Call<ProductDetailsResponse> productDetailsResponseCall = equibiz_api_interface.productDetailsResponse(productDetailsResponse);
+        Call<ProductDetailsResponse> productDetailsResponseCall = equibiz_api_interface.productDetailsResponse(productDetailsResponse, "Bearer " + token);
 
         productDetailsResponseCall.enqueue(new Callback<ProductDetailsResponse>() {
             @Override

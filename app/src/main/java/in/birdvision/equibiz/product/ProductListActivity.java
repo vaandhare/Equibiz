@@ -1,7 +1,9 @@
 package in.birdvision.equibiz.product;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -63,8 +65,11 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
     }
 
     private void productListResponse() {
+        SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
+        String token = mySharedPreferences.getString("LoginToken", "xxxxx");
+
         final ProductListResponse allProductsResponse = new ProductListResponse();
-        Call<ProductListResponse> allProductsResponseCall = equibiz_api_interface.allProductResponse(allProductsResponse);
+        Call<ProductListResponse> allProductsResponseCall = equibiz_api_interface.allProductResponse(allProductsResponse, "Bearer " + token);
 
         allProductsResponseCall.enqueue(new Callback<ProductListResponse>() {
             @Override
@@ -76,8 +81,6 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
                     getProductdata = productListResponse.getProductdata();
                     adapterProductList.setProductdata(getProductdata);
                 }
-                assert response.body() != null;
-                Toast.makeText(ProductListActivity.this, response.body().getStatus(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
