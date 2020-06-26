@@ -2,6 +2,7 @@ package in.birdvision.equibiz.orders;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -51,7 +52,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
             product_proID, product_sellerID, product_SellerProID, product_BuyerID, product_rateCardID;
 
     TextView orderColor, orderDeliveryLocation, orderDeliveryTime, orderDeliveryAdditionalTime, orderDeliveryCharges, orderQuantity,
-            orderPPU, orderTotalCost, orderPreBookAmount, amountDeduction, tvWalletBalance;
+            orderPPU, orderTotalCost, orderPreBookAmount, amountDeduction;
 
     String encryptedBuyerID, encryptedFinalPriceToDeduct, encryptedInsurance, encryptedProID, encryptedQuantityOrdered,
             encryptedRateCardID, encryptedSellerID, encryptedSellerProID, encryptedSellerTime, encryptedTotalPrice,
@@ -64,6 +65,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
     CheckBox insuranceCB;
 
     Equibiz_API_Interface equibiz_api_interface;
+
+    ProgressDialog progressDialog;
 
     Integer totalCost;
     long pre_book_amount;
@@ -78,6 +81,10 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
         initializeIDs();
 
         equibiz_api_interface = EquibizApiService.getClient().create(Equibiz_API_Interface.class);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(true);
 
         SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
         product_BuyerID = mySharedPreferences.getString("BuyerID", "xxxxx");
@@ -145,7 +152,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+            progressDialog.show();
             preOrderBooking();
         });
     }
@@ -170,6 +177,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
             @Override
             public void onResponse(@NotNull Call<PreBookingResponse> call, @NotNull Response<PreBookingResponse> response) {
                 PreBookingResponse preBookingResponse1 = response.body();
+                progressDialog.dismiss();
                 assert preBookingResponse1 != null;
                 walletBalance = preBookingResponse1.getWalletbal();
                 showCustomDialog();
@@ -220,8 +228,6 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
         View dialogView = LayoutInflater.from(this).inflate(R.layout.success_dialog_activity, viewGroup, false);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(dialogView);
-        tvWalletBalance = dialogView.findViewById(R.id.tv_remaining_balance);
-        tvWalletBalance.setText("Remaining Wallet Balance: " + walletBalance);
         builder.setPositiveButton(R.string.close, (dialog, which)
                 -> startActivity(new Intent(ConfirmOrderActivity.this, ProductListActivity.class)));
 
@@ -252,7 +258,17 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
 
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+        insuranceCB.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                insuranceValue = 1;
+                amountDeduction.setText("₹ " + (pre_book_amount + 50) + "will be deducted from your wallet Balance.");
+            } else {
+                insuranceValue = 0;
+                amountDeduction.setText("₹ " + pre_book_amount + "will be deducted from your wallet Balance.");
+            }
+        });
     }
 }

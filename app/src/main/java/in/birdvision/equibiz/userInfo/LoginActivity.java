@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -90,6 +91,19 @@ public class LoginActivity extends AppCompatActivity {
         tvRegister.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, RegisterActivity.class)));
     }
 
+    private void checkEmailVerification() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Verify your Email");
+        builder.setMessage("Email verification is not done yet. Verify your email id to activate your account.");
+
+        builder.setPositiveButton("Ok", ((dialog, which) -> {
+            dialog.dismiss();
+        })).create().setCanceledOnTouchOutside(false);
+
+        builder.show();
+    }
+
+
     private void loginToEquibiz() {
         final LoginResponse loginResponse = new LoginResponse(encryptedMobileNo, encryptedPassword, encryptedRole);
         Call<LoginResponse> loginResponseCall = equibiz_api_interface.loginUser(loginResponse);
@@ -100,6 +114,9 @@ public class LoginActivity extends AppCompatActivity {
                 progressDialog.dismiss();
                 LoginResponse response1 = response.body();
                 assert response1 != null;
+//                if(response1.getStatus().equals("success") && response1.getData().getEmailverified().equals("false")) {
+//                    checkEmailVerification();
+//                } else   handle email verification in each case
                 if (response1.getStatus().equals("success") && response1.getData().getBusinessverified().equals("false")) {
                     Intent intent = new Intent(LoginActivity.this, BusinessDetailsActivity.class);
                     intent.putExtra("EncUserRole", encryptedRole);
@@ -113,10 +130,10 @@ public class LoginActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = mySharedPreferences.edit();
                         editor.putString("BuyerID", response1.getData().get_id());
                         editor.putString("LoginToken", response1.getToken());
+                        editor.putString("encryptedUserRole", encryptedRole);
                         editor.apply();
                     }
                     startActivity(new Intent(LoginActivity.this, ProductListActivity.class));
-
                 } else if (response1.getStatus().equals("wrongpass") || response1.getStatus().equals("nodata"))
                     tvLoginError.setVisibility(View.VISIBLE);
                 else

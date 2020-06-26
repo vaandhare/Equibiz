@@ -47,11 +47,12 @@ public class BusinessDetailsActivity extends AppCompatActivity {
     String[] BusinessNature = {"Exporter", "Importer", "Trader", "Aggregator", "Corporate Buyer", "Agent",
             "B2B Company", "Dealer", "Distributor", "National Distributor", "CNF Agent"};
 
-    Boolean saveLater = false;
     Button BTN_save_next;
     TextView BTN_save_resume_later;
 
     Equibiz_API_Interface equibiz_api_interface;
+
+    String AuthToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,29 +61,24 @@ public class BusinessDetailsActivity extends AppCompatActivity {
 
         equibiz_api_interface = EquibizApiService.getClient().create(Equibiz_API_Interface.class);
 
+        SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
+        AuthToken = mySharedPreferences.getString("LoginToken", "xxxxx");
+        encryptedUserRole = mySharedPreferences.getString("encryptedUserRole", "xxxxx");
+
         initializeIDs();
         BTN_save_next.setOnClickListener(v -> {
-            saveLater = false;
-            registerBusinessDetails();
-            startActivity(new Intent(BusinessDetailsActivity.this, VerificationActivity.class));
+            registerBusinessDetails(false);
         });
 
         BTN_save_resume_later.setOnClickListener(v -> {
-            saveLater = true;
-            registerBusinessDetails();
-            startActivity(new Intent(BusinessDetailsActivity.this, LoginActivity.class));
+            registerBusinessDetails(true);
         });
 
     }
 
-    private void registerBusinessDetails() {
+    private void registerBusinessDetails(Boolean saveLater) {
 
         String poc1name = "", poc1cc = "", poc1mob = "", poc2name = "", poc2cc = "", poc2mob = "";
-
-        SharedPreferences mySharedPreferences = this.getSharedPreferences("User_ObjID", Context.MODE_PRIVATE);
-        String userObjId = mySharedPreferences.getString("UserObjID", "xxxxx");
-        encryptedUserRole = mySharedPreferences.getString("encryptedUserRole", "xxxxx");
-
         String bname = Objects.requireNonNull(TIL_b_name.getEditText()).getText().toString();
         String btype = Objects.requireNonNull(TIL_b_type_spinner.getEditText()).getText().toString();
         String bnature = Objects.requireNonNull(TIL_b_nature_spinner.getEditText()).getText().toString();
@@ -145,7 +141,7 @@ public class BusinessDetailsActivity extends AppCompatActivity {
             cipherPOC2Mob = encrypt(poc2mob.getBytes());
             encryptedPOC2Mob = encoderFunction(cipherPOC2Mob);
 
-            cipherUserObjId = encrypt(userObjId.getBytes());
+            cipherUserObjId = encrypt(AuthToken.getBytes());
             encryptedUserObjId = encoderFunction(cipherUserObjId);
 
             cipherSaveLater = encrypt(saveLater.toString().getBytes());
@@ -159,14 +155,17 @@ public class BusinessDetailsActivity extends AppCompatActivity {
                 encryptedPDCC, encryptedPDMobNo, encryptedPDFName, encryptedPDLName, encryptedPinCode, encryptedPOC1CC, encryptedPOC1Mob,
                 encryptedPOC1Name, encryptedPOC2CC, encryptedPOC2Mob, encryptedPOC2Name, encryptedRegAdd, encryptedUserRole, encryptedSaveLater, encryptedUserObjId);
 
-        Call<BusinessDetailsResponse> businessDetailsResponseCall = equibiz_api_interface.businessDetailsResponse(businessDetailsResponse);
+        Call<BusinessDetailsResponse> businessDetailsResponseCall = equibiz_api_interface.businessDetailsResponse(businessDetailsResponse, "Bearer " + AuthToken);
 
         businessDetailsResponseCall.enqueue(new Callback<BusinessDetailsResponse>() {
             @Override
             public void onResponse(@NotNull Call<BusinessDetailsResponse> call, @NotNull Response<BusinessDetailsResponse> response) {
                 BusinessDetailsResponse response1 = response.body();
                 if (response1 != null) {
-                    Toast.makeText(BusinessDetailsActivity.this, response1.getStatus(), Toast.LENGTH_SHORT).show();
+                    if (saveLater)
+                        startActivity(new Intent(BusinessDetailsActivity.this, LoginActivity.class));
+                    else
+                        startActivity(new Intent(BusinessDetailsActivity.this, VerificationActivity.class));
                 }
             }
 

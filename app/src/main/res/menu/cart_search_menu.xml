@@ -9,4 +9,10 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
 
+    <item
+        android:id="@+id/menu_shopping_basket"
+        android:icon="@drawable/ic_shopping_basket"
+        android:title="@string/shopping_basket"
+        app:showAsAction="ifRoom" />
+
 </menu>

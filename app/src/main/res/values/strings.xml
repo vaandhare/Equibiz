@@ -156,5 +156,9 @@
     <string name="ohh_nooo_n_no_results_found">Ohh Nooo!! \n No Results Found</string>
     <string name="by_brand">By Brand</string>
     <string name="by_model">By Model</string>
+    <string name="location">Location</string>
+    <string name="delivery_time_days">Delivery Time (Days)</string>
+    <string name="total_stock">Total Stock</string>
+    <string name="profile">Profile</string>
 
 </resources>

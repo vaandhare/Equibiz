@@ -202,8 +202,10 @@ public class UserProfile extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Call<FillWalletResponse> call, @NotNull Response<FillWalletResponse> response) {
                 FillWalletResponse response1 = response.body();
-                assert response1 != null;
-                Toast.makeText(UserProfile.this, response1.getStatus(), Toast.LENGTH_SHORT).show();
+                if (response1 == null)
+                    Toast.makeText(UserProfile.this, "Something wrong with server", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(UserProfile.this, response1.getStatus(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -227,8 +229,10 @@ public class UserProfile extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Call<ConfidentialDetailsResponse> call, @NotNull Response<ConfidentialDetailsResponse> response) {
                 ConfidentialDetailsResponse response1 = response.body();
-                assert response1 != null;
-                changeConfidentialDetails(response1);
+                if (response1 == null)
+                    Toast.makeText(UserProfile.this, "Something wrong with server", Toast.LENGTH_SHORT).show();
+                else
+                    changeConfidentialDetails(response1);
             }
 
             @Override
@@ -263,8 +267,10 @@ public class UserProfile extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Call<WalletDetailsResponse> call, @NotNull Response<WalletDetailsResponse> response) {
                 WalletDetailsResponse response1 = response.body();
-                assert response1 != null;
-                changeWalletDetails(response1);
+                if (response1 == null)
+                    Toast.makeText(UserProfile.this, "Something wrong with server", Toast.LENGTH_SHORT).show();
+                else
+                    changeWalletDetails(response1);
             }
 
             @Override
@@ -333,9 +339,12 @@ public class UserProfile extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Call<UserProfileResponse> call, @NotNull Response<UserProfileResponse> response) {
                 UserProfileResponse response1 = response.body();
-                assert response1 != null;
-                changeDetails(response1);
-                Toast.makeText(UserProfile.this, response1.getStatus(), Toast.LENGTH_SHORT).show();
+                if (response1 == null)
+                    Toast.makeText(UserProfile.this, "Something wrong with server", Toast.LENGTH_SHORT).show();
+                else {
+                    changeDetails(response1);
+                    Toast.makeText(UserProfile.this, response1.getStatus(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -343,7 +352,7 @@ public class UserProfile extends AppCompatActivity {
                 if (t instanceof SocketTimeoutException)
                     Toast.makeText(UserProfile.this, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(UserProfile.this, t.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(UserProfile.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

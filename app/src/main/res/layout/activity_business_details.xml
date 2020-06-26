@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -257,7 +256,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="25dp"
             app:layout_constraintStart_toEndOf="@id/etv_partner_country_code"
-            app:layout_constraintTop_toBottomOf="@+id/linear_layout_partner_details">
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_partner_details">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -368,7 +367,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="25dp"
             app:layout_constraintStart_toEndOf="@id/etv_contact1_country_code"
-            app:layout_constraintTop_toBottomOf="@+id/etv_contact1_name">
+            app:layout_constraintTop_toBottomOf="@id/etv_contact1_name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -394,7 +393,7 @@
             android:text="@string/person_2_details"
             android:textColor="@color/dark_blue"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/etv_contact1_mobile_number" />
+            app:layout_constraintTop_toBottomOf="@id/etv_contact1_mobile_number" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etv_contact2_name"
@@ -450,7 +449,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="25dp"
             app:layout_constraintStart_toEndOf="@id/etv_contact2_country_code"
-            app:layout_constraintTop_toBottomOf="@+id/etv_contact2_name">
+            app:layout_constraintTop_toBottomOf="@id/etv_contact2_name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"

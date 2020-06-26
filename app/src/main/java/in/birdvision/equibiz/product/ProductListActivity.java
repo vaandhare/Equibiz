@@ -7,22 +7,25 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.net.SocketTimeoutException;
 import java.util.List;
+import java.util.Objects;
 
 import in.birdvision.equibiz.API.equibizAPI.EquibizApiService;
 import in.birdvision.equibiz.API.equibizAPI.Equibiz_API_Interface;
@@ -32,6 +35,7 @@ import in.birdvision.equibiz.API.equibizAPI.product.filterModel.ModelFilterRespo
 import in.birdvision.equibiz.API.equibizAPI.product.productList.ProductListResponse;
 import in.birdvision.equibiz.API.equibizAPI.product.searchProduct.SearchProductResponse;
 import in.birdvision.equibiz.R;
+import in.birdvision.equibiz.orders.OrderActivity;
 import in.birdvision.equibiz.userInfo.UserProfile;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,9 +67,10 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MaterialToolbar toolbar = findViewById(R.id.category1_toolbar);
-        setSupportActionBar(toolbar);
         setContentView(R.layout.activity_product_list);
+        Toolbar toolbar = findViewById(R.id.category1_toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
         SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
         AuthToken = mySharedPreferences.getString("LoginToken", "xxxxx");
@@ -103,7 +108,44 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
                     return true;
                 }
         );
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.cart_search_menu, menu);
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        assert searchManager != null;
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                getSearchResults(query);
+                searchView.clearFocus();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.menu_shopping_basket) {
+            startActivity(new Intent(ProductListActivity.this, OrderActivity.class));
+            return true;
+        }
+        return true;
     }
 
     private void productModelAlert() {
@@ -205,32 +247,6 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
                     Toast.makeText(ProductListActivity.this, t.toString(), Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.cart_search_menu, menu);
-
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
-        assert searchManager != null;
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                getSearchResults(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-
-        return true;
     }
 
     private void getSearchResults(String query) {

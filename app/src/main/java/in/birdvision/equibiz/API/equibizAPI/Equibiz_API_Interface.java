@@ -35,8 +35,10 @@ public interface Equibiz_API_Interface {
     @POST("sendotp")
     Call<OtpResponse> sendOTP(@Body OtpResponse otpResponse);
 
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
     @POST("registerbusinessdetails")
-    Call<BusinessDetailsResponse> businessDetailsResponse(@Body BusinessDetailsResponse businessDetailsResponse);
+    Call<BusinessDetailsResponse> businessDetailsResponse(@Body BusinessDetailsResponse businessDetailsResponse,
+                                                          @Header("Authorization") String auth);
 
     @POST("registerbankdetails")
     Call<BankDetailsResponse> bankDetailsResponse(@Body BankDetailsResponse bankDetailsResponse);

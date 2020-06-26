@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -147,7 +148,7 @@ public class RegisterActivity extends AppCompatActivity {
                     editor.putString("encryptedUserRole", encryptedUserRole);
                     editor.apply();
                     if (response1.getStatus().equals("success"))
-                        startActivity(new Intent(RegisterActivity.this, BusinessDetailsActivity.class));
+                        openVerifyEmailAlert();
                     else
                         Toast.makeText(RegisterActivity.this, response1.getStatus(), Toast.LENGTH_SHORT).show();
                 }
@@ -161,6 +162,19 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, t.toString(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void openVerifyEmailAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Verify your Email");
+        builder.setMessage("Verification mail is sent to your email id. Verify your email id to activate your account.");
+
+        builder.setPositiveButton("Ok", ((dialog, which) -> {
+            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            dialog.dismiss();
+        })).create().setCanceledOnTouchOutside(false);
+
+        builder.show();
     }
 
     private void sendOTP() {
