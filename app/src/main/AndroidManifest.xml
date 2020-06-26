@@ -17,7 +17,11 @@
         <activity android:name=".orders.ConfirmOrderActivity" />
         <activity android:name=".orders.OrderActivity" />
         <activity android:name=".notifications.NotificationActivity" />
-        <activity android:name=".product.ProductListActivity" />
+        <activity android:name=".product.ProductListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
         <activity android:name=".userInfo.VerificationActivity" />
         <activity android:name=".userInfo.BusinessDetailsActivity" />
         <activity android:name=".product.ProductActivity" />

@@ -172,7 +172,7 @@ public class ProductActivity extends AppCompatActivity {
         productFrontCam.setText(productdatum.getProductinfo().getpFrontCamera() + " MP");
         productPrimaryCam.setText(productdatum.getProductinfo().getpPrimaryCamera() + " MP");
         productOS.setText(productdatum.getProductinfo().getpOsType());
-        productBattery.setText(productdatum.getProductinfo().getpBatteryPower() + "Mhz");
+        productBattery.setText(productdatum.getProductinfo().getpBatteryPower());
         productNetwork.setText(productdatum.getProductinfo().getpNetworkType());
         productSims.setText(String.valueOf(productdatum.getProductinfo().getpSimSlots()));
         productDimensions.setText(productdatum.getProductinfo().getpDimensions());

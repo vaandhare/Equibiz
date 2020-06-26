@@ -14,16 +14,4 @@
         android:icon="@drawable/ic_notifications"
         app:showAsAction="always"/>
 
-<!--    <item-->
-<!--        android:id="@+id/menu_search"-->
-<!--        android:title="@string/search"-->
-<!--        android:icon="@drawable/ic_search"-->
-<!--        app:showAsAction="always"/>-->
-
-<!--    <item-->
-<!--        android:id="@+id/menu_share"-->
-<!--        android:title="@string/share"-->
-<!--        android:icon="@drawable/ic_share"-->
-<!--        app:showAsAction="always"/>-->
-
 </menu>

@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.birdvision.equibiz.API.equibizAPI.product.productList.Productdatum;
+import in.birdvision.equibiz.API.equibizAPI.product.Productdatum;
 import in.birdvision.equibiz.R;
 
 public class AdapterProductList extends RecyclerView.Adapter<AdapterProductList.ProductListViewHolder> {
@@ -39,6 +39,7 @@ public class AdapterProductList extends RecyclerView.Adapter<AdapterProductList.
     }
 
     public void setProductdata(List<Productdatum> productData) {
+        productdata.clear();
         productdata.addAll(productData);
         notifyDataSetChanged();
     }

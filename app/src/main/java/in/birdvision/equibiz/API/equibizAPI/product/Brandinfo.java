@@ -1,5 +1,5 @@
 
-package in.birdvision.equibiz.API.equibizAPI.product.productList;
+package in.birdvision.equibiz.API.equibizAPI.product;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -1,12 +1,13 @@
 
-package in.birdvision.equibiz.API.equibizAPI.product.productList;
+package in.birdvision.equibiz.API.equibizAPI.product;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Productdatum {
 
     @Expose
-    private in.birdvision.equibiz.API.equibizAPI.product.productList._id _id;
+    private in.birdvision.equibiz.API.equibizAPI.product._id _id;
     @Expose
     private Long asum;
     @Expose
@@ -22,7 +23,15 @@ public class Productdatum {
     @Expose
     private Long sum;
 
-    public in.birdvision.equibiz.API.equibizAPI.product.productList._id get_id() {
+    @SerializedName("search")
+    private String mSearch;
+    @SerializedName("searchres")
+    private Boolean mSearchres;
+
+    @SerializedName("modelno")
+    private Boolean mModelno;
+
+    public in.birdvision.equibiz.API.equibizAPI.product._id get_id() {
         return _id;
     }
 
@@ -54,4 +63,15 @@ public class Productdatum {
         return sum;
     }
 
+    public String getmSearch() {
+        return mSearch;
+    }
+
+    public Boolean getmSearchres() {
+        return mSearchres;
+    }
+
+    public Boolean getmModelno() {
+        return mModelno;
+    }
 }

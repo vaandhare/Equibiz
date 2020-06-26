@@ -5,6 +5,8 @@ import com.google.gson.annotations.Expose;
 
 import java.util.List;
 
+import in.birdvision.equibiz.API.equibizAPI.product.Productdatum;
+
 public class ProductListResponse {
 
     @Expose

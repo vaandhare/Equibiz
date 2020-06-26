@@ -1,8 +1,11 @@
 package in.birdvision.equibiz.API.equibizAPI;
 
 import in.birdvision.equibiz.API.equibizAPI.orders.PreBookingResponse;
+import in.birdvision.equibiz.API.equibizAPI.product.filterBrand.BrandFilterResponse;
+import in.birdvision.equibiz.API.equibizAPI.product.filterModel.ModelFilterResponse;
 import in.birdvision.equibiz.API.equibizAPI.product.productDetails.ProductDetailsResponse;
 import in.birdvision.equibiz.API.equibizAPI.product.productList.ProductListResponse;
+import in.birdvision.equibiz.API.equibizAPI.product.searchProduct.SearchProductResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.BankDetailsResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.BusinessDetailsResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.LoginResponse;
@@ -77,6 +80,27 @@ public interface Equibiz_API_Interface {
     @POST("getconfdetails")
     Call<ConfidentialDetailsResponse> confidentialDetailsResponse(
             @Body ConfidentialDetailsResponse confidentialDetailsResponse,
+            @Header("Authorization") String auth);
+
+    //Search
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
+    @POST("getsearch")
+    Call<SearchProductResponse> searchProductResponse(
+            @Body SearchProductResponse searchProductResponse,
+            @Header("Authorization") String auth);
+
+    //Model Filter
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
+    @POST("getmodelpros")
+    Call<ModelFilterResponse> modelFilterResponse(
+            @Body ModelFilterResponse modelFilterResponse,
+            @Header("Authorization") String auth);
+
+    //Brand Filter
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
+    @POST("getbrandpros")
+    Call<BrandFilterResponse> brandFilterResponse(
+            @Body BrandFilterResponse brandFilterResponse,
             @Header("Authorization") String auth);
 
 }
