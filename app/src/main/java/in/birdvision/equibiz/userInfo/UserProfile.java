@@ -5,12 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 
@@ -20,6 +24,7 @@ import java.net.SocketTimeoutException;
 
 import in.birdvision.equibiz.API.equibizAPI.EquibizApiService;
 import in.birdvision.equibiz.API.equibizAPI.Equibiz_API_Interface;
+import in.birdvision.equibiz.API.equibizAPI.userInfo.FillWalletResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.profile.UserProfileResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.profile.WalletDetailsResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.profile.confidentalData.ConfidentialDetailsResponse;
@@ -43,11 +48,13 @@ public class UserProfile extends AppCompatActivity {
     TextView tvAvailableBal, tvPendingBal, tvFillBalance, tvPanCard, tvBankName, tvAccNumber, tvIFSCNumber, tvBankBranch, tvBankCity;
 
     Equibiz_API_Interface equibiz_api_interface;
-    String userID, encryptedUserID;
-    byte[] cipherUserID;
+    String userID, encryptedUserID, AuthToken, encryptedAccNo, encryptedAmount;
+    byte[] cipherUserID, cipherAccNo, cipherAmount;
 
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
+
+    SharedPreferences mySharedPreferences;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -58,11 +65,20 @@ public class UserProfile extends AppCompatActivity {
 
         equibiz_api_interface = EquibizApiService.getClient().create(Equibiz_API_Interface.class);
 
-//        SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
-//        userID = mySharedPreferences.getString("BuyerID", "xxxxx");
+        mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
+        userID = mySharedPreferences.getString("BuyerID", "xxxxx");
+        AuthToken = mySharedPreferences.getString("LoginToken", "xxxxx");
+
+        try {
+            cipherUserID = encrypt(userID.getBytes());
+            encryptedUserID = encoderFunction(cipherUserID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 //        userID = "mXLr0B3FETZHF0NJNhg0cksJhaQ9gB1w6zkeOpggdwI=";
-        userID = "/SEl1CTA8IauX/EmxsmRKW6zOFkNcbkzDN+GeekxEEo=";
-        //   userID = "q/VhbMT8BFuyAwd115v4Sr8gZCc5z5+ST75APzZYRBM=";
+//        userID = "/SEl1CTA8IauX/EmxsmRKW6zOFkNcbkzDN+GeekxEEo=";
+//        userID = "q/VhbMT8BFuyAwd115v4Sr8gZCc5z5+ST75APzZYRBM=";
 
         userProfile();
 
@@ -78,6 +94,8 @@ public class UserProfile extends AppCompatActivity {
                 BTNFillWallet.setText(R.string.click_here_to_view_wallet_details_fill_wallet);
             }
         });
+
+        tvFillBalance.setOnClickListener(v -> fillWalletAlert());
 
         BTNConfindentialDetails.setOnClickListener(v -> {
             if (tableConfidential.getVisibility() == GONE) {
@@ -124,15 +142,86 @@ public class UserProfile extends AppCompatActivity {
 //        BTNFillWallet.setOnClickListener(view -> biometricPrompt.authenticate(promptInfo));
     }
 
+    private void fillWalletAlert() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Fill My Wallet");
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+        params.setMargins(20, 20, 20, 20);
+
+        EditText etAccNo = new EditText(this);
+        etAccNo.setHint("Enter Account Number");
+        etAccNo.setSingleLine();
+        etAccNo.setInputType(InputType.TYPE_CLASS_NUMBER);
+        etAccNo.setLayoutParams(params);
+        layout.addView(etAccNo);
+
+        EditText etAmount = new EditText(this);
+        etAmount.setHint("Enter Amount");
+        etAmount.setSingleLine();
+        etAmount.setInputType(InputType.TYPE_CLASS_NUMBER);
+        etAmount.setLayoutParams(params);
+        layout.addView(etAmount);
+
+        builder.setView(layout);
+        builder.setPositiveButton("Submit", ((dialog, which) -> {
+                    String accNO = etAccNo.getText().toString();
+                    String amount = etAmount.getText().toString();
+                    fillWalletResponse(accNO, amount);
+                    dialog.dismiss();
+                })
+        ).setNegativeButton("Cancel", null)
+                .create()
+                .setCanceledOnTouchOutside(false);
+
+        builder.show();
+    }
+
+    private void fillWalletResponse(String accNO, String amount) {
+        try {
+            cipherAccNo = encrypt(accNO.getBytes());
+            encryptedAccNo = encoderFunction(cipherAccNo);
+
+            cipherAmount = encrypt(amount.getBytes());
+            encryptedAmount = encoderFunction(cipherAmount);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        final FillWalletResponse fillWalletResponse = new FillWalletResponse(encryptedAccNo, encryptedAmount, encryptedUserID);
+        Call<FillWalletResponse> responseCall = equibiz_api_interface.fillWalletResponse(fillWalletResponse, "Bearer " + AuthToken);
+
+        responseCall.enqueue(new Callback<FillWalletResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<FillWalletResponse> call, @NotNull Response<FillWalletResponse> response) {
+                FillWalletResponse response1 = response.body();
+                assert response1 != null;
+                Toast.makeText(UserProfile.this, response1.getStatus(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<FillWalletResponse> call, @NotNull Throwable t) {
+                if (t instanceof SocketTimeoutException)
+                    Toast.makeText(UserProfile.this, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(UserProfile.this, t.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 
     private void getConfidentialResponse() {
 
-        SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
-        String token = mySharedPreferences.getString("LoginToken", "xxxxx");
+        final ConfidentialDetailsResponse detailsResponse = new ConfidentialDetailsResponse(encryptedUserID);
 
-        final ConfidentialDetailsResponse detailsResponse = new ConfidentialDetailsResponse(userID);
-
-        Call<ConfidentialDetailsResponse> detailsResponseCall = equibiz_api_interface.confidentialDetailsResponse(detailsResponse, "Bearer " + token);
+        Call<ConfidentialDetailsResponse> detailsResponseCall = equibiz_api_interface.confidentialDetailsResponse(detailsResponse, "Bearer " + AuthToken);
 
         detailsResponseCall.enqueue(new Callback<ConfidentialDetailsResponse>() {
             @Override
@@ -166,12 +255,9 @@ public class UserProfile extends AppCompatActivity {
 
     private void getWalletResponse() {
 
-        SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
-        String token = mySharedPreferences.getString("LoginToken", "xxxxx");
+        final WalletDetailsResponse detailsResponse = new WalletDetailsResponse(encryptedUserID);
 
-        final WalletDetailsResponse detailsResponse = new WalletDetailsResponse(userID);
-
-        Call<WalletDetailsResponse> walletDetailsResponseCall = equibiz_api_interface.walletDetailsResponse(detailsResponse, "Bearer " + token);
+        Call<WalletDetailsResponse> walletDetailsResponseCall = equibiz_api_interface.walletDetailsResponse(detailsResponse, "Bearer " + AuthToken);
 
         walletDetailsResponseCall.enqueue(new Callback<WalletDetailsResponse>() {
             @Override
@@ -239,18 +325,9 @@ public class UserProfile extends AppCompatActivity {
     }
 
     private void userProfile() {
-        try {
-            cipherUserID = encrypt(userID.getBytes());
-            encryptedUserID = encoderFunction(cipherUserID);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
-        String token = mySharedPreferences.getString("LoginToken", "xxxxx");
-
-        final UserProfileResponse userProfileResponse = new UserProfileResponse(userID);
-        Call<UserProfileResponse> userProfileResponseCall = equibiz_api_interface.userProfileResponse(userProfileResponse, "Bearer " + token);
+        final UserProfileResponse userProfileResponse = new UserProfileResponse(encryptedUserID);
+        Call<UserProfileResponse> userProfileResponseCall = equibiz_api_interface.userProfileResponse(userProfileResponse, "Bearer " + AuthToken);
 
         userProfileResponseCall.enqueue(new Callback<UserProfileResponse>() {
             @Override

@@ -1,6 +1,7 @@
 package in.birdvision.equibiz.API.equibizAPI;
 
 import in.birdvision.equibiz.API.equibizAPI.orders.PreBookingResponse;
+import in.birdvision.equibiz.API.equibizAPI.orders.allOrders.AllOrdersResponse;
 import in.birdvision.equibiz.API.equibizAPI.product.filterBrand.BrandFilterResponse;
 import in.birdvision.equibiz.API.equibizAPI.product.filterModel.ModelFilterResponse;
 import in.birdvision.equibiz.API.equibizAPI.product.productDetails.ProductDetailsResponse;
@@ -8,6 +9,7 @@ import in.birdvision.equibiz.API.equibizAPI.product.productList.ProductListRespo
 import in.birdvision.equibiz.API.equibizAPI.product.searchProduct.SearchProductResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.BankDetailsResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.BusinessDetailsResponse;
+import in.birdvision.equibiz.API.equibizAPI.userInfo.FillWalletResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.LoginResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.OtpResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.RegistrationResponse;
@@ -75,6 +77,13 @@ public interface Equibiz_API_Interface {
             @Body WalletDetailsResponse walletDetailsResponse,
             @Header("Authorization") String auth);
 
+    //Fill Wallet
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
+    @POST("fillwallet")
+    Call<FillWalletResponse> fillWalletResponse(
+            @Body FillWalletResponse fillWalletResponse,
+            @Header("Authorization") String auth);
+
     //Confidential Data
     @Headers({"Content-Type: application/json;charset=UTF-8"})
     @POST("getconfdetails")
@@ -101,6 +110,13 @@ public interface Equibiz_API_Interface {
     @POST("getbrandpros")
     Call<BrandFilterResponse> brandFilterResponse(
             @Body BrandFilterResponse brandFilterResponse,
+            @Header("Authorization") String auth);
+
+    //Get all Orders
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
+    @POST("getallorders")
+    Call<AllOrdersResponse> allOrderResponse(
+            @Body AllOrdersResponse allOrdersResponse,
             @Header("Authorization") String auth);
 
 }
