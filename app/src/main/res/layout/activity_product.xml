@@ -467,6 +467,24 @@
                 <TableRow>
 
                     <TextView
+                        android:id="@+id/tvPS_MQ"
+                        android:fontFamily="@font/montserrat"
+                        android:padding="5dp"
+                        android:text="@string/minimum_quantity"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvPS_minQuantity"
+                        android:fontFamily="@font/montserrat"
+                        android:padding="5dp"
+                        android:textColor="@color/black" />
+                </TableRow>
+
+
+                <TableRow>
+
+                    <TextView
                         android:id="@+id/tvPS_PU"
                         android:fontFamily="@font/montserrat"
                         android:padding="5dp"
@@ -516,7 +534,6 @@
                 </TableRow>
 
                 <TableRow>
-
                     <TextView
                         android:id="@+id/tvPS_DT"
                         android:fontFamily="@font/montserrat"
@@ -533,7 +550,6 @@
                 </TableRow>
 
                 <TableRow>
-
                     <TextView
                         android:fontFamily="@font/montserrat"
                         android:padding="5dp"
@@ -544,11 +560,10 @@
                     <EditText
                         android:id="@+id/etvPS_orderQuanitity"
                         android:fontFamily="@font/montserrat"
-                        android:hint="5"
                         android:inputType="number"
                         android:padding="5dp"
                         android:importantForAutofill="no"
-                        android:maxLength="3"
+                        android:maxLength="7"
                         android:textColor="@color/black" />
                 </TableRow>
             </TableLayout>

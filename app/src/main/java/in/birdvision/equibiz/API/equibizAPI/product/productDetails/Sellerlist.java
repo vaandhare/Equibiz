@@ -7,7 +7,7 @@ public class Sellerlist {
 
     private String _id;
     @SerializedName("available_stock")
-    private long availableStock;
+    private int availableStock;
     @SerializedName("avg_price")
     private long avgPrice;
     private String color;
@@ -24,13 +24,21 @@ public class Sellerlist {
     private String timeToDel;
     @SerializedName("user_id")
     private String userId;
+    @SerializedName("minqty")
+    private String minqty;
+    @SerializedName("forexport")
+    private Boolean forexport;
+    @SerializedName("soldout")
+    private Boolean soldout;
+    @SerializedName("hublocation")
+    private String hublocation;
 
 
     public String get_id() {
         return _id;
     }
 
-    public long getAvailableStock() {
+    public int getAvailableStock() {
         return availableStock;
     }
 
@@ -69,4 +77,21 @@ public class Sellerlist {
     public String getUserId() {
         return userId;
     }
+
+    public String getMinqty() {
+        return minqty;
+    }
+
+    public Boolean getForexport() {
+        return forexport;
+    }
+
+    public Boolean getSoldout() {
+        return soldout;
+    }
+
+    public String getHublocation() {
+        return hublocation;
+    }
 }
+

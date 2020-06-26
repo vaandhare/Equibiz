@@ -160,5 +160,6 @@
     <string name="delivery_time_days">Delivery Time (Days)</string>
     <string name="total_stock">Total Stock</string>
     <string name="profile">Profile</string>
+    <string name="minimum_quantity">Minimum Quantity</string>
 
 </resources>

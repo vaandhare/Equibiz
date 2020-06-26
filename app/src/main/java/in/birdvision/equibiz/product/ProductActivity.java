@@ -54,12 +54,15 @@ public class ProductActivity extends AppCompatActivity {
     TextView productName, productSpecs, totalStock, avgPrice, productRam, productExpandableMemory, productInternalMemory,
             productFrontCam, productPrimaryCam, productOS, productBattery, productNetwork, productSims,
             productDimensions, productScreenSize, productProcessor, sellerTotalQuantity, sellerPPU, sellerLocation,
-            sellerColor, sellerDeliveryTime;
+            sellerColor, sellerDeliveryTime, sellerMinQuantity;
 
     EditText sellerOrderQuantity;
 
     String COColor, CODeliveryLocation, COTime, COOrderQuantity, COPPU, COProID, COSellerID, COSellerProID,
             CORateCardID;
+
+    int minQuantity, maxQuantity;
+
     List<Allratecard> allratecards = new ArrayList<>();
 
     @Override
@@ -169,6 +172,7 @@ public class ProductActivity extends AppCompatActivity {
             findViewById(R.id.tvPS_PU).setVisibility(GONE);
             findViewById(R.id.tvPS_TQ).setVisibility(GONE);
             findViewById(R.id.tvPS_LOC).setVisibility(GONE);
+            findViewById(R.id.tvPS_MQ).setVisibility(GONE);
             sellerTotalQuantity.setVisibility(GONE);
             sellerPPU.setVisibility(GONE);
             sellerLocation.setVisibility(GONE);
@@ -182,19 +186,24 @@ public class ProductActivity extends AppCompatActivity {
             COProID = sellerList1.getProductId();
             COSellerID = sellerList1.getUserId();
             COSellerProID = sellerList1.get_id();
-            sellerTotalQuantity.setText(String.valueOf(sellerList1.getAvailableStock()));
+            maxQuantity = sellerList1.getAvailableStock();
+            sellerTotalQuantity.setText(String.valueOf(maxQuantity));
             sellerPPU.setText(COPPU);
             sellerLocation.setText(CODeliveryLocation);
             sellerColor.setText(sellerList1.getColor());
             sellerDeliveryTime.setText(COTime);
+            minQuantity = Integer.parseInt(sellerList1.getMinqty());
+            sellerMinQuantity.setText(String.valueOf(minQuantity));
+            sellerOrderQuantity.setHint(String.valueOf(minQuantity));
         }
 
         addToCartBtn.setOnClickListener(v -> {
             COOrderQuantity = sellerOrderQuantity.getText().toString();
+            int userOrderQuantity = Integer.parseInt(COOrderQuantity);
             if (sellerList.isEmpty())
                 Toast.makeText(ProductActivity.this, "Cannot Proceed due to seller unavailable for this product", Toast.LENGTH_SHORT).show();
-            else if (COOrderQuantity.isEmpty())
-                Toast.makeText(ProductActivity.this, "Orders cannot be 0 or empty", Toast.LENGTH_SHORT).show();
+            else if (COOrderQuantity.isEmpty() || userOrderQuantity < minQuantity || userOrderQuantity > maxQuantity)
+                Toast.makeText(ProductActivity.this, "Orders cannot be 0 or empty or greater than total stock", Toast.LENGTH_SHORT).show();
             else {
                 Intent intent = new Intent(ProductActivity.this, ConfirmOrderActivity.class);
                 Bundle bundle = new Bundle();
@@ -240,5 +249,6 @@ public class ProductActivity extends AppCompatActivity {
         sellerColor = findViewById(R.id.tvPS_color);
         sellerDeliveryTime = findViewById(R.id.tvPS_deliveryTime);
         sellerOrderQuantity = findViewById(R.id.etvPS_orderQuanitity);
+        sellerMinQuantity = findViewById(R.id.tvPS_minQuantity);
     }
 }
