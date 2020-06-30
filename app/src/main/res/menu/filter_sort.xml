@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/Menu_product_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home" />
+
+    <item
         android:id="@+id/Menu_product_by_brand"
         android:title="@string/by_brand"
         android:icon="@drawable/sort" />

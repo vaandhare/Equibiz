@@ -32,20 +32,23 @@ import static in.birdvision.equibiz.userInfo.encryption.Encryption.encrypt;
 
 public class BusinessDetailsActivity extends AppCompatActivity {
 
-    TextInputLayout TIL_b_type_spinner, TIL_b_nature_spinner, TIL_b_name, TIL_reg_add, TIL_pin_code, TIL_PD_fName, TIL_PD_lname, TIL_PD_CC,
+    TextInputLayout TIL_b_type_spinner, TIL_b_nature_spinner, TIL_b_hub_loc_spinner, TIL_b_name, TIL_reg_add, TIL_pin_code, TIL_PD_fName, TIL_PD_lname, TIL_PD_CC,
             TIL_PD_mob, TIL_POC1_name, TIL_POC1_CC, TIL_POC1_mob, TIL_POC2_name, TIL_POC2_CC, TIL_POC2_Mob;
 
-    AutoCompleteTextView editTextBusinessTypeFilledExposedDropdown, editTextBusinessNatureFilledExposedDropdown;
-    String encryptedBName, encryptedBNature, encryptedBType, encryptedPDCC, encryptedPDMobNo, encryptedPDFName,
+    AutoCompleteTextView autoEtvBusinessType, autoEtvBusinessNature, autoEtvHubLocation;
+    String encryptedBName, encryptedBNature, encryptedBType, encryptedHubLoc, encryptedPDCC, encryptedPDMobNo, encryptedPDFName,
             encryptedPDLName, encryptedPinCode, encryptedPOC1CC, encryptedPOC1Mob, encryptedPOC1Name, encryptedPOC2CC,
             encryptedPOC2Mob, encryptedPOC2Name, encryptedRegAdd, encryptedUserRole, encryptedSaveLater, encryptedUserObjId;
 
-    byte[] cipherBName, cipherBNature, cipherBType, cipherPinCode, cipherPOC1CC, cipherPOC1Mob, cipherPOC1Name, cipherPOC2CC, cipherPOC2Mob,
-            cipherPOC2Name, cipherRegAdd, cipherSaveLater, cipherUserObjId, cipherPDfname, cipherPDlname, cipherPDCC, cipherPDMob;
+    byte[] cipherBName, cipherBNature, cipherBType, cipherHubLoc, cipherPinCode, cipherPOC1CC, cipherPOC1Mob, cipherPOC1Name, cipherPOC2CC,
+            cipherPOC2Mob, cipherPOC2Name, cipherRegAdd, cipherSaveLater, cipherUserObjId, cipherPDfname, cipherPDlname, cipherPDCC, cipherPDMob;
 
     String[] BusinessType = {"Proprietorship", "Private Limited Company", "LLP", "HUF"};
     String[] BusinessNature = {"Exporter", "Importer", "Trader", "Aggregator", "Corporate Buyer", "Agent",
             "B2B Company", "Dealer", "Distributor", "National Distributor", "CNF Agent"};
+    String[] hublocations = {"Mumbai", "Delhi", "Uttar Pradesh", "Punjab", "Gujrat", "Madya Pradesh", "Goa",
+            "Pune", "Aizawl"};
+
 
     Button BTN_save_next;
     TextView BTN_save_resume_later;
@@ -62,38 +65,43 @@ public class BusinessDetailsActivity extends AppCompatActivity {
         equibiz_api_interface = EquibizApiService.getClient().create(Equibiz_API_Interface.class);
 
         SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
-        AuthToken = mySharedPreferences.getString("LoginToken", "xxxxx");
-        encryptedUserRole = mySharedPreferences.getString("encryptedUserRole", "xxxxx");
+        AuthToken = mySharedPreferences.getString("LoginToken", "");
 
         initializeIDs();
-        BTN_save_next.setOnClickListener(v -> {
-            registerBusinessDetails(false);
-        });
+        BTN_save_next.setOnClickListener(v -> registerBusinessDetails(false));
 
-        BTN_save_resume_later.setOnClickListener(v -> {
-            registerBusinessDetails(true);
-        });
+        BTN_save_resume_later.setOnClickListener(v -> registerBusinessDetails(true));
 
     }
 
     private void registerBusinessDetails(Boolean saveLater) {
 
-        String poc1name = "", poc1cc = "", poc1mob = "", poc2name = "", poc2cc = "", poc2mob = "";
+        SharedPreferences mySharedPreferences = this.getSharedPreferences("User_ObjID", Context.MODE_PRIVATE);
+        String userObjId = mySharedPreferences.getString("UserObjID", "xxxxx");
+        encryptedUserRole = mySharedPreferences.getString("encryptedUserRole", "xxxxx");
+
         String bname = Objects.requireNonNull(TIL_b_name.getEditText()).getText().toString();
         String btype = Objects.requireNonNull(TIL_b_type_spinner.getEditText()).getText().toString();
         String bnature = Objects.requireNonNull(TIL_b_nature_spinner.getEditText()).getText().toString();
+        String hublocation = Objects.requireNonNull(TIL_b_hub_loc_spinner.getEditText()).getText().toString();
         String address = Objects.requireNonNull(TIL_reg_add.getEditText()).getText().toString();
         String pincode = Objects.requireNonNull(TIL_pin_code.getEditText()).getText().toString();
         String pdfname = Objects.requireNonNull(TIL_PD_fName.getEditText()).getText().toString();
         String pdlname = Objects.requireNonNull(TIL_PD_fName.getEditText()).getText().toString();
         String pdCC = Objects.requireNonNull(TIL_PD_CC.getEditText()).getText().toString();
         String pdMob = Objects.requireNonNull(TIL_PD_mob.getEditText()).getText().toString();
-        poc1name = Objects.requireNonNull(TIL_POC1_name.getEditText()).getText().toString();
-        poc1cc = Objects.requireNonNull(TIL_POC1_CC.getEditText()).getText().toString();
-        poc1mob = Objects.requireNonNull(TIL_POC1_mob.getEditText()).getText().toString();
-        poc2name = Objects.requireNonNull(TIL_POC2_name.getEditText()).getText().toString();
-        poc2cc = Objects.requireNonNull(TIL_POC2_CC.getEditText()).getText().toString();
-        poc2mob = Objects.requireNonNull(TIL_POC2_Mob.getEditText()).getText().toString();
+        String poc1name = Objects.requireNonNull(TIL_POC1_name.getEditText()).getText().toString();
+        if (poc1name.isEmpty()) poc1name = "";
+        String poc1cc = Objects.requireNonNull(TIL_POC1_CC.getEditText()).getText().toString();
+        if (poc1cc.isEmpty()) poc1cc = "";
+        String poc1mob = Objects.requireNonNull(TIL_POC1_mob.getEditText()).getText().toString();
+        if (poc1mob.isEmpty()) poc1mob = "";
+        String poc2name = Objects.requireNonNull(TIL_POC2_name.getEditText()).getText().toString();
+        if (poc2name.isEmpty()) poc2name = "";
+        String poc2cc = Objects.requireNonNull(TIL_POC2_CC.getEditText()).getText().toString();
+        if (poc2cc.isEmpty()) poc2cc = "";
+        String poc2mob = Objects.requireNonNull(TIL_POC2_Mob.getEditText()).getText().toString();
+        if (poc2mob.isEmpty()) poc2mob = "";
 
         try {
             cipherBName = encrypt(bname.getBytes());
@@ -104,6 +112,9 @@ public class BusinessDetailsActivity extends AppCompatActivity {
 
             cipherBNature = encrypt(bnature.getBytes());
             encryptedBNature = encoderFunction(cipherBNature);
+
+            cipherHubLoc = encrypt(hublocation.getBytes());
+            encryptedHubLoc = encoderFunction(cipherHubLoc);
 
             cipherRegAdd = encrypt(address.getBytes());
             encryptedRegAdd = encoderFunction(cipherRegAdd);
@@ -141,7 +152,7 @@ public class BusinessDetailsActivity extends AppCompatActivity {
             cipherPOC2Mob = encrypt(poc2mob.getBytes());
             encryptedPOC2Mob = encoderFunction(cipherPOC2Mob);
 
-            cipherUserObjId = encrypt(AuthToken.getBytes());
+            cipherUserObjId = encrypt(userObjId.getBytes());
             encryptedUserObjId = encoderFunction(cipherUserObjId);
 
             cipherSaveLater = encrypt(saveLater.toString().getBytes());
@@ -153,7 +164,8 @@ public class BusinessDetailsActivity extends AppCompatActivity {
 
         final BusinessDetailsResponse businessDetailsResponse = new BusinessDetailsResponse(encryptedBName, encryptedBNature, encryptedBType,
                 encryptedPDCC, encryptedPDMobNo, encryptedPDFName, encryptedPDLName, encryptedPinCode, encryptedPOC1CC, encryptedPOC1Mob,
-                encryptedPOC1Name, encryptedPOC2CC, encryptedPOC2Mob, encryptedPOC2Name, encryptedRegAdd, encryptedUserRole, encryptedSaveLater, encryptedUserObjId);
+                encryptedPOC1Name, encryptedPOC2CC, encryptedPOC2Mob, encryptedPOC2Name, encryptedRegAdd, encryptedUserRole, encryptedSaveLater,
+                encryptedUserObjId, encryptedHubLoc);
 
         Call<BusinessDetailsResponse> businessDetailsResponseCall = equibiz_api_interface.businessDetailsResponse(businessDetailsResponse, "Bearer " + AuthToken);
 
@@ -162,10 +174,13 @@ public class BusinessDetailsActivity extends AppCompatActivity {
             public void onResponse(@NotNull Call<BusinessDetailsResponse> call, @NotNull Response<BusinessDetailsResponse> response) {
                 BusinessDetailsResponse response1 = response.body();
                 if (response1 != null) {
-                    if (saveLater)
-                        startActivity(new Intent(BusinessDetailsActivity.this, LoginActivity.class));
-                    else
-                        startActivity(new Intent(BusinessDetailsActivity.this, VerificationActivity.class));
+                    if (response1.getStatus().equals("success")) {
+                        if (saveLater)
+                            startActivity(new Intent(BusinessDetailsActivity.this, LoginActivity.class));
+                        else
+                            startActivity(new Intent(BusinessDetailsActivity.this, VerificationActivity.class));
+                    } else
+                        Toast.makeText(BusinessDetailsActivity.this, response1.getStatus(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -200,15 +215,21 @@ public class BusinessDetailsActivity extends AppCompatActivity {
 
         //Business Type Spinner
         TIL_b_type_spinner = findViewById(R.id.business_type_spinner);
-        editTextBusinessTypeFilledExposedDropdown = findViewById(R.id.autocomplete_business_type);
+        autoEtvBusinessType = findViewById(R.id.autocomplete_business_type);
         ArrayAdapter<String> adapterBT = new ArrayAdapter<>(BusinessDetailsActivity.this, R.layout.dropdown_menu, BusinessType);
-        editTextBusinessTypeFilledExposedDropdown.setAdapter(adapterBT);
+        autoEtvBusinessType.setAdapter(adapterBT);
 
         //Business Nature Spinner
         TIL_b_nature_spinner = findViewById(R.id.business_nature_spinner);
-        editTextBusinessNatureFilledExposedDropdown = findViewById(R.id.autocomplete_business_nature);
+        autoEtvBusinessNature = findViewById(R.id.autocomplete_business_nature);
         ArrayAdapter<String> adapterBN = new ArrayAdapter<>(BusinessDetailsActivity.this, R.layout.dropdown_menu, BusinessNature);
-        editTextBusinessNatureFilledExposedDropdown.setAdapter(adapterBN);
+        autoEtvBusinessNature.setAdapter(adapterBN);
+
+        //Hub Location Spinner
+        TIL_b_hub_loc_spinner = findViewById(R.id.hub_location_spinner);
+        autoEtvHubLocation = findViewById(R.id.autocomplete_hub_location);
+        ArrayAdapter<String> adapterHL = new ArrayAdapter<>(BusinessDetailsActivity.this, R.layout.dropdown_menu, hublocations);
+        autoEtvHubLocation.setAdapter(adapterHL);
 
     }
 }

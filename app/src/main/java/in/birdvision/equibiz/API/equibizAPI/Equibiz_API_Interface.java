@@ -1,27 +1,36 @@
 package in.birdvision.equibiz.API.equibizAPI;
 
-import in.birdvision.equibiz.API.equibizAPI.orders.PreBookingResponse;
-import in.birdvision.equibiz.API.equibizAPI.orders.allOrders.AllOrdersResponse;
-import in.birdvision.equibiz.API.equibizAPI.product.filterBrand.BrandFilterResponse;
-import in.birdvision.equibiz.API.equibizAPI.product.filterModel.ModelFilterResponse;
-import in.birdvision.equibiz.API.equibizAPI.product.productDetails.ProductDetailsResponse;
-import in.birdvision.equibiz.API.equibizAPI.product.productList.ProductListResponse;
-import in.birdvision.equibiz.API.equibizAPI.product.searchProduct.SearchProductResponse;
+import java.util.Map;
+
+import in.birdvision.equibiz.API.equibizAPI.buyer.orders.PreBookingResponse;
+import in.birdvision.equibiz.API.equibizAPI.buyer.orders.allOrders.AllOrdersResponse;
+import in.birdvision.equibiz.API.equibizAPI.buyer.product.filterBrand.BrandFilterResponse;
+import in.birdvision.equibiz.API.equibizAPI.buyer.product.filterModel.ModelFilterResponse;
+import in.birdvision.equibiz.API.equibizAPI.buyer.product.productDetails.ProductDetailsResponse;
+import in.birdvision.equibiz.API.equibizAPI.buyer.product.productList.ProductListResponse;
+import in.birdvision.equibiz.API.equibizAPI.buyer.product.searchProduct.SearchProductResponse;
+import in.birdvision.equibiz.API.equibizAPI.buyer.profileUserInfo.UserProfileResponse;
+import in.birdvision.equibiz.API.equibizAPI.buyer.profileUserInfo.WalletDetailsResponse;
+import in.birdvision.equibiz.API.equibizAPI.buyer.profileUserInfo.confidentalData.ConfidentialDetailsResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.BankDetailsResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.BusinessDetailsResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.FillWalletResponse;
+import in.birdvision.equibiz.API.equibizAPI.userInfo.ForgotPasswordResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.LoginResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.OtpResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.RegistrationResponse;
+import in.birdvision.equibiz.API.equibizAPI.userInfo.SetPasswordResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.UploadDocuments;
-import in.birdvision.equibiz.API.equibizAPI.userInfo.profile.UserProfileResponse;
-import in.birdvision.equibiz.API.equibizAPI.userInfo.profile.WalletDetailsResponse;
-import in.birdvision.equibiz.API.equibizAPI.userInfo.profile.confidentalData.ConfidentialDetailsResponse;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 
 public interface Equibiz_API_Interface {
 
@@ -40,11 +49,17 @@ public interface Equibiz_API_Interface {
     Call<BusinessDetailsResponse> businessDetailsResponse(@Body BusinessDetailsResponse businessDetailsResponse,
                                                           @Header("Authorization") String auth);
 
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
     @POST("registerbankdetails")
-    Call<BankDetailsResponse> bankDetailsResponse(@Body BankDetailsResponse bankDetailsResponse);
+    Call<BankDetailsResponse> bankDetailsResponse(@Body BankDetailsResponse bankDetailsResponse,
+                                                  @Header("Authorization") String auth);
 
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
+    @Multipart
     @POST("uploaddoc")
-    Call<UploadDocuments> uploadDocuments(@Body UploadDocuments uploadDocuments);
+    Call<UploadDocuments> uploadDocuments(@PartMap Map<String, RequestBody> requestBodyMap,
+                                          @Part MultipartBody.Part file,
+                                          @Header("Authorization") String auth);
 
     //Product
     @Headers({"Content-Type: application/json;charset=UTF-8"})
@@ -120,5 +135,12 @@ public interface Equibiz_API_Interface {
     Call<AllOrdersResponse> allOrderResponse(
             @Body AllOrdersResponse allOrdersResponse,
             @Header("Authorization") String auth);
+
+    @POST("sendcodeforgotpass")
+    Call<ForgotPasswordResponse> forgotPasswordResponse(@Body ForgotPasswordResponse forgotPasswordResponse);
+
+    @POST("setpassword")
+    Call<SetPasswordResponse> setForgotPasswordResponse(
+            @Body SetPasswordResponse setPasswordResponse);
 
 }

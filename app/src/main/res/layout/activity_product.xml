@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".product.ProductActivity">
+    tools:context=".buyer.product.ProductActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/product_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="@color/dark_blue"
         app:menu="@menu/cart_share"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark"
         tools:ignore="RtlSymmetry">
 
         <ImageView
@@ -29,13 +30,12 @@
             android:id="@+id/tv_product_activity"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/product_name"
             android:fontFamily="@font/montserrat"
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/white"
-            android:layout_marginStart="25sp"/>
-    </com.google.android.material.appbar.MaterialToolbar>
+            android:layout_marginStart="25sp" />
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:id="@+id/product_srollbar"

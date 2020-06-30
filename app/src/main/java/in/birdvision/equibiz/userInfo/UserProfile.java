@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
+import androidx.cardview.widget.CardView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -24,12 +25,12 @@ import java.net.SocketTimeoutException;
 
 import in.birdvision.equibiz.API.equibizAPI.EquibizApiService;
 import in.birdvision.equibiz.API.equibizAPI.Equibiz_API_Interface;
+import in.birdvision.equibiz.API.equibizAPI.buyer.profileUserInfo.UserProfileResponse;
+import in.birdvision.equibiz.API.equibizAPI.buyer.profileUserInfo.WalletDetailsResponse;
+import in.birdvision.equibiz.API.equibizAPI.buyer.profileUserInfo.confidentalData.ConfidentialDetailsResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.FillWalletResponse;
-import in.birdvision.equibiz.API.equibizAPI.userInfo.profile.UserProfileResponse;
-import in.birdvision.equibiz.API.equibizAPI.userInfo.profile.WalletDetailsResponse;
-import in.birdvision.equibiz.API.equibizAPI.userInfo.profile.confidentalData.ConfidentialDetailsResponse;
 import in.birdvision.equibiz.R;
-import in.birdvision.equibiz.orders.OrderActivity;
+import in.birdvision.equibiz.buyer.orders.OrderActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,6 +56,7 @@ public class UserProfile extends AppCompatActivity {
     private BiometricPrompt.PromptInfo promptInfo;
 
     SharedPreferences mySharedPreferences;
+    CardView CV_Logout;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -323,6 +325,7 @@ public class UserProfile extends AppCompatActivity {
         tvIFSCNumber = findViewById(R.id.tvUP_ifscCode);
         tvBankBranch = findViewById(R.id.tvUP_bankBranch);
         tvBankCity = findViewById(R.id.tvUP_bankCity);
+
     }
 
     @Override

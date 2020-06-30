@@ -101,12 +101,11 @@
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/etv_gstin_number">
 
-            <TextView
-                android:id="@+id/tv_select_gstin_file"
+            <Spinner
+                android:id="@+id/spinner_gstin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_blue"
-                android:textSize="15sp" />
+                android:gravity="center_vertical" />
 
             <Button
                 android:id="@+id/btn_gstin_upload"
@@ -150,13 +149,6 @@
             android:gravity="end"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/etv_pan_card_number">
-
-            <TextView
-                android:id="@+id/tv_select_pan_card_file"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/dark_blue"
-                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/btn_pan_card_upload"

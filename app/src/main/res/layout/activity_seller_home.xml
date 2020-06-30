@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".seller.SellerHomeActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/playfair_display"
+        android:gravity="center_horizontal"
+        android:text="@string/welcome_back"
+        android:textColor="@color/dark_blue"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:padding="7dp"
+                    android:text="@string/your_account_progress"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="15sp" />
+
+                <ProgressBar
+                    android:id="@+id/tvSH_progressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:progress="10" />
+
+                <CheckBox
+                    android:id="@+id/cbSH_phoneVerified"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Phone Verified" />
+
+                <CheckBox
+                    android:id="@+id/cbSH_emailVerified"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Email Verified" />
+
+                <CheckBox
+                    android:id="@+id/cbSH_businessDetailsVerified"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Business Details" />
+
+                <CheckBox
+                    android:id="@+id/cbSH_ownerDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Owner Details" />
+
+                <CheckBox
+                    android:id="@+id/cbSH_businessCOP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Business Contact Persons" />
+
+                <CheckBox
+                    android:id="@+id/cbSH_bankDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Bank Details" />
+
+                <CheckBox
+                    android:id="@+id/cbSH_documentsVerified"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Document Verification" />
+
+                <CheckBox
+                    android:id="@+id/cbSH_invoiceTemplate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Invoice Template" />
+
+                <CheckBox
+                    android:id="@+id/cbSH_walletBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="Wallet Balance" />
+
+                <CheckBox
+                    android:id="@+id/cbSH_listingAdded"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="15dp"
+                    android:text=" Listing Added
+" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

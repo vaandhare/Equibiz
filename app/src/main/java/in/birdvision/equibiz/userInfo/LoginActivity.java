@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -24,7 +25,7 @@ import in.birdvision.equibiz.API.equibizAPI.EquibizApiService;
 import in.birdvision.equibiz.API.equibizAPI.Equibiz_API_Interface;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.LoginResponse;
 import in.birdvision.equibiz.R;
-import in.birdvision.equibiz.product.ProductListActivity;
+import in.birdvision.equibiz.buyer.product.ProductListActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,7 +35,7 @@ import static in.birdvision.equibiz.userInfo.encryption.Encryption.encrypt;
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextView tvRegister, tvBuyer, tvSeller, tvLoginAs, tvLoginError;
+    TextView tvRegister, tvBuyer, tvSeller, tvLoginAs, tvLoginError, tvForgotPass;
     Integer userRole = 1;
     Button login_btn;
     TextInputLayout TIL_Mobile_Number, TIL_Password;
@@ -42,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
     byte[] cipherText;
     Equibiz_API_Interface equibiz_api_interface;
     ProgressDialog progressDialog;
+    SwitchCompat rememberSwitch;
+    LoginResponse response1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +59,16 @@ public class LoginActivity extends AppCompatActivity {
         tvSeller = findViewById(R.id.tv_login_seller);
         tvLoginAs = findViewById(R.id.tv_login_as);
         tvLoginError = findViewById(R.id.tv_login_error);
+        tvForgotPass = findViewById(R.id.tv_forgot_pass);
+        rememberSwitch = findViewById(R.id.switchCompat);
 
         equibiz_api_interface = EquibizApiService.getClient().create(Equibiz_API_Interface.class);
 
         progressDialog = new ProgressDialog(LoginActivity.this);
         progressDialog.setCancelable(false);
         progressDialog.setIndeterminate(true);
+
+        tvForgotPass.setOnClickListener(v -> startActivity(new Intent(this, ForgotPasswordActivity.class)));
 
         tvBuyer.setOnClickListener(v -> {
             userRole = 1;
@@ -96,9 +103,7 @@ public class LoginActivity extends AppCompatActivity {
         builder.setTitle("Verify your Email");
         builder.setMessage("Email verification is not done yet. Verify your email id to activate your account.");
 
-        builder.setPositiveButton("Ok", ((dialog, which) -> {
-            dialog.dismiss();
-        })).create().setCanceledOnTouchOutside(false);
+        builder.setPositiveButton("Ok", ((dialog, which) -> dialog.dismiss())).create().setCanceledOnTouchOutside(false);
 
         builder.show();
     }
@@ -112,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Call<LoginResponse> call, @NotNull Response<LoginResponse> response) {
                 progressDialog.dismiss();
-                LoginResponse response1 = response.body();
+                response1 = response.body();
                 assert response1 != null;
 //                if(response1.getStatus().equals("success") && response1.getData().getEmailverified().equals("false")) {
 //                    checkEmailVerification();

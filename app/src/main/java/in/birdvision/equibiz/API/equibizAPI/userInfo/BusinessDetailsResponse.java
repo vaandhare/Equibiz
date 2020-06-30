@@ -45,16 +45,18 @@ public class BusinessDetailsResponse {
     private String status;
     @SerializedName("businessverified")
     private String businessverified;
-    @SerializedName("bankdetails")
-    private BankDetails bankdetails;
+    //    @SerializedName("bankdetails")
+//    private BankDetails bankdetails;
     @SerializedName("businessdetails")
     private BusinessDetails businessdetails;
+    @SerializedName("hublocation")
+    private String hublocation;
 
     public BusinessDetailsResponse(String businessname, String businessnature, String businesstype,
                                    String owner_countrycode, String owner_mobnumber, String ownerfname,
                                    String ownerlname, String pincode, String poc1_countrycode, String poc1_mobile,
                                    String poc1_name, String poc2_countrycode, String poc2_mobile, String poc2_name,
-                                   String regd_address, String role, String savelater, String userobjid) {
+                                   String regd_address, String role, String savelater, String userobjid, String hublocation) {
         this.businessname = businessname;
         this.businessnature = businessnature;
         this.businesstype = businesstype;
@@ -73,6 +75,7 @@ public class BusinessDetailsResponse {
         this.role = role;
         this.savelater = savelater;
         this.userobjid = userobjid;
+        this.hublocation = hublocation;
     }
 
     public String getStatus() {
@@ -83,9 +86,9 @@ public class BusinessDetailsResponse {
         return businessverified;
     }
 
-    public BankDetails getBankdetails() {
-        return bankdetails;
-    }
+//    public BankDetails getBankdetails() {
+//        return bankdetails;
+//    }
 
     public BusinessDetails getBusinessdetails() {
         return businessdetails;
@@ -163,6 +166,10 @@ public class BusinessDetailsResponse {
         return userobjid;
     }
 
+    public String getHublocation() {
+        return hublocation;
+    }
+
     private static class BankDetails {
 
         @SerializedName("_id")
@@ -237,9 +244,10 @@ public class BusinessDetailsResponse {
         public String getIfscbranch() {
             return ifscbranch;
         }
+
     }
 
-    private static class BusinessDetails {
+    public static class BusinessDetails {
         @SerializedName("_id")
         private String _id;
         @SerializedName("userobjid")
@@ -254,6 +262,8 @@ public class BusinessDetailsResponse {
         private String buyer_b_type;
         @SerializedName("createdDate")
         private String createdDate;
+        @SerializedName("hublocation")
+        private String hublocation;
         @SerializedName("owner_countrycode")
         private String owner_countrycode;
         @SerializedName("owner_fname")

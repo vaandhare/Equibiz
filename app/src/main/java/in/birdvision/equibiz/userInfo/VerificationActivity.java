@@ -6,20 +6,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -27,8 +31,10 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.File;
 import java.net.SocketTimeoutException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,7 +47,10 @@ import in.birdvision.equibiz.API.ifsc_api.IFSC;
 import in.birdvision.equibiz.API.ifsc_api.IFSC_API_Interface;
 import in.birdvision.equibiz.API.ifsc_api.RasorpayApiService;
 import in.birdvision.equibiz.R;
-import in.birdvision.equibiz.product.ProductListActivity;
+import in.birdvision.equibiz.buyer.product.ProductListActivity;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,14 +67,17 @@ public class VerificationActivity extends AppCompatActivity {
     TextInputLayout TIL_spinner_bank_name, TIL_spinner_bank_branch_name, TIL_pan_card, TIL_gstin_number,
             TIL_ifsc_code, TIL_account_no, TIL_acc_holder_name;
     Button BTN_gstin_img, BTN_pan_img, BTN_save_submit, BTN_previous, BTN_verify_ifsc;
-    String et_value_pan_card, et_value_gstin, et_ifsc_code;
+    String et_value_pan_card, et_value_gstin, et_ifsc_code, spinnerGstinValue;
     String encryptedAccHolderName, encryptedAccNum, encryptedBankBranch, encryptedBankCity, encryptedBankName,
             encryptedIfscCode, encryptedRole, encryptedUserObjId, encryptedSpinnerBankBranch, encryptedWhichType,
-            encryptedLabel;
+            encryptedLabel, encryptedGstinSpinnner;
     byte[] cipherAccHolderName, cipherAccNum, cipherBankBranch, cipherBankCity, cipherBankName,
             cipherIfscCode, cipherUserObjId, cipherSpinnerBankBranch, cipherWhichType,
-            cipherLabel;
-    TextView TV_gstin_file_name, TV_pan_file_name, TV_bank_branch_details;
+            cipherLabel, cipherGstinSpinner;
+    TextView TV_bank_branch_details;
+
+    Spinner spinnerGSTIN;
+    String[] gstinValidity = {"Monthly", "Quarterly"};
 
     String str_bank_city, str_bank_address, str_bank_branch, str_bank_name;
 
@@ -73,12 +85,20 @@ public class VerificationActivity extends AppCompatActivity {
     Equibiz_API_Interface equibiz_api_interface;
     ProgressDialog progressDialog;
     Integer whichType;
+    private String AuthToken, labelValue, userObjId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verification);
         initializeIDs();
+
+        SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
+        AuthToken = mySharedPreferences.getString("LoginToken", "");
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences("User_ObjID", Context.MODE_PRIVATE);
+        userObjId = sharedPreferences.getString("UserObjID", "");
+        encryptedRole = sharedPreferences.getString("encryptedUserRole", "");
 
         equibiz_api_interface = EquibizApiService.getClient().create(Equibiz_API_Interface.class);
 
@@ -98,9 +118,6 @@ public class VerificationActivity extends AppCompatActivity {
         String acc_holder_name = Objects.requireNonNull(TIL_acc_holder_name.getEditText()).getText().toString();
         String spinner_bank_branch = Objects.requireNonNull(TIL_spinner_bank_branch_name.getEditText()).getText().toString();
 
-        SharedPreferences mySharedPreferences = this.getSharedPreferences("User_ObjID", Context.MODE_PRIVATE);
-        String userObjId = mySharedPreferences.getString("UserObjID", "xxxxx");
-        encryptedRole = mySharedPreferences.getString("encryptedUserRole", "xxxxx");
 
         try {
             cipherAccHolderName = encrypt(acc_holder_name.getBytes());
@@ -121,9 +138,6 @@ public class VerificationActivity extends AppCompatActivity {
             cipherIfscCode = encrypt(et_ifsc_code.getBytes());
             encryptedIfscCode = encoderFunction(cipherIfscCode);
 
-            cipherUserObjId = encrypt(userObjId.getBytes());
-            encryptedUserObjId = encoderFunction(cipherUserObjId);
-
             cipherSpinnerBankBranch = encrypt(spinner_bank_branch.getBytes());
             encryptedSpinnerBankBranch = encoderFunction(cipherSpinnerBankBranch);
         } catch (Exception e) {
@@ -133,7 +147,7 @@ public class VerificationActivity extends AppCompatActivity {
         final BankDetailsResponse bankDetailsResponse = new BankDetailsResponse(encryptedAccHolderName,
                 encryptedAccNum, encryptedSpinnerBankBranch, encryptedBankCity, encryptedBankName, encryptedBankBranch,
                 encryptedIfscCode, encryptedRole, encryptedUserObjId);
-        Call<BankDetailsResponse> bankDetailsResponseCall = equibiz_api_interface.bankDetailsResponse(bankDetailsResponse);
+        Call<BankDetailsResponse> bankDetailsResponseCall = equibiz_api_interface.bankDetailsResponse(bankDetailsResponse, "Bearer " + AuthToken);
 
         bankDetailsResponseCall.enqueue(new Callback<BankDetailsResponse>() {
             @Override
@@ -191,23 +205,75 @@ public class VerificationActivity extends AppCompatActivity {
         return true;
     }
 
-
     private void requestImage() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select image"), 1);
+        final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose Image");
+
+        builder.setItems(options, (dialog, item) -> {
+
+            if (options[item].equals("Take Photo")) {
+                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePicture, 0);
+            } else if (options[item].equals("Choose from Gallery")) {
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto, 1);
+
+            } else if (options[item].equals("Cancel")) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 
-    private void uploadImage(String encryptedLabel, String encryptedWhichType, byte[] imagePath) {
-        final UploadDocuments uploadDocuments = new UploadDocuments(encryptedRole, encryptedUserObjId, encryptedLabel, encryptedWhichType, imagePath);
-        Call<UploadDocuments> documentsCall = equibiz_api_interface.uploadDocuments(uploadDocuments);
+    private void uploadImage(String imagePath) {
+
+        spinnerGstinValue = spinnerGSTIN.getSelectedItem().toString();
+
+        try {
+            cipherLabel = encrypt(labelValue.getBytes());
+            encryptedLabel = encoderFunction(cipherLabel);
+
+            cipherUserObjId = encrypt(userObjId.getBytes());
+            encryptedUserObjId = encoderFunction(cipherUserObjId);
+
+            cipherWhichType = encrypt(whichType.toString().getBytes());
+            encryptedWhichType = encoderFunction(cipherWhichType);
+
+            cipherGstinSpinner = encrypt(spinnerGstinValue.getBytes());
+            encryptedGstinSpinnner = encoderFunction(cipherGstinSpinner);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        File file = new File(imagePath);
+
+        RequestBody requestFile = RequestBody.create(file, MediaType.parse("multipart/form-data"));
+
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+
+        Map<String, RequestBody> requestBodyMap = new HashMap<>();
+        requestBodyMap.put("label", RequestBody.create(encryptedLabel, MediaType.parse("multipart/form-data")));
+        requestBodyMap.put("role", RequestBody.create(encryptedRole, MediaType.parse("multipart/form-data")));
+        requestBodyMap.put("userobjid", RequestBody.create(encryptedUserObjId, MediaType.parse("multipart/form-data")));
+        requestBodyMap.put("whichtype", RequestBody.create(encryptedWhichType, MediaType.parse("multipart/form-data")));
+        requestBodyMap.put("gsttype", RequestBody.create(encryptedGstinSpinnner, MediaType.parse("multipart/form-data")));
+
+        Log.d("label", encryptedLabel);
+        Log.d("role", encryptedRole);
+        Log.d("userobjid", encryptedUserObjId);
+        Log.d("whichtype", encryptedWhichType);
+        Log.d("gsttype", encryptedGstinSpinnner);
+
+
+        Call<UploadDocuments> documentsCall = equibiz_api_interface.uploadDocuments(requestBodyMap, body, "Bearer " + AuthToken);
         documentsCall.enqueue(new Callback<UploadDocuments>() {
             @Override
             public void onResponse(@NotNull Call<UploadDocuments> call, @NotNull Response<UploadDocuments> response) {
                 UploadDocuments uploadDocuments1 = response.body();
                 assert uploadDocuments1 != null;
-                Toast.makeText(VerificationActivity.this, uploadDocuments1.getStatus(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(VerificationActivity.this, response.message(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -224,22 +290,55 @@ public class VerificationActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            Uri selectedImage = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 250, byteArrayOutputStream);
-                byte[] imagePath = byteArrayOutputStream.toByteArray();
-                uploadImage(encryptedLabel, encryptedWhichType, imagePath);
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (resultCode != RESULT_CANCELED) {
+            switch (requestCode) {
+                case 0:
+                    if (resultCode == RESULT_OK && data != null) {
+                        Bitmap bitmap = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
+                        assert bitmap != null;
+                        Bitmap convertedImage = getResizedBitmap(bitmap, 200);
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        convertedImage.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+
+                        String path = MediaStore.Images.Media.insertImage(getContentResolver(), convertedImage, "title", null);
+                        uploadImage(path);
+                    }
+                    break;
+                case 1:
+                    if (resultCode == RESULT_OK && data != null) {
+                        Uri selectedImage = data.getData();
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                        if (selectedImage != null) {
+                            Cursor cursor = getContentResolver().query(selectedImage,
+                                    filePathColumn, null, null, null);
+                            if (cursor != null) {
+                                cursor.moveToFirst();
+                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                                String imagePath = cursor.getString(columnIndex);
+                                uploadImage(imagePath);
+                                cursor.close();
+                            }
+                        }
+                    }
+                    break;
             }
         }
-
     }
 
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
 
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
+    }
 
     private void initializeIDs() {
         Resources resources = getResources();
@@ -263,6 +362,11 @@ public class VerificationActivity extends AppCompatActivity {
         TIL_ifsc_code = findViewById(R.id.etv_ifsc_number);
         TIL_ifsc_code.setErrorEnabled(false);
 
+        spinnerGSTIN = findViewById(R.id.spinner_gstin);
+        ArrayAdapter<String> adapterGSTIN = new ArrayAdapter<>(VerificationActivity.this,
+                R.layout.dropdown_menu, gstinValidity);
+        spinnerGSTIN.setAdapter(adapterGSTIN);
+
         TIL_acc_holder_name = findViewById(R.id.etv_account_holder_name);
         TIL_account_no = findViewById(R.id.etv_account_number);
 
@@ -272,8 +376,6 @@ public class VerificationActivity extends AppCompatActivity {
         BTN_previous = findViewById(R.id.btn_previous_va);
         BTN_verify_ifsc = findViewById(R.id.btn_verify_ifsc);
 
-        TV_gstin_file_name = findViewById(R.id.tv_select_gstin_file);
-        TV_pan_file_name = findViewById(R.id.tv_select_pan_card_file);
         TV_bank_branch_details = findViewById(R.id.tv_av_bank_branch_details);
 
         BTN_previous.setOnClickListener(v -> startActivity(new
@@ -336,16 +438,7 @@ public class VerificationActivity extends AppCompatActivity {
             whichType = 1;
             et_value_gstin = TIL_gstin_number.getEditText().getText().toString();
             if (GstinPatternMatchers()) {
-                try {
-                    cipherLabel = encrypt(et_value_gstin.getBytes());
-                    encryptedLabel = encoderFunction(cipherLabel);
-
-                    cipherWhichType = encrypt(whichType.toString().getBytes());
-                    encryptedWhichType = encoderFunction(cipherWhichType);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
+                labelValue = et_value_gstin;
                 requestImage();
             }
         });
@@ -354,16 +447,7 @@ public class VerificationActivity extends AppCompatActivity {
             whichType = 2;
             et_value_pan_card = TIL_pan_card.getEditText().getText().toString();
             if (PanPatternMatchers()) {
-                try {
-                    cipherLabel = encrypt(et_value_pan_card.getBytes());
-                    encryptedLabel = encoderFunction(cipherLabel);
-
-                    cipherWhichType = encrypt(whichType.toString().getBytes());
-                    encryptedWhichType = encoderFunction(cipherWhichType);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
+                labelValue = et_value_pan_card;
                 requestImage();
             }
         });
