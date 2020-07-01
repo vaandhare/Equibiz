@@ -1,15 +1,18 @@
-package in.birdvision.equibiz.buyer.orders;
+package in.birdvision.equibiz.buyer.ui.orders;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -24,30 +27,31 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+public class OrderFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     Spinner Order_history_spinner;
     String userID, AuthToken, encryptedUserID;
     Equibiz_API_Interface equibiz_api_interface;
+    Context context;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_order);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_order, container, false);
+        context = root.getContext();
 
-        SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
-        AuthToken = mySharedPreferences.getString("LoginToken", "xxxxx");
+        SharedPreferences mySharedPreferences = this.requireActivity().getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
+        AuthToken = mySharedPreferences.getString("LoginToken", "");
 
         equibiz_api_interface = EquibizApiService.getClient().create(Equibiz_API_Interface.class);
 
-        userID = mySharedPreferences.getString("BuyerID", "xxxxx");
+        userID = mySharedPreferences.getString("BuyerID", "");
 //        userID = "mXLr0B3FETZHF0NJNhg0cksJhaQ9gB1w6zkeOpggdwI=";
 //        userID = "/SEl1CTA8IauX/EmxsmRKW6zOFkNcbkzDN+GeekxEEo=";
 //        userID = "q/VhbMT8BFuyAwd115v4Sr8gZCc5z5+ST75APzZYRBM=";
 
         getAllOrdersResponse(userID);
 
-        Order_history_spinner = findViewById(R.id.spinner_order_history);
+        Order_history_spinner = root.findViewById(R.id.spinner_order_history);
         Order_history_spinner.setOnItemSelectedListener(this);
 
         ArrayList<String> order_history_type = new ArrayList<>();
@@ -56,9 +60,11 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
         order_history_type.add("Orders Confirmed");
         order_history_type.add("Orders Canceled");
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, order_history_type);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, order_history_type);
         dataAdapter.setDropDownViewResource(R.layout.dropdown_menu);
         Order_history_spinner.setAdapter(dataAdapter);
+
+        return root;
     }
 
     private void getAllOrdersResponse(String userID) {
@@ -75,9 +81,9 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
             @Override
             public void onFailure(@NotNull Call<AllOrdersResponse> call, @NotNull Throwable t) {
                 if (t instanceof SocketTimeoutException)
-                    Toast.makeText(OrderActivity.this, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(OrderActivity.this, t.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, t.toString(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -93,4 +99,5 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
 }

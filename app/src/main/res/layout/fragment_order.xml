@@ -4,37 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".buyer.orders.OrderActivity">
-
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/order_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/dark_blue"
-        android:paddingEnd="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="RtlSymmetry">
-
-        <ImageView
-            android:id="@+id/img_back_all_category"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_keyboard_arrow_left"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/tv_all_categories"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="25sp"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/orders"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </com.google.android.material.appbar.MaterialToolbar>
+    tools:context=".buyer.ui.orders.OrderFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/CC_track_order"
@@ -43,7 +13,7 @@
         android:layout_margin="15dp"
         app:cardCornerRadius="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/order_toolbar">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
