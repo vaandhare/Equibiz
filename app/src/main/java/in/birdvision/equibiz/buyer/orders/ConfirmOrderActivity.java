@@ -32,7 +32,7 @@ import in.birdvision.equibiz.API.equibizAPI.Equibiz_API_Interface;
 import in.birdvision.equibiz.API.equibizAPI.buyer.orders.PreBookingResponse;
 import in.birdvision.equibiz.API.equibizAPI.buyer.product.productDetails.Allratecard;
 import in.birdvision.equibiz.R;
-import in.birdvision.equibiz.buyer.product.ProductListActivity;
+import in.birdvision.equibiz.buyer.BuyerHomeActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -228,9 +228,10 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
         View dialogView = LayoutInflater.from(this).inflate(R.layout.success_dialog_activity, viewGroup, false);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(dialogView);
-        builder.setPositiveButton(R.string.close, (dialog, which)
-                -> startActivity(new Intent(ConfirmOrderActivity.this, ProductListActivity.class)));
+        builder.setNegativeButton("Go Home", (dialog, which)
+                -> startActivity(new Intent(ConfirmOrderActivity.this, BuyerHomeActivity.class)));
 
+        builder.setPositiveButton("Continue Shopping", (dialog, which) -> onBackPressed());
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
 

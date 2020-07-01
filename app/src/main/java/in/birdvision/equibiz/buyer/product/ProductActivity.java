@@ -5,17 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 
@@ -25,7 +21,6 @@ import java.io.Serializable;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import in.birdvision.equibiz.API.equibizAPI.EquibizApiService;
 import in.birdvision.equibiz.API.equibizAPI.Equibiz_API_Interface;
@@ -35,107 +30,92 @@ import in.birdvision.equibiz.API.equibizAPI.buyer.product.productDetails.Product
 import in.birdvision.equibiz.API.equibizAPI.buyer.product.productDetails.Sellerlist;
 import in.birdvision.equibiz.R;
 import in.birdvision.equibiz.buyer.orders.ConfirmOrderActivity;
-import in.birdvision.equibiz.buyer.orders.OrderActivity;
+import in.birdvision.equibiz.buyer.ui.product.ProductListFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.view.View.GONE;
-import static in.birdvision.equibiz.buyer.product.ProductListActivity.EXTRA_COLOR;
-import static in.birdvision.equibiz.buyer.product.ProductListActivity.EXTRA_INTERNAL_MEMORY;
-import static in.birdvision.equibiz.buyer.product.ProductListActivity.EXTRA_PRO_ID;
-import static in.birdvision.equibiz.buyer.product.ProductListActivity.EXTRA_RAM;
+import static in.birdvision.equibiz.buyer.ui.product.ProductListFragment.EXTRA_COLOR;
+import static in.birdvision.equibiz.buyer.ui.product.ProductListFragment.EXTRA_INTERNAL_MEMORY;
+import static in.birdvision.equibiz.buyer.ui.product.ProductListFragment.EXTRA_PRO_ID;
+import static in.birdvision.equibiz.buyer.ui.product.ProductListFragment.EXTRA_RAM;
 import static in.birdvision.equibiz.userInfo.encryption.Encryption.encoderFunction;
 import static in.birdvision.equibiz.userInfo.encryption.Encryption.encrypt;
 
-public class ProductActivity extends AppCompatActivity {
+public class ProductActivity extends AppCompatActivity implements ProductListFragment.fragmentToActivity {
 
-    Button addToCartBtn;
+    Button addToCartBtn, btnGoBack;
     String encryptedColor, encryptedRam, encryptedInternalMemory, encryptedID;
     byte[] cipherColor, cipherRam, cipherIntMemory, cipherID;
     Equibiz_API_Interface equibiz_api_interface;
 
     //UI
-    ImageView productImg1;
+    ImageView productImg1, backImage;
     TextView productName, productSpecs, totalStock, avgPrice, productRam, productExpandableMemory, productInternalMemory,
             productFrontCam, productPrimaryCam, productOS, productBattery, productNetwork, productSims,
-            productDimensions, productScreenSize, productProcessor, sellerTotalQuantity, sellerPPU, sellerLocation,
-            sellerColor, sellerDeliveryTime, sellerMinQuantity, tvProductNameToolbar;
+            productDimensions, productScreenSize, productProcessor, sellerTotalQuantity, sellerMinQuantity, sellerPPU, sellerLocation,
+            sellerColor, sellerDeliveryTime, activityTitle;
 
     EditText sellerOrderQuantity;
 
-    String COColor, CODeliveryLocation, COTime, COOrderQuantity, COPPU, COProID, COSellerID, COSellerProID,
-            CORateCardID, strProductName;
+    String COColor, CODeliveryLocation, COTime, COOrderQuantity, COPPU, COProID, COSellerID, COSellerProID, COMinQuantity,
+            CORateCardID;
 
-    int minQuantity, maxQuantity;
-
+    String ProductColor, ProductInternalMemory, ProductID, ProductRam;
     List<Allratecard> allratecards = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product);
+        setContentView(R.layout.fragment_product);
         initializeIDs();
-
-        Toolbar toolbar = findViewById(R.id.product_toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
         equibiz_api_interface = EquibizApiService.getClient().create(Equibiz_API_Interface.class);
         productDetailsResponse();
 
-    }
+        addToCartBtn.setOnClickListener(v -> {
+            COOrderQuantity = sellerOrderQuantity.getText().toString();
+            Intent intent = new Intent(ProductActivity.this, ConfirmOrderActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("AllRateCards", (Serializable) allratecards);
+            intent.putExtra("BUNDLE", bundle);
+            intent.putExtra("CO_Color", COColor);
+            intent.putExtra("CO_DeliveryLocation", CODeliveryLocation);
+            intent.putExtra("CO_DeliveryTime", COTime);
+            intent.putExtra("CO_OrderQuantity", COOrderQuantity);
+            intent.putExtra("CO_PPU", COPPU);
+            intent.putExtra("CO_ProID", COProID);
+            intent.putExtra("CO_SellerID", COSellerID);
+            intent.putExtra("CO_SellerProID", COSellerProID);
+            intent.putExtra("CO_RateCardID", CORateCardID);
+            startActivity(intent);
+        });
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.cart_share, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        super.onOptionsItemSelected(item);
-        if (item.getItemId() == R.id.menu_shopping_basket) {
-            startActivity(new Intent(ProductActivity.this, OrderActivity.class));
-            return true;
-        } else if (item.getItemId() == R.id.menu_share) {
-            Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "Hey Equibiz have an amazing offer on " + strProductName);
-            sendIntent.setType("text/plain");
-
-            Intent shareIntent = Intent.createChooser(sendIntent, null);
-            startActivity(shareIntent);
-
-            return true;
-        }
-        return true;
     }
 
     private void productDetailsResponse() {
         Intent intent = getIntent();
-        String productColor = intent.getStringExtra(EXTRA_COLOR);
-        String productInternalMemory = intent.getStringExtra(EXTRA_INTERNAL_MEMORY);
-        String productID = intent.getStringExtra(EXTRA_PRO_ID);
-        String productRam = intent.getStringExtra(EXTRA_RAM);
+        ProductColor = intent.getStringExtra(EXTRA_COLOR);
+        ProductInternalMemory = intent.getStringExtra(EXTRA_INTERNAL_MEMORY);
+        ProductID = intent.getStringExtra(EXTRA_PRO_ID);
+        ProductRam = intent.getStringExtra(EXTRA_RAM);
 
         try {
-            assert productColor != null;
-            cipherColor = encrypt(productColor.getBytes());
+            assert ProductColor != null;
+            cipherColor = encrypt(ProductColor.getBytes());
             encryptedColor = encoderFunction(cipherColor);
 
-            assert productInternalMemory != null;
-            cipherIntMemory = encrypt(productInternalMemory.getBytes());
+            assert ProductInternalMemory != null;
+            cipherIntMemory = encrypt(ProductInternalMemory.getBytes());
             encryptedInternalMemory = encoderFunction(cipherIntMemory);
 
-            assert productID != null;
-            cipherID = encrypt(productID.getBytes());
+            assert ProductID != null;
+            cipherID = encrypt(ProductID.getBytes());
             encryptedID = encoderFunction(cipherID);
 
-            assert productRam != null;
-            cipherRam = encrypt(productRam.getBytes());
+            assert ProductRam != null;
+            cipherRam = encrypt(ProductRam.getBytes());
             encryptedRam = encoderFunction(cipherRam);
 
         } catch (Exception e) {
@@ -181,11 +161,8 @@ public class ProductActivity extends AppCompatActivity {
 
         String brandname = productdatum.getBrandinfo().getBrandname();
         String modelname = productdatum.getProductinfo().getpModelNo();
-        strProductName = brandname + " " + modelname;
-        productName.setText(strProductName);
-
-        tvProductNameToolbar.setText(strProductName);
-
+        productName.setText(brandname + " " + modelname);
+        activityTitle.setText(brandname + " " + modelname);
         String ram = productdatum.getRamMob();
         String internalMemory = productdatum.getInternalMemory();
         COColor = productdatum.getColor();
@@ -206,68 +183,26 @@ public class ProductActivity extends AppCompatActivity {
         productScreenSize.setText(productdatum.getProductinfo().getpScreenSize());
         productProcessor.setText(productdatum.getProductinfo().getpProcessor());
 
-        List<Sellerlist> sellerList = productDetailsResponse1.getSellerlist();
-        if (sellerList.isEmpty()) {
-            findViewById(R.id.tvPS_COL).setVisibility(GONE);
-            findViewById(R.id.tvPS_DT).setVisibility(GONE);
-            findViewById(R.id.tvPS_PU).setVisibility(GONE);
-            findViewById(R.id.tvPS_TQ).setVisibility(GONE);
-            findViewById(R.id.tvPS_LOC).setVisibility(GONE);
-            findViewById(R.id.tvPS_MQ).setVisibility(GONE);
-            sellerTotalQuantity.setVisibility(GONE);
-            sellerPPU.setVisibility(GONE);
-            sellerLocation.setVisibility(GONE);
-            sellerColor.setVisibility(GONE);
-            sellerDeliveryTime.setVisibility(GONE);
-        } else {
-            Sellerlist sellerList1 = sellerList.get(0);
-            COPPU = String.valueOf(sellerList1.getAvgPrice());
-            CODeliveryLocation = sellerList1.getLocation();
-            COTime = sellerList1.getTimeToDel();
-            COProID = sellerList1.getProductId();
-            COSellerID = sellerList1.getUserId();
-            COSellerProID = sellerList1.get_id();
-            maxQuantity = sellerList1.getAvailableStock();
-            sellerTotalQuantity.setText(String.valueOf(maxQuantity));
-            sellerPPU.setText(COPPU);
-            sellerLocation.setText(CODeliveryLocation);
-            sellerColor.setText(sellerList1.getColor());
-            sellerDeliveryTime.setText(COTime);
-            minQuantity = Integer.parseInt(sellerList1.getMinqty());
-            sellerMinQuantity.setText(String.valueOf(minQuantity));
-            sellerOrderQuantity.setHint(String.valueOf(minQuantity));
-        }
-
-        addToCartBtn.setOnClickListener(v -> {
-            COOrderQuantity = sellerOrderQuantity.getText().toString();
-            int userOrderQuantity = Integer.parseInt(COOrderQuantity);
-            if (sellerList.isEmpty())
-                Toast.makeText(ProductActivity.this, "Cannot Proceed due to seller unavailable for this product", Toast.LENGTH_SHORT).show();
-            else if (COOrderQuantity.isEmpty() || userOrderQuantity < minQuantity || userOrderQuantity > maxQuantity)
-                Toast.makeText(ProductActivity.this, "Orders cannot be 0 or empty or greater than total stock", Toast.LENGTH_SHORT).show();
-            else {
-                Intent intent = new Intent(ProductActivity.this, ConfirmOrderActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("AllRateCards", (Serializable) allratecards);
-                intent.putExtra("BUNDLE", bundle);
-                intent.putExtra("CO_Color", COColor);
-                intent.putExtra("CO_DeliveryLocation", CODeliveryLocation);
-                intent.putExtra("CO_DeliveryTime", COTime);
-                intent.putExtra("CO_OrderQuantity", COOrderQuantity);
-                intent.putExtra("CO_PPU", COPPU);
-                intent.putExtra("CO_ProID", COProID);
-                intent.putExtra("CO_SellerID", COSellerID);
-                intent.putExtra("CO_SellerProID", COSellerProID);
-                intent.putExtra("CO_RateCardID", CORateCardID);
-                startActivity(intent);
-            }
-        });
+        Sellerlist sellerlist = productDetailsResponse1.getSellerlist().get(0);
+        COPPU = String.valueOf(sellerlist.getAvgPrice());
+        CODeliveryLocation = sellerlist.getLocation();
+        COTime = sellerlist.getTimeToDel();
+        COProID = sellerlist.getProductId();
+        COSellerID = sellerlist.getUserId();
+        COSellerProID = sellerlist.get_id();
+        sellerTotalQuantity.setText(String.valueOf(sellerlist.getAvailableStock()));
+        sellerMinQuantity.setText(String.valueOf(sellerlist.getMinqty()));
+        sellerOrderQuantity.setHint(String.valueOf(sellerlist.getMinqty()));
+        sellerPPU.setText(COPPU);
+        sellerLocation.setText(CODeliveryLocation);
+        sellerColor.setText(sellerlist.getColor());
+        sellerDeliveryTime.setText(COTime);
     }
 
     private void initializeIDs() {
-
-        tvProductNameToolbar = findViewById(R.id.tv_product_activity);
-
+        activityTitle = findViewById(R.id.tv_product);
+        backImage = findViewById(R.id.img_back_product);
+        backImage.setOnClickListener(v -> onBackPressed());
         productImg1 = findViewById(R.id.product_poster_imag);
         productName = findViewById(R.id.tvP_product_name);
         productSpecs = findViewById(R.id.tvP_product_specs);
@@ -286,13 +221,24 @@ public class ProductActivity extends AppCompatActivity {
         productScreenSize = findViewById(R.id.tvP_screenSize);
         productProcessor = findViewById(R.id.tvP_processor);
         addToCartBtn = findViewById(R.id.btn_pro_book_now);
-
+        btnGoBack = findViewById(R.id.btn_go_back_now);
+        btnGoBack.setOnClickListener(v -> onBackPressed());
         sellerTotalQuantity = findViewById(R.id.tvPS_totalQuantity);
+        sellerMinQuantity = findViewById(R.id.tvPS_minQuantity);
         sellerPPU = findViewById(R.id.tvPS_ppu);
         sellerLocation = findViewById(R.id.tvPS_location);
         sellerColor = findViewById(R.id.tvPS_color);
         sellerDeliveryTime = findViewById(R.id.tvPS_deliveryTime);
         sellerOrderQuantity = findViewById(R.id.etvPS_orderQuanitity);
-        sellerMinQuantity = findViewById(R.id.tvPS_minQuantity);
     }
+
+    @Override
+    public void getProductData(String productColor, String productInternalMemory, String productID, String productRam) {
+        this.ProductColor = productColor;
+        this.ProductInternalMemory = productInternalMemory;
+        this.ProductID = productID;
+        this.ProductRam = productRam;
+    }
+
+
 }

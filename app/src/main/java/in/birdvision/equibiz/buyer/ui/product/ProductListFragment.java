@@ -1,21 +1,22 @@
-package in.birdvision.equibiz.buyer.product;
+package in.birdvision.equibiz.buyer.ui.product;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ImageView;
+import android.view.MenuInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,8 +35,6 @@ import in.birdvision.equibiz.API.equibizAPI.buyer.product.filterModel.ModelFilte
 import in.birdvision.equibiz.API.equibizAPI.buyer.product.productList.ProductListResponse;
 import in.birdvision.equibiz.API.equibizAPI.buyer.product.searchProduct.SearchProductResponse;
 import in.birdvision.equibiz.R;
-import in.birdvision.equibiz.buyer.orders.OrderActivity;
-import in.birdvision.equibiz.userInfo.UserProfile;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,19 +42,22 @@ import retrofit2.Response;
 import static in.birdvision.equibiz.userInfo.encryption.Encryption.encoderFunction;
 import static in.birdvision.equibiz.userInfo.encryption.Encryption.encrypt;
 
-public class ProductListActivity extends AppCompatActivity implements AdapterProductList.OnItemClickListener {
+public class ProductListFragment extends Fragment implements AdapterProductList.OnItemClickListener {
 
     public static final String EXTRA_COLOR = "productColor";
     public static final String EXTRA_RAM = "productRam";
     public static final String EXTRA_INTERNAL_MEMORY = "productInternalMemory";
     public static final String EXTRA_PRO_ID = "productID";
 
-    ImageView user_profile;
+    String extraColor, extraRam, extraIntMemory, extraProID;
+
     Equibiz_API_Interface equibiz_api_interface;
     AdapterProductList adapterProductList;
     RecyclerView productRecyclerView;
     ProgressDialog progressDialog;
     List<Productdatum> getProductdata;
+
+    fragmentToActivity fragment;
 
     final String[] brandNames = {"Noki", "Sams", "MI", "iPhone", "Oppo", "POCO"};
     final String[] modelNames = {"M101", "S200", "S201", "oppo"};
@@ -63,37 +65,41 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
     String encryptedSearchText, encryptedBrand, encryptedModel, selectedBrand, selectedModel, AuthToken;
     byte[] cipherSearchText, cipherBrand, cipherModel;
 
+    Context context;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_list);
+    public void onAttach(@NonNull Activity context) {
+        super.onAttach(context);
+        try {
+            fragment = (fragmentToActivity) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement OnFragmentInteractionListener");
+        }
+    }
 
-        Toolbar toolbar = findViewById(R.id.category1_toolbar);
-        setSupportActionBar(toolbar);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_product_list, container, false);
+        context = root.getContext();
+        setHasOptionsMenu(true);
 
-
-        SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
+        SharedPreferences mySharedPreferences = this.requireActivity().getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
         AuthToken = mySharedPreferences.getString("LoginToken", "xxxxx");
 
-
         equibiz_api_interface = EquibizApiService.getClient().create(Equibiz_API_Interface.class);
-        progressDialog = new ProgressDialog(ProductListActivity.this);
-        progressDialog.setCancelable(false);
-        progressDialog.setIndeterminate(true);
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setProgressStyle(R.style.ProgressBar);
         progressDialog.show();
 
-        productRecyclerView = findViewById(R.id.rv_productList);
-        productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        adapterProductList = new AdapterProductList(ProductListActivity.this);
+        productRecyclerView = root.findViewById(R.id.rv_productList);
+        productRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        adapterProductList = new AdapterProductList(context);
         productRecyclerView.setAdapter(adapterProductList);
-        adapterProductList.setOnItemClickListener(ProductListActivity.this);
+        adapterProductList.setOnItemClickListener(this);
 
         productListResponse();
 
-        user_profile = findViewById(R.id.img_user_profile);
-        user_profile.setOnClickListener(v -> startActivity(new Intent(ProductListActivity.this, UserProfile.class)));
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.category_bottomnavbar);
+        BottomNavigationView bottomNavigationView = root.findViewById(R.id.category_bottomnavbar);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 item -> {
@@ -112,22 +118,24 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
                     return true;
                 }
         );
+        return root;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_menu, menu);
-
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+    public void onCreateOptionsMenu(@NotNull Menu menu, MenuInflater menuInflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.search_menu, menu);
+        SearchManager searchManager = (SearchManager) context.getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         assert searchManager != null;
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 getSearchResults(query);
+//                Toast.makeText(getActivity(), query, Toast.LENGTH_SHORT).show();
                 searchView.clearFocus();
                 return true;
             }
@@ -138,22 +146,10 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
             }
         });
 
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        super.onOptionsItemSelected(item);
-        if (item.getItemId() == R.id.menu_shopping_basket) {
-            startActivity(new Intent(ProductListActivity.this, OrderActivity.class));
-            return true;
-        }
-        return true;
     }
 
     private void productModelAlert() {
-        AlertDialog.Builder builderM = new AlertDialog.Builder(this);
+        AlertDialog.Builder builderM = new AlertDialog.Builder(context);
         builderM.setTitle("Select the Brand name");
 
         int checkedItem = 0;
@@ -197,15 +193,15 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
             @Override
             public void onFailure(@NotNull Call<ModelFilterResponse> call, @NotNull Throwable t) {
                 if (t instanceof SocketTimeoutException)
-                    Toast.makeText(ProductListActivity.this, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(ProductListActivity.this, t.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, t.toString(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void productBrandAlert() {
-        AlertDialog.Builder builderB = new AlertDialog.Builder(this);
+        AlertDialog.Builder builderB = new AlertDialog.Builder(context);
         builderB.setTitle("Select the Brand name");
         int selectedBID = 0;
         builderB.setSingleChoiceItems(brandNames, selectedBID, (dialog, brand) -> selectedBrand = brandNames[brand]);
@@ -246,20 +242,22 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
             @Override
             public void onFailure(@NotNull Call<BrandFilterResponse> call, @NotNull Throwable t) {
                 if (t instanceof SocketTimeoutException)
-                    Toast.makeText(ProductListActivity.this, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(ProductListActivity.this, t.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, t.toString(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void getSearchResults(String query) {
+    public void getSearchResults(String query) {
         try {
             cipherSearchText = encrypt(query.getBytes());
             encryptedSearchText = encoderFunction(cipherSearchText);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+//        Toast.makeText(getActivity(), query, Toast.LENGTH_SHORT).show();
         final SearchProductResponse searchProductResponse = new SearchProductResponse(encryptedSearchText);
 
         Call<SearchProductResponse> responseCall = equibiz_api_interface.searchProductResponse(searchProductResponse, "Bearer " + AuthToken);
@@ -280,12 +278,11 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
             public void onFailure(@NotNull Call<SearchProductResponse> call, @NotNull Throwable t) {
                 progressDialog.dismiss();
                 if (t instanceof SocketTimeoutException)
-                    Toast.makeText(ProductListActivity.this, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(ProductListActivity.this, t.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, t.toString(), Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
     private void productListResponse() {
@@ -309,23 +306,40 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
             public void onFailure(@NotNull Call<ProductListResponse> call, @NotNull Throwable t) {
                 progressDialog.dismiss();
                 if (t instanceof SocketTimeoutException)
-                    Toast.makeText(ProductListActivity.this, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(ProductListActivity.this, t.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, t.toString(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(ProductListActivity.this, ProductActivity.class);
+
+//        ProductFragment productFragment = new ProductFragment();
+//        Bundle bundle = new Bundle();
+//
+//        Productdatum productdata = getProductdata.get(position);
+//
+//        bundle.putString(EXTRA_COLOR, productdata.get_id().getColor());
+//        bundle.putString(EXTRA_INTERNAL_MEMORY, productdata.get_id().getInternalMemory());
+//        bundle.putString(EXTRA_PRO_ID, productdata.get_id().getProId());
+//        bundle.putString(EXTRA_RAM, productdata.get_id().getRamMob());
+//
+//        productFragment.setArguments(bundle);
+//        getFragmentManager().beginTransaction().add(R.id.nav_host_fragment, productFragment).commit();
+
         Productdatum productdata = getProductdata.get(position);
+        extraColor = productdata.get_id().getColor();
+        extraIntMemory = productdata.get_id().getInternalMemory();
+        extraProID = productdata.get_id().getProId();
+        extraRam = productdata.get_id().getRamMob();
 
-        intent.putExtra(EXTRA_COLOR, productdata.get_id().getColor());
-        intent.putExtra(EXTRA_INTERNAL_MEMORY, productdata.get_id().getInternalMemory());
-        intent.putExtra(EXTRA_PRO_ID, productdata.get_id().getProId());
-        intent.putExtra(EXTRA_RAM, productdata.get_id().getRamMob());
+        fragment.getProductData(extraColor, extraIntMemory, extraProID, extraRam);
 
-        startActivity(intent);
+    }
+
+    public interface fragmentToActivity {
+        void getProductData(String productColor, String productInternalMemory, String productID, String productRam);
     }
 }

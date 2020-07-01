@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".buyer.product.ProductActivity">
 
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/product_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,27 +16,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@color/dark_blue"
-        app:menu="@menu/cart_share"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark"
         tools:ignore="RtlSymmetry">
 
         <ImageView
             android:id="@+id/img_back_product"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:contentDescription="@string/login_back_text"
+            android:contentDescription="@string/go_back"
             android:src="@drawable/ic_keyboard_arrow_left" />
 
         <TextView
-            android:id="@+id/tv_product_activity"
+            android:id="@+id/tv_product"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginStart="25sp"
             android:fontFamily="@font/montserrat"
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/white"
-            android:layout_marginStart="25sp" />
-    </androidx.appcompat.widget.Toolbar>
+            android:text="@string/product_name" />
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <ScrollView
         android:id="@+id/product_srollbar"
@@ -444,6 +444,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
+                android:layout_marginBottom="160dp"
                 android:gravity="center"
                 android:stretchColumns="*">
 
@@ -568,19 +569,43 @@
                 </TableRow>
             </TableLayout>
 
-            <Button
-                android:id="@+id/btn_pro_book_now"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="50dp"
-                android:layout_marginTop="50dp"
-                android:background="@drawable/button_bg"
-                android:text="@string/book_now"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_go_back_now"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:text="@string/go_back"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_pro_book_now"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_bg"
+            android:text="@string/book_now"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

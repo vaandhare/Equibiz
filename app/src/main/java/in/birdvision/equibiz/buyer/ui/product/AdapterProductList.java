@@ -1,4 +1,4 @@
-package in.birdvision.equibiz.buyer.product;
+package in.birdvision.equibiz.buyer.ui.product;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

@@ -47,7 +47,7 @@ import in.birdvision.equibiz.API.ifsc_api.IFSC;
 import in.birdvision.equibiz.API.ifsc_api.IFSC_API_Interface;
 import in.birdvision.equibiz.API.ifsc_api.RasorpayApiService;
 import in.birdvision.equibiz.R;
-import in.birdvision.equibiz.buyer.product.ProductListActivity;
+import in.birdvision.equibiz.buyer.BuyerHomeActivity;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -156,7 +156,7 @@ public class VerificationActivity extends AppCompatActivity {
                 BankDetailsResponse response1 = response.body();
                 assert response1 != null;
                 Toast.makeText(VerificationActivity.this, response1.getBankverified(), Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(VerificationActivity.this, ProductListActivity.class));
+                startActivity(new Intent(VerificationActivity.this, BuyerHomeActivity.class));
             }
 
             @Override

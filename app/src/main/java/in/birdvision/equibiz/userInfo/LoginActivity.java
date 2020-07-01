@@ -25,7 +25,7 @@ import in.birdvision.equibiz.API.equibizAPI.EquibizApiService;
 import in.birdvision.equibiz.API.equibizAPI.Equibiz_API_Interface;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.LoginResponse;
 import in.birdvision.equibiz.R;
-import in.birdvision.equibiz.buyer.product.ProductListActivity;
+import in.birdvision.equibiz.buyer.BuyerHomeActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -138,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("encryptedUserRole", encryptedRole);
                         editor.apply();
                     }
-                    startActivity(new Intent(LoginActivity.this, ProductListActivity.class));
+                    startActivity(new Intent(LoginActivity.this, BuyerHomeActivity.class));
                 } else if (response1.getStatus().equals("wrongpass") || response1.getStatus().equals("nodata"))
                     tvLoginError.setVisibility(View.VISIBLE);
                 else
