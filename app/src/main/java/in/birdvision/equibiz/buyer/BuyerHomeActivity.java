@@ -1,7 +1,10 @@
 package in.birdvision.equibiz.buyer;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -27,6 +30,7 @@ public class BuyerHomeActivity extends AppCompatActivity implements ProductListF
     DrawerLayout drawer;
     private AppBarConfiguration mAppBarConfiguration;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +38,15 @@ public class BuyerHomeActivity extends AppCompatActivity implements ProductListF
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Intent intent = getIntent();
+        String UserFName = intent.getStringExtra("UserFirstName");
+
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+        View hView = navigationView.getHeaderView(0);
+        TextView textView = hView.findViewById(R.id.tvNavBarTitle);
+        textView.setText("Hello, " + UserFName);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_product_list, R.id.nav_profile, R.id.nav_orders)

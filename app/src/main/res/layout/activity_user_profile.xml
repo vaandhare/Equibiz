@@ -1,37 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".userInfo.UserProfile">
-
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/profile_toolbar"
-        android:layout_width="match_parent"
-        android:background="@color/dark_blue"
-        android:layout_height="wrap_content"
-        android:paddingEnd="10dp"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark"
-        tools:ignore="RtlSymmetry">
-
-        <ImageView
-            android:id="@+id/img_back_up"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_keyboard_arrow_left"
-            android:contentDescription="@string/user_profile" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/profile"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-    </com.google.android.material.appbar.MaterialToolbar>
+    tools:context=".buyer.ui.profile.ProfileFragment">
 
     <ScrollView
         android:layout_width="match_parent"

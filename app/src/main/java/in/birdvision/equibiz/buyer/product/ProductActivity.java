@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
@@ -35,6 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.view.View.GONE;
 import static in.birdvision.equibiz.buyer.ui.product.ProductListFragment.EXTRA_COLOR;
 import static in.birdvision.equibiz.buyer.ui.product.ProductListFragment.EXTRA_INTERNAL_MEMORY;
 import static in.birdvision.equibiz.buyer.ui.product.ProductListFragment.EXTRA_PRO_ID;
@@ -58,12 +61,11 @@ public class ProductActivity extends AppCompatActivity implements ProductListFra
 
     EditText sellerOrderQuantity;
 
-    String COColor, CODeliveryLocation, COTime, COOrderQuantity, COPPU, COProID, COSellerID, COSellerProID, COMinQuantity,
-            CORateCardID;
+    String COColor, CODeliveryLocation, COTime, COOrderQuantity, COPPU, COProID, COSellerID, COSellerProID, CORateCardID;
 
+    Integer COMinQuantity, COTotalQuantity;
     String ProductColor, ProductInternalMemory, ProductID, ProductRam;
     List<Allratecard> allratecards = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,25 +75,6 @@ public class ProductActivity extends AppCompatActivity implements ProductListFra
 
         equibiz_api_interface = EquibizApiService.getClient().create(Equibiz_API_Interface.class);
         productDetailsResponse();
-
-        addToCartBtn.setOnClickListener(v -> {
-            COOrderQuantity = sellerOrderQuantity.getText().toString();
-            Intent intent = new Intent(ProductActivity.this, ConfirmOrderActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("AllRateCards", (Serializable) allratecards);
-            intent.putExtra("BUNDLE", bundle);
-            intent.putExtra("CO_Color", COColor);
-            intent.putExtra("CO_DeliveryLocation", CODeliveryLocation);
-            intent.putExtra("CO_DeliveryTime", COTime);
-            intent.putExtra("CO_OrderQuantity", COOrderQuantity);
-            intent.putExtra("CO_PPU", COPPU);
-            intent.putExtra("CO_ProID", COProID);
-            intent.putExtra("CO_SellerID", COSellerID);
-            intent.putExtra("CO_SellerProID", COSellerProID);
-            intent.putExtra("CO_RateCardID", CORateCardID);
-            startActivity(intent);
-        });
-
     }
 
     private void productDetailsResponse() {
@@ -183,20 +166,73 @@ public class ProductActivity extends AppCompatActivity implements ProductListFra
         productScreenSize.setText(productdatum.getProductinfo().getpScreenSize());
         productProcessor.setText(productdatum.getProductinfo().getpProcessor());
 
-        Sellerlist sellerlist = productDetailsResponse1.getSellerlist().get(0);
-        COPPU = String.valueOf(sellerlist.getAvgPrice());
-        CODeliveryLocation = sellerlist.getLocation();
-        COTime = sellerlist.getTimeToDel();
-        COProID = sellerlist.getProductId();
-        COSellerID = sellerlist.getUserId();
-        COSellerProID = sellerlist.get_id();
-        sellerTotalQuantity.setText(String.valueOf(sellerlist.getAvailableStock()));
-        sellerMinQuantity.setText(String.valueOf(sellerlist.getMinqty()));
-        sellerOrderQuantity.setHint(String.valueOf(sellerlist.getMinqty()));
-        sellerPPU.setText(COPPU);
-        sellerLocation.setText(CODeliveryLocation);
-        sellerColor.setText(sellerlist.getColor());
-        sellerDeliveryTime.setText(COTime);
+        List<Sellerlist> sellerlist = productDetailsResponse1.getSellerlist();
+        if (sellerlist.isEmpty()) {
+            sellerTotalQuantity.setVisibility(View.GONE);
+            sellerMinQuantity.setVisibility(View.GONE);
+            sellerColor.setVisibility(View.GONE);
+            sellerDeliveryTime.setVisibility(View.GONE);
+            sellerPPU.setVisibility(View.GONE);
+            sellerLocation.setVisibility(View.GONE);
+            findViewById(R.id.tvPS_COL).setVisibility(GONE);
+            findViewById(R.id.tvPS_DT).setVisibility(GONE);
+            findViewById(R.id.tvPS_PU).setVisibility(GONE);
+            findViewById(R.id.tvPS_TQ).setVisibility(GONE);
+            findViewById(R.id.tvPS_LOC).setVisibility(GONE);
+            findViewById(R.id.tvPS_MQ).setVisibility(GONE);
+        } else {
+            Sellerlist sellerList1 = sellerlist.get(0);
+            COPPU = String.valueOf(sellerList1.getAvgPrice());
+            CODeliveryLocation = sellerList1.getLocation();
+            COTime = sellerList1.getTimeToDel();
+            COProID = sellerList1.getProductId();
+            COSellerID = sellerList1.getUserId();
+            COSellerProID = sellerList1.get_id();
+            COTotalQuantity = sellerList1.getAvailableStock();
+            sellerTotalQuantity.setText(String.valueOf(COTotalQuantity));
+            COMinQuantity = sellerList1.getMinqty();
+            sellerMinQuantity.setText(String.valueOf(COMinQuantity));
+            sellerOrderQuantity.setHint(String.valueOf(sellerList1.getMinqty()));
+            sellerPPU.setText(COPPU);
+            sellerLocation.setText(CODeliveryLocation);
+            sellerColor.setText(sellerList1.getColor());
+            sellerDeliveryTime.setText(COTime);
+        }
+
+        addToCartBtn.setOnClickListener(v -> {
+            COOrderQuantity = sellerOrderQuantity.getText().toString();
+            int quantity = Integer.parseInt(COOrderQuantity);
+            if (sellerlist.isEmpty())
+                showCustomDialog("No Seller Available", "No seller is available for this product. Come back again to check availability or Contact Admin.");
+            else if (COOrderQuantity.isEmpty() || quantity < COMinQuantity || quantity > COTotalQuantity) {
+                showCustomDialog("Invalid Input", "Quantity cannot be Empty or Less than Minimum Quantity or Greater than Total Quantity given by seller.");
+            } else {
+                Intent intent = new Intent(ProductActivity.this, ConfirmOrderActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("AllRateCards", (Serializable) allratecards);
+                intent.putExtra("BUNDLE", bundle);
+                intent.putExtra("CO_Color", COColor);
+                intent.putExtra("CO_DeliveryLocation", CODeliveryLocation);
+                intent.putExtra("CO_DeliveryTime", COTime);
+                intent.putExtra("CO_OrderQuantity", COOrderQuantity);
+                intent.putExtra("CO_PPU", COPPU);
+                intent.putExtra("CO_ProID", COProID);
+                intent.putExtra("CO_SellerID", COSellerID);
+                intent.putExtra("CO_SellerProID", COSellerProID);
+                intent.putExtra("CO_RateCardID", CORateCardID);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    private void showCustomDialog(String title, String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(msg);
+        builder.setPositiveButton("Ok", (dialog, which) -> onBackPressed());
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void initializeIDs() {

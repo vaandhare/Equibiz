@@ -1,12 +1,10 @@
 package in.birdvision.equibiz.buyer.orders;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -234,9 +232,6 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
         builder.setPositiveButton("Continue Shopping", (dialog, which) -> onBackPressed());
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
-
-        alertDialog.getButton(Dialog.BUTTON_NEGATIVE).
-                setBackgroundColor(Color.parseColor("#FBFBC3"));
     }
 
     @SuppressLint("SetTextI18n")

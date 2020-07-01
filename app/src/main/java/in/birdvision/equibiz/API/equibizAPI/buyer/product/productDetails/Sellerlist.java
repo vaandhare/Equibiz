@@ -25,7 +25,7 @@ public class Sellerlist {
     @SerializedName("user_id")
     private String userId;
     @SerializedName("minqty")
-    private String minqty;
+    private int minqty;
     @SerializedName("forexport")
     private Boolean forexport;
     @SerializedName("soldout")
@@ -78,7 +78,7 @@ public class Sellerlist {
         return userId;
     }
 
-    public String getMinqty() {
+    public int getMinqty() {
         return minqty;
     }
 

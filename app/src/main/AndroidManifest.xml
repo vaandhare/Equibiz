@@ -28,7 +28,7 @@
         <activity android:name=".userInfo.VerificationActivity" />
         <activity android:name=".userInfo.BusinessDetailsActivity" />
         <activity
-            android:name=".userInfo.UserProfile"
+            android:name=".buyer.UserProfile"
             android:theme="@style/NoActionBarTheme" />
         <activity
             android:name=".userInfo.RegisterActivity"

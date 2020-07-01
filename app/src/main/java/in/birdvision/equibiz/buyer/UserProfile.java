@@ -1,4 +1,4 @@
-package in.birdvision.equibiz.userInfo;
+package in.birdvision.equibiz.buyer;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -68,8 +68,8 @@ public class UserProfile extends AppCompatActivity {
         equibiz_api_interface = EquibizApiService.getClient().create(Equibiz_API_Interface.class);
 
         mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
-        userID = mySharedPreferences.getString("BuyerID", "xxxxx");
-        AuthToken = mySharedPreferences.getString("LoginToken", "xxxxx");
+        userID = mySharedPreferences.getString("BuyerID", "");
+        AuthToken = mySharedPreferences.getString("LoginToken", "");
 
         try {
             cipherUserID = encrypt(userID.getBytes());
@@ -296,7 +296,6 @@ public class UserProfile extends AppCompatActivity {
     private void initializeIDS() {
         order_history = findViewById(R.id.UP_orders_history);
         imgProfile = findViewById(R.id.imgUP_userProfile);
-        backImg = findViewById(R.id.img_back_up);
 
         tvUserType = findViewById(R.id.tvUP_userType);
         tvUserName = findViewById(R.id.tvUP_userName);

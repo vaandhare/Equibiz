@@ -138,7 +138,9 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("encryptedUserRole", encryptedRole);
                         editor.apply();
                     }
-                    startActivity(new Intent(LoginActivity.this, BuyerHomeActivity.class));
+                    Intent intent = new Intent(LoginActivity.this, BuyerHomeActivity.class);
+                    intent.putExtra("UserFirstName", response1.getData().getFname());
+                    startActivity(intent);
                 } else if (response1.getStatus().equals("wrongpass") || response1.getStatus().equals("nodata"))
                     tvLoginError.setVisibility(View.VISIBLE);
                 else
