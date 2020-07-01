@@ -49,7 +49,7 @@ public class BuyerHomeActivity extends AppCompatActivity implements ProductListF
         textView.setText("Hello, " + UserFName);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_product_list, R.id.nav_profile, R.id.nav_orders)
+                R.id.nav_product_list, R.id.nav_profile, R.id.nav_orders, R.id.nav_wallet)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

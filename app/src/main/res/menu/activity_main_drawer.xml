@@ -3,15 +3,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/nav_bar_grp1"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_product_list"
             android:title="@string/menu_home" />
+    </group>
+
+    <group
+        android:id="@+id/nav_bar_grp2"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_profile"
             android:title="@string/profile" />
         <item
+            android:id="@+id/nav_wallet"
+            android:title="@string/wallet_details" />
+    </group>
+
+    <group
+        android:id="@+id/nav_bar_grp3"
+        android:checkableBehavior="single">
+        <item
             android:id="@+id/nav_orders"
             android:title="@string/orders" />
+    </group>
+
+    <group
+        android:id="@+id/nav_bar_grp4"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_support"
+            android:title="@string/support" />
+
+        <item
+            android:id="@+id/nav_terms_and_conditions"
+            android:title="@string/terms_and_conditions" />
+
+        <item
+            android:id="@+id/nav_private_policy"
+            android:title="@string/private_policy" />
+
+        <item
+            android:id="@+id/nav_about_company"
+            android:title="@string/about_company" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:title="@string/logout" />
     </group>
 </menu>

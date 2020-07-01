@@ -4,20 +4,15 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.biometric.BiometricPrompt;
 import androidx.fragment.app.Fragment;
 
 import org.jetbrains.annotations.NotNull;
@@ -27,9 +22,7 @@ import java.net.SocketTimeoutException;
 import in.birdvision.equibiz.API.equibizAPI.EquibizApiService;
 import in.birdvision.equibiz.API.equibizAPI.Equibiz_API_Interface;
 import in.birdvision.equibiz.API.equibizAPI.buyer.profileUserInfo.UserProfileResponse;
-import in.birdvision.equibiz.API.equibizAPI.buyer.profileUserInfo.WalletDetailsResponse;
 import in.birdvision.equibiz.API.equibizAPI.buyer.profileUserInfo.confidentalData.ConfidentialDetailsResponse;
-import in.birdvision.equibiz.API.equibizAPI.userInfo.FillWalletResponse;
 import in.birdvision.equibiz.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,24 +35,22 @@ import static in.birdvision.equibiz.userInfo.encryption.Encryption.encrypt;
 public class ProfileFragment extends Fragment {
 
     ImageView imgProfile;
-    TextView order_history, tvUserType, tvUserName, tvMobile, tvEmail, tvBusinessName, tvBusinessType, tvPartnerFN, tvPartnerLN,
-            tvPartnerMob, tvOfficeAddress, tvTotalBalance, BTNFillWallet, BTNConfindentialDetails;
+    TextView tvUserType, tvUserName, tvMobile, tvEmail, tvBusinessName, tvBusinessType, tvPartnerFN, tvPartnerLN,
+            tvPartnerMob, tvOfficeAddress, BTNConfindentialDetails;
 
-    TableLayout tableWallet, tableConfidential;
-    TextView tvAvailableBal, tvPendingBal, tvFillBalance, tvPanCard, tvBankName, tvAccNumber, tvIFSCNumber, tvBankBranch, tvBankCity;
+    TableLayout tableConfidential;
+    TextView tvPanCard, tvBankName, tvAccNumber, tvIFSCNumber, tvBankBranch, tvBankCity;
 
     Equibiz_API_Interface equibiz_api_interface;
-    String userID, encryptedUserID, AuthToken, encryptedAccNo, encryptedAmount;
-    byte[] cipherUserID, cipherAccNo, cipherAmount;
+    String userID, encryptedUserID, AuthToken;
+    byte[] cipherUserID;
     SharedPreferences mySharedPreferences;
     Context context;
-    private BiometricPrompt biometricPrompt;
-    private BiometricPrompt.PromptInfo promptInfo;
 
     @SuppressLint("SetTextI18n")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.activity_user_profile, container, false);
+        View root = inflater.inflate(R.layout.fragment_buyer_profile, container, false);
         context = root.getContext();
 
         initializeIDS(root);
@@ -67,8 +58,8 @@ public class ProfileFragment extends Fragment {
         equibiz_api_interface = EquibizApiService.getClient().create(Equibiz_API_Interface.class);
 
         mySharedPreferences = this.requireActivity().getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
-        userID = mySharedPreferences.getString("BuyerID", "xxxxx");
-        AuthToken = mySharedPreferences.getString("LoginToken", "xxxxx");
+        userID = mySharedPreferences.getString("BuyerID", "");
+        AuthToken = mySharedPreferences.getString("LoginToken", "");
 
         try {
             cipherUserID = encrypt(userID.getBytes());
@@ -83,19 +74,6 @@ public class ProfileFragment extends Fragment {
 
         userProfile();
 
-        BTNFillWallet.setOnClickListener(v -> {
-            if (tableWallet.getVisibility() == GONE) {
-                getWalletResponse();
-                BTNFillWallet.setText("Hide wallet details");
-            } else {
-                tableWallet.setVisibility(GONE);
-                tvFillBalance.setVisibility(GONE);
-                BTNFillWallet.setText(R.string.click_here_to_view_wallet_details_fill_wallet);
-            }
-        });
-
-        tvFillBalance.setOnClickListener(v -> fillWalletAlert());
-
         BTNConfindentialDetails.setOnClickListener(v -> {
             if (tableConfidential.getVisibility() == GONE) {
                 getConfidentialResponse();
@@ -106,117 +84,8 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-//        Executor executor = ContextCompat.getMainExecutor(this);
-//        biometricPrompt = new BiometricPrompt(UserProfile.this, executor, new BiometricPrompt.AuthenticationCallback() {
-//            @Override
-//            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
-//                super.onAuthenticationError(errorCode, errString);
-//                if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
-//                    Toast.makeText(getApplicationContext(), "Authentication Canceled", Toast.LENGTH_SHORT).show();
-//                } else
-//                    Toast.makeText(getApplicationContext(), "Authentication error: " + errString, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-//                super.onAuthenticationSucceeded(result);
-//                Toast.makeText(getApplicationContext(), "Authentication succeeded!", Toast.LENGTH_SHORT).show();
-//                getWalletResponse();
-//            }
-//
-//            @Override
-//            public void onAuthenticationFailed() {
-//                super.onAuthenticationFailed();
-//                Toast.makeText(getApplicationContext(), "Authentication failed", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        promptInfo = new BiometricPrompt.PromptInfo.Builder()
-//                .setTitle("Verify to See Hidden Credentials")
-//                .setNegativeButtonText("Cancel")
-//                .build();
-
-//        BTNFillWallet.setOnClickListener(view -> biometricPrompt.authenticate(promptInfo));
-
         return root;
     }
-
-    private void fillWalletAlert() {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Fill My Wallet");
-
-        LinearLayout layout = new LinearLayout(context);
-        layout.setOrientation(LinearLayout.VERTICAL);
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-        );
-        params.setMargins(20, 20, 20, 20);
-
-        EditText etAccNo = new EditText(context);
-        etAccNo.setHint("Enter Account Number");
-        etAccNo.setSingleLine();
-        etAccNo.setInputType(InputType.TYPE_CLASS_NUMBER);
-        etAccNo.setLayoutParams(params);
-        layout.addView(etAccNo);
-
-        EditText etAmount = new EditText(context);
-        etAmount.setHint("Enter Amount");
-        etAmount.setSingleLine();
-        etAmount.setInputType(InputType.TYPE_CLASS_NUMBER);
-        etAmount.setLayoutParams(params);
-        layout.addView(etAmount);
-
-        builder.setView(layout);
-        builder.setPositiveButton("Submit", ((dialog, which) -> {
-                    String accNO = etAccNo.getText().toString();
-                    String amount = etAmount.getText().toString();
-                    fillWalletResponse(accNO, amount);
-                    dialog.dismiss();
-                })
-        ).setNegativeButton("Cancel", null)
-                .create()
-                .setCanceledOnTouchOutside(false);
-
-        builder.show();
-    }
-
-    private void fillWalletResponse(String accNO, String amount) {
-        try {
-            cipherAccNo = encrypt(accNO.getBytes());
-            encryptedAccNo = encoderFunction(cipherAccNo);
-
-            cipherAmount = encrypt(amount.getBytes());
-            encryptedAmount = encoderFunction(cipherAmount);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        final FillWalletResponse fillWalletResponse = new FillWalletResponse(encryptedAccNo, encryptedAmount, encryptedUserID);
-        Call<FillWalletResponse> responseCall = equibiz_api_interface.fillWalletResponse(fillWalletResponse, "Bearer " + AuthToken);
-
-        responseCall.enqueue(new Callback<FillWalletResponse>() {
-            @Override
-            public void onResponse(@NotNull Call<FillWalletResponse> call, @NotNull Response<FillWalletResponse> response) {
-                FillWalletResponse response1 = response.body();
-                if (response1 == null)
-                    Toast.makeText(context, "Something wrong with server", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(context, response1.getStatus(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<FillWalletResponse> call, @NotNull Throwable t) {
-                if (t instanceof SocketTimeoutException)
-                    Toast.makeText(context, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(context, t.toString(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
 
     private void getConfidentialResponse() {
 
@@ -256,42 +125,8 @@ public class ProfileFragment extends Fragment {
 
     }
 
-    private void getWalletResponse() {
-
-        final WalletDetailsResponse detailsResponse = new WalletDetailsResponse(encryptedUserID);
-
-        Call<WalletDetailsResponse> walletDetailsResponseCall = equibiz_api_interface.walletDetailsResponse(detailsResponse, "Bearer " + AuthToken);
-
-        walletDetailsResponseCall.enqueue(new Callback<WalletDetailsResponse>() {
-            @Override
-            public void onResponse(@NotNull Call<WalletDetailsResponse> call, @NotNull Response<WalletDetailsResponse> response) {
-                WalletDetailsResponse response1 = response.body();
-                if (response1 == null)
-                    Toast.makeText(context, "Something wrong with server", Toast.LENGTH_SHORT).show();
-                else
-                    changeWalletDetails(response1);
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<WalletDetailsResponse> call, @NotNull Throwable t) {
-                if (t instanceof SocketTimeoutException)
-                    Toast.makeText(context, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(context, t.toString(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-    }
-
-    private void changeWalletDetails(WalletDetailsResponse response1) {
-        tableWallet.setVisibility(View.VISIBLE);
-        tvAvailableBal.setText(String.valueOf(response1.getWalletdata().getWalletBal()));
-        tvPendingBal.setText(String.valueOf(response1.getWalletdata().getPending()));
-        tvFillBalance.setVisibility(View.VISIBLE);
-    }
 
     private void initializeIDS(View view) {
-        order_history = view.findViewById(R.id.UP_orders_history);
         imgProfile = view.findViewById(R.id.imgUP_userProfile);
 
         tvUserType = view.findViewById(R.id.tvUP_userType);
@@ -304,16 +139,9 @@ public class ProfileFragment extends Fragment {
         tvPartnerLN = view.findViewById(R.id.tvUP_partnerLastName);
         tvPartnerMob = view.findViewById(R.id.tvUP_partnerMobile);
         tvOfficeAddress = view.findViewById(R.id.tvUP_officeAddress);
-        tvTotalBalance = view.findViewById(R.id.tvUP_totalBalance);
-        BTNFillWallet = view.findViewById(R.id.tvUP_btnFillWallet);
         BTNConfindentialDetails = view.findViewById(R.id.tvUP_btnConfidentialDetails);
 
-        tableWallet = view.findViewById(R.id.tableWallet);
         tableConfidential = view.findViewById(R.id.tableConfidential);
-
-        tvAvailableBal = view.findViewById(R.id.tvUP_availableBalance);
-        tvPendingBal = view.findViewById(R.id.tvUP_pendingBalance);
-        tvFillBalance = view.findViewById(R.id.tvUP_fillWallet);
 
         tvPanCard = view.findViewById(R.id.tvUP_panCard);
         tvBankName = view.findViewById(R.id.tvUP_bankName);
@@ -366,7 +194,6 @@ public class ProfileFragment extends Fragment {
         tvPartnerLN.setText(response1.getBusinessdata().getOwnerLname());
         tvPartnerMob.setText(String.valueOf(response1.getBusinessdata().getOwnerMobile()));
         tvOfficeAddress.setText(response1.getBusinessdata().getRegdAddress());
-        tvTotalBalance.setText(String.valueOf(response1.getBuyerdata().getWalletBal()));
 
     }
 }

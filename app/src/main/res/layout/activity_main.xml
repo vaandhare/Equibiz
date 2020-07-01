@@ -12,7 +12,6 @@
         android:id="@+id/mainactivity_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/menu"
         android:paddingEnd="10dp"
         tools:ignore="RtlSymmetry">
 

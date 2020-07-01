@@ -76,7 +76,7 @@
     <string name="city">City</string>
     <string name="state">State</string>
     <string name="terms_and_conditions">Terms and Conditions</string>
-    <string name="private_policy">Private Policy.</string>
+    <string name="private_policy">Private Policy</string>
     <string name="previous">Previous</string>
     <string name="save_submit"><![CDATA[Save & Submit]]></string>
     <string name="product_specifications">Product Specifications</string>
@@ -86,7 +86,7 @@
     <string name="primary_camera">Primary Camera</string>
     <string name="battery_capacity">Battery Capacity</string>
     <string name="sim_slots">Sim Slots</string>
-    <string name="expandable_upto">Expandable Upto</string>
+    <string name="expandable_upto">Expandable upto</string>
     <string name="front_camera">Front Camera</string>
     <string name="os">OS</string>
     <string name="network">Network</string>
@@ -111,14 +111,14 @@
     <string name="owner_mobile">Owner Mobile</string>
     <string name="owner_last_name">Owner Last Name</string>
     <string name="owner_first_name">Owner First Name</string>
-    <string name="total_balance">Total Balance (₹)</string>
-    <string name="available_balance">Available Balance (₹)</string>
-    <string name="pending_balance">Pending Balance (₹)</string>
+    <string name="total_balance">Total Balance</string>
+    <string name="available_balance">Available Balance</string>
+    <string name="pending_balance">Pending Balance</string>
     <string name="confidential_details">Confidential Details</string>
     <string name="bank_branch">Bank Branch</string>
     <string name="bank_city">Bank City</string>
     <string name="faq">FAQ</string>
-    <string name="support">Support</string>
+    <string name="support">Customer Support</string>
     <string name="about_company">About Company</string>
     <string name="logout">Logout</string>
     <string name="change_personal_details">Change Personal Details</string>
@@ -150,7 +150,7 @@
     <string name="enter_otp">Enter OTP</string>
     <string name="save_resume_later"><![CDATA[Save & Resume Later]]></string>
     <string name="bank_branch_name">Bank Branch Name</string>
-    <string name="wallet_details">Wallet Details</string>
+    <string name="wallet_details">Wallet</string>
     <string name="click_here_to_view_confidential_details">Click here to view confidential details</string>
     <string name="click_here_to_view_wallet_details_fill_wallet">Click here to view wallet details/fill wallet.</string>
     <string name="ohh_nooo_n_no_results_found">Ohh Nooo!! \n No Results Found</string>
@@ -178,8 +178,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <string name="hello">Hello, ...!</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello">Hello, …!</string>
     <string name="go_back">Go Back</string>
+    <string name="fill_wallet">Fill Wallet</string>
 </resources>
