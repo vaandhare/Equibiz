@@ -1,52 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/NoActionBarTheme"
-    tools:context=".buyer.ui.product.ProductListFragment">
+    tools:context=".seller.ui.pendingOrders.PendingOrderFragment">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayout_FPO"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/category_bottomnavbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="1">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_productList"
+            android:id="@+id/rv_seller_pendingList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:scrollbars="vertical"
-            tools:listitem="@layout/items_products_recyclerview" />
+            tools:listitem="@layout/items_seller_pending_orders" />
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tvPL_noResults"
+        android:id="@+id/tvFPO_noResults"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/ohh_nooo_n_no_results_found"
         android:textColor="#9A9A9A"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/category_bottomnavbar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/filter_sort" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/linearLayout_FPO"
+        app:layout_constraintTop_toTopOf="@id/linearLayout_FPO" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

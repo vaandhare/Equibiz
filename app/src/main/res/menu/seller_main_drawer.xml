@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/nav_bar_grp1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_product_list"
+            android:title="@string/menu_home" />
+    </group>
+
+    <group
+        android:id="@+id/nav_bar_grp2"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_product_listing"
+            android:title="@string/product_listing" />
+
+        <item
+            android:id="@+id/nav_my_inventory"
+            android:title="@string/my_inventory" />
+
+        <item
+            android:id="@+id/nav_pending_orders"
+            android:title="@string/pending_orders" />
+    </group>
+
+
+</menu>

@@ -26,6 +26,7 @@ import in.birdvision.equibiz.API.equibizAPI.Equibiz_API_Interface;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.LoginResponse;
 import in.birdvision.equibiz.R;
 import in.birdvision.equibiz.buyer.BuyerHomeActivity;
+import in.birdvision.equibiz.seller.SellerHomeActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -122,28 +123,41 @@ public class LoginActivity extends AppCompatActivity {
 //                if(response1.getStatus().equals("success") && response1.getData().getEmailverified().equals("false")) {
 //                    checkEmailVerification();
 //                } else   handle email verification in each case
-                if (response1.getStatus().equals("success") && response1.getData().getBusinessverified().equals("false")) {
-                    Intent intent = new Intent(LoginActivity.this, BusinessDetailsActivity.class);
-                    intent.putExtra("EncUserRole", encryptedRole);
-                    startActivity(intent);
-                } else if (response1.getStatus().equals("success") && response1.getData().getBankverified().equals("false"))
-                    startActivity(new Intent(LoginActivity.this, VerificationActivity.class));
-                else if (response1.getStatus().equals("success") && response1.getData().getBusinessverified().equals("true")
-                        && response1.getData().getBankverified().equals("true")) {
-                    if (response1.getData().getUsertype().equals(String.valueOf(1))) {
-                        SharedPreferences mySharedPreferences = LoginActivity.this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = mySharedPreferences.edit();
-                        editor.putString("BuyerID", response1.getData().get_id());
-                        editor.putString("LoginToken", response1.getToken());
-                        editor.putString("encryptedUserRole", encryptedRole);
-                        editor.apply();
-                    }
-                    Intent intent = new Intent(LoginActivity.this, BuyerHomeActivity.class);
-                    intent.putExtra("UserFirstName", response1.getData().getFname());
-                    startActivity(intent);
-                } else if (response1.getStatus().equals("wrongpass") || response1.getStatus().equals("nodata"))
-                    tvLoginError.setVisibility(View.VISIBLE);
-                else
+                if (response1.getStatus().equals("success")) {
+                    if (response1.getData().getBusinessverified().equals("false")) {
+                        Intent intent = new Intent(LoginActivity.this, BusinessDetailsActivity.class);
+                        intent.putExtra("EncUserRole", encryptedRole);
+                        startActivity(intent);
+                    } else if (response1.getData().getBankverified().equals("false"))
+                        startActivity(new Intent(LoginActivity.this, VerificationActivity.class));
+                    else if (response1.getData().getBusinessverified().equals("true") && response1.getData().getBankverified().equals("true")) {
+                        if (response1.getData().getUsertype().equals(String.valueOf(1))) {
+                            SharedPreferences mySharedPreferences = LoginActivity.this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = mySharedPreferences.edit();
+                            editor.putString("BuyerID", response1.getData().get_id());
+                            editor.putString("LoginToken", response1.getToken());
+                            editor.putString("encryptedUserRole", encryptedRole);
+                            editor.apply();
+
+                            Intent intent = new Intent(LoginActivity.this, BuyerHomeActivity.class);
+                            intent.putExtra("UserFirstName", response1.getData().getFname());
+                            startActivity(intent);
+                        } else if (response1.getData().getUsertype().equals(String.valueOf(2))) {
+                            SharedPreferences mySharedPreferences = LoginActivity.this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = mySharedPreferences.edit();
+                            editor.putString("SellerID", response1.getData().get_id());
+                            editor.putString("LoginToken", response1.getToken());
+                            editor.putString("encryptedUserRole", encryptedRole);
+                            editor.apply();
+
+                            Intent intent = new Intent(LoginActivity.this, SellerHomeActivity.class);
+                            intent.putExtra("UserFirstName", response1.getData().getFname());
+                            startActivity(intent);
+                        }
+
+                    } else if (response1.getStatus().equals("wrongpass") || response1.getStatus().equals("nodata"))
+                        tvLoginError.setVisibility(View.VISIBLE);
+                } else
                     Toast.makeText(LoginActivity.this, response1.getStatus(), Toast.LENGTH_SHORT).show();
 
             }

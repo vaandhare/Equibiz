@@ -70,7 +70,7 @@ public class ProductActivity extends AppCompatActivity implements ProductListFra
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_product);
+        setContentView(R.layout.activity_buyer_product);
         initializeIDs();
 
         equibiz_api_interface = EquibizApiService.getClient().create(Equibiz_API_Interface.class);

@@ -16,11 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/NoActionBarTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".seller.product.ProductDetailsActivity"></activity>
+        <activity
+            android:name=".seller.SellerHomeActivity"
+            android:label="@string/title_activity_seller_home"
+            android:theme="@style/NoActionBarTheme.NoActionBar"></activity>
         <activity
             android:name=".buyer.BuyerHomeActivity"
             android:label="@string/title_activity_buyer_home"
             android:theme="@style/NoActionBarTheme.NoActionBar" />
-        <activity android:name=".seller.SellerHomeActivity" />
         <activity android:name=".userInfo.ForgotPasswordActivity" />
         <activity android:name=".buyer.orders.ConfirmOrderActivity" />
         <activity android:name=".buyer.orders.OrderActivity" />

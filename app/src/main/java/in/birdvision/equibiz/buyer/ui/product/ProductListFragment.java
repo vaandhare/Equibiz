@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -57,6 +58,7 @@ public class ProductListFragment extends Fragment implements AdapterProductList.
     ProgressDialog progressDialog;
     List<Productdatum> getProductdata;
 
+    TextView noResultProduct;
     fragmentToActivity fragment;
 
     final String[] brandNames = {"Noki", "Sams", "MI", "iPhone", "Oppo", "POCO"};
@@ -98,6 +100,8 @@ public class ProductListFragment extends Fragment implements AdapterProductList.
         adapterProductList.setOnItemClickListener(this);
 
         productListResponse();
+
+        noResultProduct = root.findViewById(R.id.tvPL_noResults);
 
         BottomNavigationView bottomNavigationView = root.findViewById(R.id.category_bottomnavbar);
 
@@ -298,7 +302,15 @@ public class ProductListFragment extends Fragment implements AdapterProductList.
                     ProductListResponse productListResponse = response.body();
                     assert productListResponse != null;
                     getProductdata = productListResponse.getProductdata();
-                    adapterProductList.setProductdata(getProductdata);
+
+                    if (getProductdata == null) {
+                        noResultProduct.setVisibility(View.VISIBLE);
+                        productRecyclerView.setVisibility(View.GONE);
+                    } else {
+                        productRecyclerView.setVisibility(View.VISIBLE);
+                        noResultProduct.setVisibility(View.GONE);
+                        adapterProductList.setProductdata(getProductdata);
+                    }
                 }
             }
 

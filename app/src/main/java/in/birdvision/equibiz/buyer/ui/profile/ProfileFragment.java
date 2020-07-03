@@ -122,7 +122,6 @@ public class ProfileFragment extends Fragment {
         tvBankCity.setText(response1.getConfdata().getBankcity());
         tvAccNumber.setText(String.valueOf(response1.getConfdata().getAccnumber()));
         tvIFSCNumber.setText(String.valueOf(response1.getConfdata().getIfsccode()));
-
     }
 
 
@@ -179,7 +178,7 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void changeDetails(UserProfileResponse response1) {
+    private void changeDetails(@NotNull UserProfileResponse response1) {
         if (response1.getBuyerdata().getUsertype() == 1)
             tvUserType.setText(R.string.buyer);
         else if (response1.getBuyerdata().getUsertype() == 2)
@@ -194,6 +193,5 @@ public class ProfileFragment extends Fragment {
         tvPartnerLN.setText(response1.getBusinessdata().getOwnerLname());
         tvPartnerMob.setText(String.valueOf(response1.getBusinessdata().getOwnerMobile()));
         tvOfficeAddress.setText(response1.getBusinessdata().getRegdAddress());
-
     }
 }
