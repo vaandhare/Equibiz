@@ -201,4 +201,8 @@
     <string name="reject_order">Reject Order</string>
     <string name="accept_order">Accept Order</string>
     <string name="pending_orders">Pending Orders</string>
+    <string name="banner_image">Banner Image</string>
+    <string name="brands">Brands</string>
+    <string name="view_all">View All</string>
+    <string name="best_deals">Best Deals</string>
 </resources>

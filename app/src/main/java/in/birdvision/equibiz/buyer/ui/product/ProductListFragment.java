@@ -291,38 +291,38 @@ public class ProductListFragment extends Fragment implements AdapterProductList.
 
     private void productListResponse() {
 
-        final ProductListResponse allProductsResponse = new ProductListResponse();
-        Call<ProductListResponse> allProductsResponseCall = equibiz_api_interface.allProductResponse(allProductsResponse, "Bearer " + AuthToken);
-
-        allProductsResponseCall.enqueue(new Callback<ProductListResponse>() {
-            @Override
-            public void onResponse(@NotNull Call<ProductListResponse> call, @NotNull Response<ProductListResponse> response) {
-                progressDialog.dismiss();
-                if (response.isSuccessful()) {
-                    ProductListResponse productListResponse = response.body();
-                    assert productListResponse != null;
-                    getProductdata = productListResponse.getProductdata();
-
-                    if (getProductdata == null) {
-                        noResultProduct.setVisibility(View.VISIBLE);
-                        productRecyclerView.setVisibility(View.GONE);
-                    } else {
-                        productRecyclerView.setVisibility(View.VISIBLE);
-                        noResultProduct.setVisibility(View.GONE);
-                        adapterProductList.setProductdata(getProductdata);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<ProductListResponse> call, @NotNull Throwable t) {
-                progressDialog.dismiss();
-                if (t instanceof SocketTimeoutException)
-                    Toast.makeText(context, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(context, t.toString(), Toast.LENGTH_LONG).show();
-            }
-        });
+//        final ProductListResponse allProductsResponse = new ProductListResponse();
+//        Call<ProductListResponse> allProductsResponseCall = equibiz_api_interface.allProductResponse(allProductsResponse, "Bearer " + AuthToken);
+//
+//        allProductsResponseCall.enqueue(new Callback<ProductListResponse>() {
+//            @Override
+//            public void onResponse(@NotNull Call<ProductListResponse> call, @NotNull Response<ProductListResponse> response) {
+//                progressDialog.dismiss();
+//                if (response.isSuccessful()) {
+//                    ProductListResponse productListResponse = response.body();
+//                    assert productListResponse != null;
+//                    getProductdata = productListResponse.getProductdata();
+//
+//                    if (getProductdata == null) {
+//                        noResultProduct.setVisibility(View.VISIBLE);
+//                        productRecyclerView.setVisibility(View.GONE);
+//                    } else {
+//                        productRecyclerView.setVisibility(View.VISIBLE);
+//                        noResultProduct.setVisibility(View.GONE);
+//                        adapterProductList.setProductdata(getProductdata);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(@NotNull Call<ProductListResponse> call, @NotNull Throwable t) {
+//                progressDialog.dismiss();
+//                if (t instanceof SocketTimeoutException)
+//                    Toast.makeText(context, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
+//                else
+//                    Toast.makeText(context, t.toString(), Toast.LENGTH_LONG).show();
+//            }
+//        });
     }
 
     @Override

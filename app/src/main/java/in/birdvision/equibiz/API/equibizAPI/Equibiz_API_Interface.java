@@ -2,6 +2,7 @@ package in.birdvision.equibiz.API.equibizAPI;
 
 import java.util.Map;
 
+import in.birdvision.equibiz.API.equibizAPI.buyer.home.BuyerHomeResponse;
 import in.birdvision.equibiz.API.equibizAPI.buyer.orders.PreBookingResponse;
 import in.birdvision.equibiz.API.equibizAPI.buyer.orders.allOrders.AllOrdersResponse;
 import in.birdvision.equibiz.API.equibizAPI.buyer.product.filterBrand.BrandFilterResponse;
@@ -64,8 +65,8 @@ public interface Equibiz_API_Interface {
     //Product
     @Headers({"Content-Type: application/json;charset=UTF-8"})
     @POST("getproducts")
-    Call<ProductListResponse> allProductResponse(
-            @Body ProductListResponse allProductsResponse,
+    Call<BuyerHomeResponse> buyerHomeResponse(
+            @Body BuyerHomeResponse homeResponse,
             @Header("Authorization") String auth);
 
     @Headers({"Content-Type: application/json;charset=UTF-8"})
