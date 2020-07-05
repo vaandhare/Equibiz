@@ -2,20 +2,17 @@ package in.birdvision.equibiz.buyer.home;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import in.birdvision.equibiz.API.equibizAPI.EquibizApiService;
 import in.birdvision.equibiz.API.equibizAPI.Equibiz_API_Interface;
 import in.birdvision.equibiz.R;
-import in.birdvision.equibiz.buyer.ui.product.AdapterProductList;
 
 public class BuyerHomeFragment extends Fragment implements AdapterBanner.OnItemClickListener,
         AdapterBrands.OnItemClickListener, AdapterBestDeals.OnItemClickListener{
@@ -60,6 +57,5 @@ public class BuyerHomeFragment extends Fragment implements AdapterBanner.OnItemC
 
     @Override
     public void onItemClick(int position) {
-
     }
 }
