@@ -17,6 +17,7 @@
 
     <style name="NoActionBarTheme.NoActionBar">
         <item name="windowActionBar">false</item>
+        <item name="android:popupMenuStyle">@color/white</item>
         <item name="windowNoTitle">true</item>
     </style>
 

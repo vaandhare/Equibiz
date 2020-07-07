@@ -7,7 +7,7 @@
         android:id="@+id/nav_bar_grp1"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_product_list"
+            android:id="@+id/nav_buyer_home"
             android:title="@string/menu_home" />
     </group>
 

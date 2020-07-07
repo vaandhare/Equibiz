@@ -13,11 +13,11 @@ public class Productinfo {
     @Expose
     private String _id;
     @SerializedName("p_base_high")
-    private int pBaseHigh;
+    private Double pBaseHigh;
     @SerializedName("p_base_low")
-    private int pBaseLow;
+    private Double pBaseLow;
     @SerializedName("p_base_price")
-    private int pBasePrice;
+    private Double pBasePrice;
     @SerializedName("p_battery_power")
     private String pBatteryPower;
     @SerializedName("p_brand")
@@ -61,15 +61,15 @@ public class Productinfo {
         return _id;
     }
 
-    public int getpBaseHigh() {
+    public Double getpBaseHigh() {
         return pBaseHigh;
     }
 
-    public int getpBaseLow() {
+    public Double getpBaseLow() {
         return pBaseLow;
     }
 
-    public int getpBasePrice() {
+    public Double getpBasePrice() {
         return pBasePrice;
     }
 

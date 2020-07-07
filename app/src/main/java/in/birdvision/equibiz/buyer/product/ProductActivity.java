@@ -32,20 +32,19 @@ import in.birdvision.equibiz.API.equibizAPI.buyer.product.productDetails.Product
 import in.birdvision.equibiz.API.equibizAPI.buyer.product.productDetails.Sellerlist;
 import in.birdvision.equibiz.R;
 import in.birdvision.equibiz.buyer.orders.ConfirmOrderActivity;
-import in.birdvision.equibiz.buyer.ui.product.ProductListFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.view.View.GONE;
-import static in.birdvision.equibiz.buyer.ui.product.ProductListFragment.EXTRA_COLOR;
-import static in.birdvision.equibiz.buyer.ui.product.ProductListFragment.EXTRA_INTERNAL_MEMORY;
-import static in.birdvision.equibiz.buyer.ui.product.ProductListFragment.EXTRA_PRO_ID;
-import static in.birdvision.equibiz.buyer.ui.product.ProductListFragment.EXTRA_RAM;
+import static in.birdvision.equibiz.buyer.product.ProductListActivity.EXTRA_COLOR;
+import static in.birdvision.equibiz.buyer.product.ProductListActivity.EXTRA_INTERNAL_MEMORY;
+import static in.birdvision.equibiz.buyer.product.ProductListActivity.EXTRA_PRO_ID;
+import static in.birdvision.equibiz.buyer.product.ProductListActivity.EXTRA_RAM;
 import static in.birdvision.equibiz.userInfo.encryption.Encryption.encoderFunction;
 import static in.birdvision.equibiz.userInfo.encryption.Encryption.encrypt;
 
-public class ProductActivity extends AppCompatActivity implements ProductListFragment.fragmentToActivity {
+public class ProductActivity extends AppCompatActivity {
 
     Button addToCartBtn, btnGoBack;
     String encryptedColor, encryptedRam, encryptedInternalMemory, encryptedID;
@@ -230,7 +229,7 @@ public class ProductActivity extends AppCompatActivity implements ProductListFra
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
         builder.setMessage(msg);
-        builder.setPositiveButton("Ok", (dialog, which) -> onBackPressed());
+        builder.setPositiveButton("Ok", (dialog, which) -> dialog.cancel());
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
@@ -266,14 +265,6 @@ public class ProductActivity extends AppCompatActivity implements ProductListFra
         sellerColor = findViewById(R.id.tvPS_color);
         sellerDeliveryTime = findViewById(R.id.tvPS_deliveryTime);
         sellerOrderQuantity = findViewById(R.id.etvPS_orderQuanitity);
-    }
-
-    @Override
-    public void getProductData(String productColor, String productInternalMemory, String productID, String productRam) {
-        this.ProductColor = productColor;
-        this.ProductInternalMemory = productInternalMemory;
-        this.ProductID = productID;
-        this.ProductRam = productRam;
     }
 
 

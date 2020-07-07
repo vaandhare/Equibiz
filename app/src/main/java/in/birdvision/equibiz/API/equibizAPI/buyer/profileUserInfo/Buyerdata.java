@@ -47,7 +47,7 @@ public class Buyerdata {
     @SerializedName("usertype")
     private Long mUsertype;
     @SerializedName("wallet_bal")
-    private Long mWalletBal;
+    private Double mWalletBal;
     @SerializedName("__v")
     private Long m_V;
     @SerializedName("_id")
@@ -185,7 +185,7 @@ public class Buyerdata {
         return mUsertype;
     }
 
-    public Long getWalletBal() {
+    public Double getWalletBal() {
         return mWalletBal;
     }
 

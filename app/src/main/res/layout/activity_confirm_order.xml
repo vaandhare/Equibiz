@@ -27,7 +27,6 @@
         android:stretchColumns="*">
 
         <TableRow>
-
             <TextView
                 android:fontFamily="@font/montserrat"
                 android:padding="5dp"
@@ -122,6 +121,7 @@
         </TableRow>
 
         <TextView
+            android:id="@+id/tvCO_rateCard"
             android:fontFamily="@font/montserrat"
             android:gravity="center"
             android:padding="5dp"
@@ -199,15 +199,15 @@
             android:text="@string/pre_book_amount_note"
             android:textColor="@color/black" />
 
-    </TableLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/_50_insurance"
+            android:textColor="@color/green"
+            android:textStyle="bold" />
 
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/cbCO_insurance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="@string/insurance_50" />
+    </TableLayout>
 
     <TextView
         android:id="@+id/tvCO_amount_deduction"

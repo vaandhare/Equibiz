@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_product_list">
+    app:startDestination="@+id/nav_buyer_home">
 
     <fragment
-        android:id="@+id/nav_product_list"
-        android:name="in.birdvision.equibiz.buyer.ui.product.ProductListFragment"
+        android:id="@+id/nav_buyer_home"
+        android:name="in.birdvision.equibiz.buyer.home.BuyerHomeFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_product_list" />
+        tools:layout="@layout/fragment_buyer_home" />
 
     <fragment
         android:id="@+id/nav_orders"

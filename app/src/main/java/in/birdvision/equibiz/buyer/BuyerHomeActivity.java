@@ -17,15 +17,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 
 import in.birdvision.equibiz.R;
-import in.birdvision.equibiz.buyer.product.ProductActivity;
-import in.birdvision.equibiz.buyer.ui.product.ProductListFragment;
 
-import static in.birdvision.equibiz.buyer.ui.product.ProductListFragment.EXTRA_COLOR;
-import static in.birdvision.equibiz.buyer.ui.product.ProductListFragment.EXTRA_INTERNAL_MEMORY;
-import static in.birdvision.equibiz.buyer.ui.product.ProductListFragment.EXTRA_PRO_ID;
-import static in.birdvision.equibiz.buyer.ui.product.ProductListFragment.EXTRA_RAM;
-
-public class BuyerHomeActivity extends AppCompatActivity implements ProductListFragment.fragmentToActivity {
+public class BuyerHomeActivity extends AppCompatActivity {
 
     DrawerLayout drawer;
     private AppBarConfiguration mAppBarConfiguration;
@@ -49,7 +42,7 @@ public class BuyerHomeActivity extends AppCompatActivity implements ProductListF
         textView.setText("Hello, " + UserFName);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_product_list, R.id.nav_profile, R.id.nav_orders, R.id.nav_wallet, R.id.nav_logout)
+                R.id.nav_buyer_home, R.id.nav_profile, R.id.nav_orders, R.id.nav_wallet, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
 
@@ -65,15 +58,5 @@ public class BuyerHomeActivity extends AppCompatActivity implements ProductListF
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_buyer);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
-    }
-
-    @Override
-    public void getProductData(String productColor, String productInternalMemory, String productID, String productRam) {
-        Intent intent = new Intent(this, ProductActivity.class);
-        intent.putExtra(EXTRA_COLOR, productColor);
-        intent.putExtra(EXTRA_INTERNAL_MEMORY, productInternalMemory);
-        intent.putExtra(EXTRA_PRO_ID, productID);
-        intent.putExtra(EXTRA_RAM, productRam);
-        startActivity(intent);
     }
 }

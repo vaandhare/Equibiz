@@ -27,21 +27,21 @@ public class WalletDetailsResponse {
     public static class Walletdata {
 
         @SerializedName("pending")
-        private Long mPending;
+        private Double mPending;
         @SerializedName("total")
-        private Long mTotal;
+        private Double mTotal;
         @SerializedName("wallet_bal")
-        private Long mWalletBal;
+        private Double mWalletBal;
 
-        public Long getPending() {
+        public Double getmPending() {
             return mPending;
         }
 
-        public Long getTotal() {
+        public Double getmTotal() {
             return mTotal;
         }
 
-        public Long getWalletBal() {
+        public Double getmWalletBal() {
             return mWalletBal;
         }
     }

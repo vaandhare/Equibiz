@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.birdvision.equibiz.API.equibizAPI.buyer.home.Branddatum;
-import in.birdvision.equibiz.API.equibizAPI.seller.adminProduct.Sellerproduct;
 import in.birdvision.equibiz.R;
 
 public class AdapterBrands extends RecyclerView.Adapter<AdapterBrands.ProductListViewHolder> {
@@ -51,6 +50,13 @@ public class AdapterBrands extends RecyclerView.Adapter<AdapterBrands.ProductLis
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ProductListViewHolder holder, int position) {
+        Branddatum brands = branddata.get(position);
+
+        String IMG_URL = "https://equibase.s3.ap-south-1.amazonaws.com/" + brands.getProductinfo().get(0).getpImages().get(0);
+        Glide.with(context).load(IMG_URL).into(holder.productImg);
+
+        String brandName = brands.getBrandinfo().getBrandname();
+        holder.productName.setText(brandName);
 
 
     }
@@ -66,8 +72,14 @@ public class AdapterBrands extends RecyclerView.Adapter<AdapterBrands.ProductLis
 
     public static class ProductListViewHolder extends RecyclerView.ViewHolder {
 
+        TextView productName;
+        ImageView productImg;
+
         public ProductListViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            productImg = itemView.findViewById(R.id.IBB_product_thumbnail);
+            productName = itemView.findViewById(R.id.IBB_product_name);
 
             itemView.setOnClickListener(v -> {
                 if (onItemClickListener != null) {

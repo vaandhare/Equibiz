@@ -70,6 +70,12 @@ public interface Equibiz_API_Interface {
             @Header("Authorization") String auth);
 
     @Headers({"Content-Type: application/json;charset=UTF-8"})
+    @POST("getbrandproducts")
+    Call<ProductListResponse> productListResponse(
+            @Body ProductListResponse response,
+            @Header("Authorization") String auth);
+
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
     @POST("getproductdetails")
     Call<ProductDetailsResponse> productDetailsResponse(
             @Body ProductDetailsResponse productDetailsResponse,

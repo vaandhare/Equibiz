@@ -5,16 +5,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/NoActionBarTheme"
-    tools:context=".buyer.ui.product.ProductListFragment">
+    tools:context=".buyer.product.ProductListActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/buyer_productList_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_blue"
+        android:foregroundTint="@color/white"
+        android:paddingEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/search_menu"
+        tools:ignore="RtlSymmetry">
+
+        <ImageView
+            android:id="@+id/img_back_buyer_productList"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/go_back"
+            android:src="@drawable/ic_keyboard_arrow_left" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/category_bottomnavbar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buyer_productList_toolbar"
         app:layout_constraintVertical_weight="1">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -34,19 +56,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:visibility="gone"
         android:text="@string/ohh_nooo_n_no_results_found"
         android:textColor="#9A9A9A"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintTop_toTopOf="@+id/linearLayout" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/category_bottomnavbar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/filter_sort" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

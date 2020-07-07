@@ -84,9 +84,9 @@ public class WalletFragment extends Fragment {
                 if (response1 == null)
                     Toast.makeText(context, "Something wrong with server", Toast.LENGTH_SHORT).show();
                 else {
-                    tvTotalBalance.setText("₹ " + response1.getWalletdata().getTotal());
-                    tvAvailableBalance.setText("₹ " + response1.getWalletdata().getWalletBal());
-                    tvPendingBalance.setText("₹ " + response1.getWalletdata().getPending());
+                    tvTotalBalance.setText("₹ " + response1.getWalletdata().getmTotal());
+                    tvAvailableBalance.setText("₹ " + response1.getWalletdata().getmWalletBal());
+                    tvPendingBalance.setText("₹ " + response1.getWalletdata().getmPending());
                 }
             }
 

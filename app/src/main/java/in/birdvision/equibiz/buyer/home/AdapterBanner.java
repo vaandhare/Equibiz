@@ -5,15 +5,17 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import in.birdvision.equibiz.API.equibizAPI.buyer.home.Bannerdatum;
-import in.birdvision.equibiz.API.equibizAPI.seller.adminProduct.Sellerproduct;
 import in.birdvision.equibiz.R;
 
 public class AdapterBanner extends RecyclerView.Adapter<AdapterBanner.ProductListViewHolder> {
@@ -47,8 +49,13 @@ public class AdapterBanner extends RecyclerView.Adapter<AdapterBanner.ProductLis
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ProductListViewHolder holder, int position) {
+        Bannerdatum bannerdatum = bannerdata.get(position);
+
+        String IMG_URL = "https://equibase.s3.ap-south-1.amazonaws.com/" + bannerdatum.getBannerimage();
+        Glide.with(context).load(IMG_URL).into(holder.banner);
 
     }
+
 
     @Override
     public int getItemCount() {
@@ -61,8 +68,12 @@ public class AdapterBanner extends RecyclerView.Adapter<AdapterBanner.ProductLis
 
     public static class ProductListViewHolder extends RecyclerView.ViewHolder {
 
+        ImageView banner;
+
         public ProductListViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            banner = itemView.findViewById(R.id.ISAPR_product_thumbnail);
 
             itemView.setOnClickListener(v -> {
                 if (onItemClickListener != null) {

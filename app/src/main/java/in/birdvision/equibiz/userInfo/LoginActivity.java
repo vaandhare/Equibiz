@@ -155,11 +155,11 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
 
-                    } else if (response1.getStatus().equals("wrongpass") || response1.getStatus().equals("nodata"))
-                        tvLoginError.setVisibility(View.VISIBLE);
-                } else
+                    }
+                } else if (response1.getStatus().equals("wrongpass") || response1.getStatus().equals("nodata"))
+                    tvLoginError.setVisibility(View.VISIBLE);
+                else
                     Toast.makeText(LoginActivity.this, response1.getStatus(), Toast.LENGTH_SHORT).show();
-
             }
 
             @Override

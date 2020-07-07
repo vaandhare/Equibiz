@@ -79,8 +79,9 @@ public class MyInventoryFragment extends Fragment implements AdapterMyInventory.
         productRecyclerView.setAdapter(adapterProductList);
         adapterProductList.setOnItemClickListener(this);
 
-        myInventoryResponse();
         tvNoResults = root.findViewById(R.id.tvFSMI_noResults);
+
+        myInventoryResponse();
 
         return root;
     }

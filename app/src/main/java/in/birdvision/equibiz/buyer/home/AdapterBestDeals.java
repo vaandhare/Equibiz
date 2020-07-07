@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.birdvision.equibiz.API.equibizAPI.buyer.home.Bestdeal;
-import in.birdvision.equibiz.API.equibizAPI.seller.adminProduct.Sellerproduct;
 import in.birdvision.equibiz.R;
 
 public class AdapterBestDeals extends RecyclerView.Adapter<AdapterBestDeals.ProductListViewHolder> {
@@ -51,7 +50,19 @@ public class AdapterBestDeals extends RecyclerView.Adapter<AdapterBestDeals.Prod
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ProductListViewHolder holder, int position) {
+        Bestdeal bestdeal = bestdeals.get(position);
 
+        String IMG_URL = "https://equibase.s3.ap-south-1.amazonaws.com/" + bestdeal.getProductinfo().getpImages().get(0);
+        Glide.with(context).load(IMG_URL).into(holder.productImg);
+
+        String brandName = bestdeal.getBrandinfo().getBrandname();
+        String modelName = bestdeal.getProductinfo().getpModelNo();
+        String ram = bestdeal.getSellerproductinfo().getRamMob() + " GB";
+        String internalMemory = bestdeal.getSellerproductinfo().getInternalMemory() + " GB";
+        String mobColor = bestdeal.getSellerproductinfo().getColor();
+
+        holder.productSpecs.setText(ram + "/ " + internalMemory + "/ " + mobColor);
+        holder.productName.setText(brandName + " " + modelName);
     }
 
     @Override
@@ -65,8 +76,15 @@ public class AdapterBestDeals extends RecyclerView.Adapter<AdapterBestDeals.Prod
 
     public static class ProductListViewHolder extends RecyclerView.ViewHolder {
 
+        TextView productName, productSpecs;
+        ImageView productImg;
+
         public ProductListViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            productName = itemView.findViewById(R.id.IBDP_product_name);
+            productSpecs = itemView.findViewById(R.id.IBDP_product_specifications);
+            productImg = itemView.findViewById(R.id.IBDP_product_thumbnail);
 
             itemView.setOnClickListener(v -> {
                 if (onItemClickListener != null) {

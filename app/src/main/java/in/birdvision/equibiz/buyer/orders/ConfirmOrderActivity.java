@@ -6,14 +6,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +53,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
             product_proID, product_sellerID, product_SellerProID, product_BuyerID, product_rateCardID;
 
     TextView orderColor, orderDeliveryLocation, orderDeliveryTime, orderDeliveryAdditionalTime, orderDeliveryCharges, orderQuantity,
-            orderPPU, orderTotalCost, orderPreBookAmount, amountDeduction;
+            orderPPU, orderTotalCost, orderPreBookAmount, amountDeduction, tvRateCard;
 
     String encryptedBuyerID, encryptedFinalPriceToDeduct, encryptedInsurance, encryptedProID, encryptedQuantityOrdered,
             encryptedRateCardID, encryptedSellerID, encryptedSellerProID, encryptedSellerTime, encryptedTotalPrice,
@@ -59,8 +62,6 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
     byte[] cipherBuyerID, cipherFinalPriceToDeduct, cipherInsurance, cipherProID, cipherQuantityOrdered,
             cipherRateCardID, cipherSellerID, cipherSellerProID, cipherSellerTime, cipherTotalPrice,
             cipherUnitPrice;
-
-    CheckBox insuranceCB;
 
     Equibiz_API_Interface equibiz_api_interface;
 
@@ -112,6 +113,9 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
         totalCost = quantity * ppu;
         orderTotalCost.setText(String.valueOf(totalCost));
 
+        tvRateCard = findViewById(R.id.tvCO_rateCard);
+        tvRateCard.setOnClickListener(v -> alertRateCard());
+
         preOrderNowBtn.setOnClickListener(v -> {
             try {
                 cipherBuyerID = encrypt(product_BuyerID.getBytes());
@@ -153,6 +157,51 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
             progressDialog.show();
             preOrderBooking();
         });
+    }
+
+    private void alertRateCard() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.alert_rate_card, viewGroup, false);
+        builder.setView(dialogView);
+
+        TableLayout tableLayout = dialogView.findViewById(R.id.TL_confirm_order);
+
+        for (int i = 0; i < allratecards.size(); i++) {
+            TableRow tableRow = new TableRow(this);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams
+                    (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.gravity = Gravity.CENTER_HORIZONTAL;
+            tableRow.setLayoutParams(params);
+
+            TextView RCLoc = new TextView(this);
+            RCLoc.setPadding(70, 10, 20, 0);
+            RCLoc.setTextColor(getColor(R.color.dark_blue));
+            RCLoc.setTextSize(15);
+
+            TextView RCCharges = new TextView(this);
+            RCCharges.setPadding(50, 10, 0, 0);
+            RCCharges.setTextColor(getColor(R.color.dark_blue));
+            RCCharges.setTextSize(15);
+
+            TextView RCTime = new TextView(this);
+            RCTime.setPadding(50, 10, 0, 0);
+            RCTime.setTextColor(getColor(R.color.dark_blue));
+            RCTime.setTextSize(15);
+
+            RCLoc.setText(allratecards.get(i).getLocation());
+            RCCharges.setText(String.valueOf(allratecards.get(i).getDelcharges()));
+            RCTime.setText(String.valueOf(allratecards.get(i).getDeltime()));
+
+            tableRow.addView(RCLoc);
+            tableRow.addView(RCCharges);
+            tableRow.addView(RCTime);
+
+            tableLayout.addView(tableRow);
+        }
+
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     @Override
@@ -203,7 +252,6 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
         orderTotalCost = findViewById(R.id.tvCO_total_cost);
         orderPreBookAmount = findViewById(R.id.tvCO_pre_book_amount);
 
-        insuranceCB = findViewById(R.id.cbCO_insurance);
         amountDeduction = findViewById(R.id.tvCO_amount_deduction);
 
         spinnerLocation = findViewById(R.id.spinner_pickup_locations);
@@ -242,29 +290,11 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
         pre_book_amount = (totalCost / 10) + allratecards.get(position).getDelcharges();
         orderPreBookAmount.setText(String.valueOf(pre_book_amount));
 
-        insuranceCB.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                insuranceValue = 1;
-                amountDeduction.setText("₹ " + (pre_book_amount + 50) + "will be deducted from your wallet Balance.");
-            } else {
-                insuranceValue = 0;
-                amountDeduction.setText("₹ " + pre_book_amount + "will be deducted from your wallet Balance.");
-            }
-        });
-
+        amountDeduction.setText("₹" + (pre_book_amount + 50) + " will be deducted from your wallet Balance.");
     }
 
     @SuppressLint("SetTextI18n")
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        insuranceCB.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                insuranceValue = 1;
-                amountDeduction.setText("₹ " + (pre_book_amount + 50) + "will be deducted from your wallet Balance.");
-            } else {
-                insuranceValue = 0;
-                amountDeduction.setText("₹ " + pre_book_amount + "will be deducted from your wallet Balance.");
-            }
-        });
     }
 }

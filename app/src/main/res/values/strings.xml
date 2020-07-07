@@ -205,4 +205,7 @@
     <string name="brands">Brands</string>
     <string name="view_all">View All</string>
     <string name="best_deals">Best Deals</string>
+    <string name="_50_insurance">₹50 Insurance</string>
+    <string name="rate_card_details">Rate Card Details</string>
+    <string name="seller_location">Seller Location :</string>
 </resources>
