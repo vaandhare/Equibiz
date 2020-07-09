@@ -1,4 +1,11 @@
-package in.birdvision.equibiz.buyer.ui.profile;
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
+package in.birdvision.equibiz.userInfo.profile;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -84,9 +91,9 @@ public class WalletFragment extends Fragment {
                 if (response1 == null)
                     Toast.makeText(context, "Something wrong with server", Toast.LENGTH_SHORT).show();
                 else {
-                    tvTotalBalance.setText("₹ " + response1.getWalletdata().getmTotal());
-                    tvAvailableBalance.setText("₹ " + response1.getWalletdata().getmWalletBal());
-                    tvPendingBalance.setText("₹ " + response1.getWalletdata().getmPending());
+                    tvTotalBalance.setText("₹" + response1.getWalletdata().getmTotal());
+                    tvAvailableBalance.setText("₹" + response1.getWalletdata().getmWalletBal());
+                    tvPendingBalance.setText("₹" + response1.getWalletdata().getmPending());
                 }
             }
 

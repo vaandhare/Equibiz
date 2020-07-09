@@ -1,3 +1,10 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.seller.ui.product_listing;
 
 import android.app.Activity;
@@ -30,6 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static in.birdvision.equibiz.userInfo.LoginActivity.USER_ID;
 import static in.birdvision.equibiz.userInfo.encryption.Encryption.encoderFunction;
 import static in.birdvision.equibiz.userInfo.encryption.Encryption.encrypt;
 
@@ -64,7 +72,7 @@ public class ProductListingFragment extends Fragment implements AdapterAdminProd
 
         SharedPreferences mySharedPreferences = this.requireActivity().getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
         AuthToken = mySharedPreferences.getString("LoginToken", "");
-        userID = mySharedPreferences.getString("SellerID", "");
+        userID = mySharedPreferences.getString(USER_ID, "");
 
         equibiz_api_interface = EquibizApiService.getClient().create(EquibizSeller_API_interface.class);
         progressDialog = new ProgressDialog(context);

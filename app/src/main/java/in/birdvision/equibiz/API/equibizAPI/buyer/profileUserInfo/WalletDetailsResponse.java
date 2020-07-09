@@ -1,4 +1,11 @@
 
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.API.equibizAPI.buyer.profileUserInfo;
 
 import com.google.gson.annotations.SerializedName;
@@ -27,21 +34,21 @@ public class WalletDetailsResponse {
     public static class Walletdata {
 
         @SerializedName("pending")
-        private Double mPending;
+        private String mPending;
         @SerializedName("total")
-        private Double mTotal;
+        private String mTotal;
         @SerializedName("wallet_bal")
-        private Double mWalletBal;
+        private String mWalletBal;
 
-        public Double getmPending() {
+        public String getmPending() {
             return mPending;
         }
 
-        public Double getmTotal() {
+        public String getmTotal() {
             return mTotal;
         }
 
-        public Double getmWalletBal() {
+        public String getmWalletBal() {
             return mWalletBal;
         }
     }

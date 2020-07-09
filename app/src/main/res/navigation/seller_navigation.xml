@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  */
+  -->
+
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -28,5 +35,18 @@
         android:name="in.birdvision.equibiz.seller.ui.pendingOrders.PendingOrderFragment"
         android:label="@string/pending_orders"
         tools:layout="@layout/fragment_pending_order" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="in.birdvision.equibiz.userInfo.profile.ProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_buyer_profile" />
+
+    <fragment
+        android:id="@+id/nav_wallet"
+        android:name="in.birdvision.equibiz.userInfo.profile.WalletFragment"
+        android:label="@string/wallet_details"
+        tools:layout="@layout/fragment_wallet" />
+
 
 </navigation>

@@ -1,3 +1,10 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.buyer.orders;
 
 import android.annotation.SuppressLint;
@@ -212,7 +219,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
     @SuppressLint("SetTextI18n")
     private void preOrderBooking() {
         SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
-        String token = mySharedPreferences.getString("LoginToken", "xxxxx");
+        String token = mySharedPreferences.getString("LoginToken", "");
 
         final PreBookingResponse preBookingResponse = new PreBookingResponse(encryptedBuyerID, encryptedFinalPriceToDeduct,
                 encryptedInsurance, encryptedProID, encryptedQuantityOrdered, encryptedRateCardID, encryptedSellerID,

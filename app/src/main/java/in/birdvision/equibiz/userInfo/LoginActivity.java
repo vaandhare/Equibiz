@@ -1,3 +1,10 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.userInfo;
 
 import android.app.ProgressDialog;
@@ -36,6 +43,7 @@ import static in.birdvision.equibiz.userInfo.encryption.Encryption.encrypt;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public static final String USER_ID = "user_id";
     TextView tvRegister, tvBuyer, tvSeller, tvLoginAs, tvLoginError, tvForgotPass;
     Integer userRole = 1;
     Button login_btn;
@@ -134,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (response1.getData().getUsertype().equals(String.valueOf(1))) {
                             SharedPreferences mySharedPreferences = LoginActivity.this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = mySharedPreferences.edit();
-                            editor.putString("BuyerID", response1.getData().get_id());
+                            editor.putString(USER_ID, response1.getData().get_id());
                             editor.putString("LoginToken", response1.getToken());
                             editor.putString("encryptedUserRole", encryptedRole);
                             editor.apply();
@@ -145,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else if (response1.getData().getUsertype().equals(String.valueOf(2))) {
                             SharedPreferences mySharedPreferences = LoginActivity.this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = mySharedPreferences.edit();
-                            editor.putString("SellerID", response1.getData().get_id());
+                            editor.putString(USER_ID, response1.getData().get_id());
                             editor.putString("LoginToken", response1.getToken());
                             editor.putString("encryptedUserRole", encryptedRole);
                             editor.apply();

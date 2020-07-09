@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  */
+  -->
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
@@ -26,6 +33,17 @@
         <item
             android:id="@+id/nav_pending_orders"
             android:title="@string/pending_orders" />
+    </group>
+
+    <group
+        android:id="@+id/nav_bar_grp3"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:title="@string/profile" />
+        <item
+            android:id="@+id/nav_wallet"
+            android:title="@string/wallet_details" />
     </group>
 
 

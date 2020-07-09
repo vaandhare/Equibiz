@@ -1,4 +1,11 @@
-package in.birdvision.equibiz.buyer.home;
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
+package in.birdvision.equibiz.buyer.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

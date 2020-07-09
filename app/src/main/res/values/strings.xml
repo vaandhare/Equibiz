@@ -1,3 +1,10 @@
+<!--
+  ~ /**
+  ~  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  */
+  -->
+
 <resources>
     <string name="app_name">Equibiz</string>
     <string name="login">Login</string>
@@ -185,8 +192,8 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="base_price">Base Price</string>
-    <string name="base_price_low">Base Price \nLow</string>
-    <string name="base_price_high">Base Price \nHigh</string>
+    <string name="base_price_low">Base Price Low</string>
+    <string name="base_price_high">Base Price High</string>
     <string name="quantity">Quantity</string>
     <string name="dispatch_date">Dispatch Date</string>
     <string name="for_export_only">For Export Only</string>
@@ -208,4 +215,5 @@
     <string name="_50_insurance">₹50 Insurance</string>
     <string name="rate_card_details">Rate Card Details</string>
     <string name="seller_location">Seller Location :</string>
+    <string name="average_price">Average Price</string>
 </resources>

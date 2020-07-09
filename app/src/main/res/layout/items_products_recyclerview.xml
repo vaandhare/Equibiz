@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  */
+  -->
+
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    app:cardBackgroundColor="@color/light_dark_blue"
-    app:cardCornerRadius="15dp">
+    app:cardCornerRadius="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:background="@drawable/product_card_bg"
+        android:padding="10dp"
         android:orientation="vertical">
 
         <ImageView
@@ -26,7 +33,6 @@
             android:id="@+id/IPR_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat"
             android:text="@string/product_name"
             android:textColor="@color/dark_blue"
             android:textSize="18sp" />
@@ -35,7 +41,6 @@
             android:id="@+id/IPR_product_specifications"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat"
             android:text="@string/product_specifications"
             android:textColor="@color/dark_blue"
             android:textSize="13sp" />
@@ -50,7 +55,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
                 android:gravity="center_vertical"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
@@ -62,7 +66,6 @@
                 android:id="@+id/IPR_total_stock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
                 android:gravity="center_vertical"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
@@ -81,7 +84,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:text="Average Price"
@@ -92,7 +94,6 @@
                 android:id="@+id/IPR_avg_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
                 android:gravity="center_vertical"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"

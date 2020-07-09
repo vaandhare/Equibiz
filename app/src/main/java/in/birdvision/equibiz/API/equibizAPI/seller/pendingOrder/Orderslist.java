@@ -1,4 +1,11 @@
 
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.API.equibizAPI.seller.pendingOrder;
 
 import com.google.gson.annotations.Expose;
@@ -54,7 +61,7 @@ public class Orderslist {
     @Expose
     private String ratecardid;
     @Expose
-    private int remainingamt;
+    private String remainingamt;
     @Expose
     private Boolean result;
     @SerializedName("seller_id")
@@ -134,7 +141,7 @@ public class Orderslist {
         return ratecardid;
     }
 
-    public int getRemainingamt() {
+    public String getRemainingamt() {
         return remainingamt;
     }
 

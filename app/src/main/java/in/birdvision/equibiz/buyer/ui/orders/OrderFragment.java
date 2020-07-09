@@ -1,3 +1,10 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.buyer.ui.orders;
 
 import android.content.Context;
@@ -27,6 +34,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static in.birdvision.equibiz.userInfo.LoginActivity.USER_ID;
+
 
 public class OrderFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
@@ -44,7 +53,7 @@ public class OrderFragment extends Fragment implements AdapterView.OnItemSelecte
 
         equibiz_api_interface = EquibizApiService.getClient().create(Equibiz_API_Interface.class);
 
-        userID = mySharedPreferences.getString("BuyerID", "");
+        userID = mySharedPreferences.getString(USER_ID, "");
 //        userID = "mXLr0B3FETZHF0NJNhg0cksJhaQ9gB1w6zkeOpggdwI=";
 //        userID = "/SEl1CTA8IauX/EmxsmRKW6zOFkNcbkzDN+GeekxEEo=";
 //        userID = "q/VhbMT8BFuyAwd115v4Sr8gZCc5z5+ST75APzZYRBM=";

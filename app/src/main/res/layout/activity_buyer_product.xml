@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  */
+  -->
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -30,7 +37,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="25sp"
-            android:fontFamily="@font/montserrat"
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/white"
@@ -50,39 +56,47 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/product_poster_imag"
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/buyer_product_vp2"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:contentDescription="@string/product_poster_image" />
+                android:layout_height="400dp" />
 
-            <!--            <androidx.viewpager2.widget.ViewPager2-->
-            <!--                android:id="@+id/product_poster_view_pager2"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="250dp"/>-->
-
-            <TextView
-                android:id="@+id/tvP_product_name"
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/buyer_product_tab_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:text="@string/product_name"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_height="10dp"
+                app:tabBackground="@drawable/view_pager_tab_selector"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp" />
 
-            <TextView
-                android:id="@+id/tvP_product_specs"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:text="@string/product_specifications"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvP_product_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="@string/product_name"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvP_product_specs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="@string/product_specifications"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -99,21 +113,19 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/montserrat"
                     android:gravity="center_vertical"
                     android:paddingStart="40dp"
-                    android:text="Total Stock"
+                    android:text="@string/total_stock"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
                     android:gravity="center"
                     android:paddingStart="10dp"
                     android:paddingEnd="40dp"
-                    android:text="Average Price"
+                    android:text="@string/average_price"
                     android:textAlignment="textEnd"
                     android:textColor="@color/black"
                     android:textSize="15sp"
@@ -130,7 +142,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/montserrat"
                     android:gravity="center_vertical"
                     android:paddingStart="70dp"
                     android:paddingEnd="5dp"
@@ -143,7 +154,6 @@
                     android:id="@+id/tvP_avg_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
                     android:gravity="center"
                     android:paddingStart="5dp"
                     android:paddingEnd="90dp"
@@ -165,11 +175,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:fontFamily="@font/montserrat"
                 android:text="@string/technical_specifications"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
+
 
             <TableLayout
                 android:layout_width="wrap_content"
@@ -180,237 +190,212 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp">
 
-                <TableRow android:layout_weight="6">
+                <TableRow>
 
                     <TextView
-                        android:layout_weight="2"
-                        android:fontFamily="@font/montserrat"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text="@string/ram"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tvP_ram"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:text=""
                         android:textColor="@color/black" />
 
+                </TableRow>
+
+                <TableRow>
+
                     <TextView
-                        android:layout_weight="2"
-                        android:fontFamily="@font/montserrat"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text="@string/expandable_upto"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
+
 
                     <TextView
                         android:id="@+id/tvP_expandableRam"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:text=""
                         android:textColor="@color/black" />
                 </TableRow>
 
-                <TableRow android:layout_weight="6">
+                <TableRow>
 
                     <TextView
-                        android:layout_weight="2"
-                        android:fontFamily="@font/montserrat"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text="@string/internal_storage"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tvP_internalRam"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:text=""
                         android:textColor="@color/black" />
 
+                </TableRow>
+
+                <TableRow>
+
                     <TextView
-                        android:layout_weight="2"
-                        android:fontFamily="@font/montserrat"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text="@string/front_camera"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tvP_frontCam"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:text=""
                         android:textColor="@color/black" />
                 </TableRow>
 
-                <TableRow android:layout_weight="6">
+                <TableRow>
 
                     <TextView
-                        android:layout_weight="2"
-                        android:fontFamily="@font/montserrat"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text="@string/primary_camera"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tvP_primaryCam"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:text=""
                         android:textColor="@color/black" />
 
+                </TableRow>
+
+                <TableRow>
+
                     <TextView
-                        android:layout_weight="2"
-                        android:fontFamily="@font/montserrat"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text="@string/os"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tvP_OS"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:text=""
                         android:textColor="@color/black" />
                 </TableRow>
 
-                <TableRow android:layout_weight="6">
+                <TableRow>
 
                     <TextView
-                        android:layout_weight="2"
-                        android:fontFamily="@font/montserrat"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text="@string/battery_capacity"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tvP_battery"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:text=""
                         android:textColor="@color/black" />
+                </TableRow>
+
+                <TableRow>
 
                     <TextView
-                        android:layout_weight="2"
-                        android:fontFamily="@font/montserrat"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text="@string/network"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tvP_network"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:text=""
                         android:textColor="@color/black" />
                 </TableRow>
 
-                <TableRow android:layout_weight="6">
+                <TableRow>
 
                     <TextView
-                        android:layout_weight="2"
-                        android:fontFamily="@font/montserrat"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text="@string/sim_slots"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tvP_sims"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:text=""
                         android:textColor="@color/black" />
+                </TableRow>
+
+                <TableRow>
 
                     <TextView
-                        android:layout_weight="2"
-                        android:fontFamily="@font/montserrat"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text="@string/dimensions"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tvP_dimensions"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:text=""
                         android:textColor="@color/black" />
                 </TableRow>
 
-                <TableRow android:layout_weight="6">
+                <TableRow>
 
                     <TextView
-                        android:layout_weight="2"
-                        android:fontFamily="@font/montserrat"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text="@string/screen_size"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tvP_screenSize"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:text=""
                         android:textColor="@color/black" />
 
+                </TableRow>
+
+                <TableRow>
+
                     <TextView
-                        android:layout_weight="2"
-                        android:fontFamily="@font/montserrat"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text="@string/processor"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tvP_processor"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:text=""
                         android:textColor="@color/black" />
                 </TableRow>
             </TableLayout>
@@ -425,19 +410,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:fontFamily="@font/montserrat"
                 android:text="@string/seller"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:padding="10dp"
-                android:text="@string/seller_name"
-                android:textColor="@color/black" />
 
             <TableLayout
                 android:layout_width="wrap_content"
@@ -452,15 +428,12 @@
 
                     <TextView
                         android:id="@+id/tvPS_TQ"
-                        android:fontFamily="@font/montserrat"
                         android:padding="5dp"
                         android:text="@string/total_quantity"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tvPS_totalQuantity"
-                        android:fontFamily="@font/montserrat"
                         android:padding="5dp"
                         android:textColor="@color/black" />
                 </TableRow>
@@ -469,11 +442,9 @@
 
                     <TextView
                         android:id="@+id/tvPS_MQ"
-                        android:fontFamily="@font/montserrat"
                         android:padding="5dp"
                         android:text="@string/minimum_quantity"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tvPS_minQuantity"
@@ -487,15 +458,12 @@
 
                     <TextView
                         android:id="@+id/tvPS_PU"
-                        android:fontFamily="@font/montserrat"
                         android:padding="5dp"
                         android:text="@string/price_per_unit"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tvPS_ppu"
-                        android:fontFamily="@font/montserrat"
                         android:padding="5dp"
                         android:textColor="@color/black" />
                 </TableRow>
@@ -504,15 +472,12 @@
 
                     <TextView
                         android:id="@+id/tvPS_LOC"
-                        android:fontFamily="@font/montserrat"
                         android:padding="5dp"
                         android:text="@string/location"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tvPS_location"
-                        android:fontFamily="@font/montserrat"
                         android:padding="5dp"
                         android:textColor="@color/black" />
                 </TableRow>
@@ -521,48 +486,42 @@
 
                     <TextView
                         android:id="@+id/tvPS_COL"
-                        android:fontFamily="@font/montserrat"
                         android:padding="5dp"
                         android:text="@string/color"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tvPS_color"
-                        android:fontFamily="@font/montserrat"
                         android:padding="5dp"
                         android:textColor="@color/black" />
                 </TableRow>
 
                 <TableRow>
+
                     <TextView
                         android:id="@+id/tvPS_DT"
-                        android:fontFamily="@font/montserrat"
                         android:padding="5dp"
                         android:text="@string/delivery_time_days"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tvPS_deliveryTime"
-                        android:fontFamily="@font/montserrat"
                         android:padding="5dp"
                         android:textColor="@color/black" />
                 </TableRow>
 
                 <TableRow>
+
                     <TextView
-                        android:fontFamily="@font/montserrat"
                         android:padding="5dp"
                         android:text="@string/order_quantity"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <EditText
                         android:id="@+id/etvPS_orderQuanitity"
-                        android:fontFamily="@font/montserrat"
                         android:inputType="number"
                         android:padding="5dp"
+                        android:textSize="15sp"
                         android:importantForAutofill="no"
                         android:maxLength="7"
                         android:textColor="@color/black" />

@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  */
+  -->
+
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,7 +14,7 @@
 
     <fragment
         android:id="@+id/nav_buyer_home"
-        android:name="in.birdvision.equibiz.buyer.home.BuyerHomeFragment"
+        android:name="in.birdvision.equibiz.buyer.ui.home.BuyerHomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_buyer_home" />
 
@@ -19,13 +26,13 @@
 
     <fragment
         android:id="@+id/nav_profile"
-        android:name="in.birdvision.equibiz.buyer.ui.profile.ProfileFragment"
+        android:name="in.birdvision.equibiz.userInfo.profile.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_buyer_profile" />
 
     <fragment
         android:id="@+id/nav_wallet"
-        android:name="in.birdvision.equibiz.buyer.ui.profile.WalletFragment"
+        android:name="in.birdvision.equibiz.userInfo.profile.WalletFragment"
         android:label="@string/wallet_details"
         tools:layout="@layout/fragment_wallet" />
 </navigation>

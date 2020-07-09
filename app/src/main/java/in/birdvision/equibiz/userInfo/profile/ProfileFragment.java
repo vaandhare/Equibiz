@@ -1,4 +1,11 @@
-package in.birdvision.equibiz.buyer.ui.profile;
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
+package in.birdvision.equibiz.userInfo.profile;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -7,7 +14,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,12 +35,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.view.View.GONE;
+import static in.birdvision.equibiz.userInfo.LoginActivity.USER_ID;
 import static in.birdvision.equibiz.userInfo.encryption.Encryption.encoderFunction;
 import static in.birdvision.equibiz.userInfo.encryption.Encryption.encrypt;
 
 public class ProfileFragment extends Fragment {
 
-    ImageView imgProfile;
     TextView tvUserType, tvUserName, tvMobile, tvEmail, tvBusinessName, tvBusinessType, tvPartnerFN, tvPartnerLN,
             tvPartnerMob, tvOfficeAddress, BTNConfindentialDetails;
 
@@ -58,7 +64,7 @@ public class ProfileFragment extends Fragment {
         equibiz_api_interface = EquibizApiService.getClient().create(Equibiz_API_Interface.class);
 
         mySharedPreferences = this.requireActivity().getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
-        userID = mySharedPreferences.getString("BuyerID", "");
+        userID = mySharedPreferences.getString(USER_ID, "");
         AuthToken = mySharedPreferences.getString("LoginToken", "");
 
         try {
@@ -126,8 +132,6 @@ public class ProfileFragment extends Fragment {
 
 
     private void initializeIDS(View view) {
-        imgProfile = view.findViewById(R.id.imgUP_userProfile);
-
         tvUserType = view.findViewById(R.id.tvUP_userType);
         tvUserName = view.findViewById(R.id.tvUP_userName);
         tvMobile = view.findViewById(R.id.tvUP_mobileNo);

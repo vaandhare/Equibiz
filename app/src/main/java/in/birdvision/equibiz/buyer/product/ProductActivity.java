@@ -1,3 +1,10 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.buyer.product;
 
 import android.annotation.SuppressLint;
@@ -14,8 +21,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.bumptech.glide.Glide;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -32,6 +41,7 @@ import in.birdvision.equibiz.API.equibizAPI.buyer.product.productDetails.Product
 import in.birdvision.equibiz.API.equibizAPI.buyer.product.productDetails.Sellerlist;
 import in.birdvision.equibiz.R;
 import in.birdvision.equibiz.buyer.orders.ConfirmOrderActivity;
+import in.birdvision.equibiz.userInfo.ViewPagerAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,7 +62,9 @@ public class ProductActivity extends AppCompatActivity {
     Equibiz_API_Interface equibiz_api_interface;
 
     //UI
-    ImageView productImg1, backImage;
+    ImageView backImage;
+    ViewPager2 viewPager2;
+    TabLayout tabLayout;
     TextView productName, productSpecs, totalStock, avgPrice, productRam, productExpandableMemory, productInternalMemory,
             productFrontCam, productPrimaryCam, productOS, productBattery, productNetwork, productSims,
             productDimensions, productScreenSize, productProcessor, sellerTotalQuantity, sellerMinQuantity, sellerPPU, sellerLocation,
@@ -105,7 +117,7 @@ public class ProductActivity extends AppCompatActivity {
         }
 
         SharedPreferences mySharedPreferences = this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
-        String token = mySharedPreferences.getString("LoginToken", "xxxxx");
+        String token = mySharedPreferences.getString("LoginToken", "");
 
         final ProductDetailsResponse productDetailsResponse = new ProductDetailsResponse(encryptedColor,
                 encryptedInternalMemory, encryptedID, encryptedRam);
@@ -138,8 +150,10 @@ public class ProductActivity extends AppCompatActivity {
 
         Productdatum productdatum = productDetailsResponse1.getProductdata().get(0);
 
-        String IMG_URL = "https://equibase.s3.ap-south-1.amazonaws.com/" + productdatum.getProductinfo().getpImages().get(0);
-        Glide.with(ProductActivity.this).load(IMG_URL).into(productImg1);
+        viewPager2.setAdapter(new ViewPagerAdapter(this, productdatum.getProductinfo().getpImages()));
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, true, (tab, position) -> {
+        });
+        tabLayoutMediator.attach();
 
         String brandname = productdatum.getBrandinfo().getBrandname();
         String modelname = productdatum.getProductinfo().getpModelNo();
@@ -238,7 +252,8 @@ public class ProductActivity extends AppCompatActivity {
         activityTitle = findViewById(R.id.tv_product);
         backImage = findViewById(R.id.img_back_product);
         backImage.setOnClickListener(v -> onBackPressed());
-        productImg1 = findViewById(R.id.product_poster_imag);
+        viewPager2 = findViewById(R.id.buyer_product_vp2);
+        tabLayout = findViewById(R.id.buyer_product_tab_layout);
         productName = findViewById(R.id.tvP_product_name);
         productSpecs = findViewById(R.id.tvP_product_specs);
         totalStock = findViewById(R.id.tvP_total_stock);

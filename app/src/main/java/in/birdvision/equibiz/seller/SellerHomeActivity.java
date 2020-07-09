@@ -1,3 +1,10 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.seller;
 
 import android.annotation.SuppressLint;
@@ -44,7 +51,7 @@ public class SellerHomeActivity extends AppCompatActivity implements ProductList
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_product_list, R.id.nav_product_listing, R.id.nav_my_inventory,
-                R.id.nav_pending_orders)
+                R.id.nav_pending_orders, R.id.nav_profile, R.id.nav_wallet)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_seller);

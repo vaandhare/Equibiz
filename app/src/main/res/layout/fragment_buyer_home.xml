@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  */
+  -->
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".buyer.home.BuyerHomeFragment">
+    tools:context=".buyer.ui.home.BuyerHomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="225dp"
@@ -18,7 +26,7 @@
                 android:id="@+id/FBH_rv_banners"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scrollbars="horizontal"
+                android:scrollbars="none"
                 android:layout_margin="5dp"
                 tools:listitem="@layout/item_buyer_banners"/>
         </LinearLayout>
@@ -39,6 +47,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="@string/brands"
+                    android:layout_marginStart="10dp"
                     android:padding="7dp"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -63,14 +72,14 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="220dp"
                 android:orientation="horizontal">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/FBH_rv_buyer_brands"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scrollbars="horizontal"
+                    android:scrollbars="none"
                     android:layout_margin="5dp"
                     tools:listitem="@layout/item_buyer_brands"/>
 
@@ -83,48 +92,27 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/playfair_display"
+                android:padding="7dp"
+                android:text="@string/best_deals"
+                android:textColor="@color/dark_blue"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="@string/best_deals"
-                    android:padding="7dp"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/dark_blue"
-                    android:fontFamily="@font/playfair_display"/>
-
-                <TextView
-                    android:id="@+id/tvFBH_bestDealsViewAll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/view_all"
-                    android:fontFamily="@font/montserrat"
-                    android:background="@color/blue"
-                    android:layout_gravity="center_vertical"
-                    android:padding="7dp"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:layout_marginEnd="15dp"
-                    android:textColor="@color/white"
-                    android:drawableEnd="@drawable/ic_baseline_chevron_right"
-                    android:drawableTint="@color/white"/>
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="230dp"
                 android:orientation="horizontal">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/FBH_rv_buyer_best_deals"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scrollbars="horizontal"
+                    android:scrollbars="none"
                     android:layout_margin="5dp"
                     tools:listitem="@layout/item_best_deals_product"/>
 

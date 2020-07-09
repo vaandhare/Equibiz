@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  */
+  -->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="in.birdvision.equibiz">
 
@@ -25,7 +32,9 @@
             android:name=".buyer.BuyerHomeActivity"
             android:label="@string/title_activity_buyer_home"
             android:theme="@style/NoActionBarTheme.NoActionBar" />
-        <activity android:name=".buyer.product.ProductListActivity" />
+        <activity
+            android:name=".buyer.product.ProductListActivity"
+            android:theme="@style/NoActionBarTheme.NoActionBar" />
         <activity android:name=".userInfo.ForgotPasswordActivity" />
         <activity android:name=".buyer.orders.ConfirmOrderActivity" />
         <activity android:name=".buyer.orders.OrderActivity" />

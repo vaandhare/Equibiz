@@ -1,11 +1,17 @@
-package in.birdvision.equibiz.buyer.home;
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
+package in.birdvision.equibiz.buyer.ui.home;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,13 +34,20 @@ import in.birdvision.equibiz.API.equibizAPI.buyer.home.Bestdeal;
 import in.birdvision.equibiz.API.equibizAPI.buyer.home.Branddatum;
 import in.birdvision.equibiz.API.equibizAPI.buyer.home.BuyerHomeResponse;
 import in.birdvision.equibiz.R;
+import in.birdvision.equibiz.buyer.product.ProductActivity;
 import in.birdvision.equibiz.buyer.product.ProductListActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static in.birdvision.equibiz.buyer.product.ProductListActivity.EXTRA_COLOR;
+import static in.birdvision.equibiz.buyer.product.ProductListActivity.EXTRA_INTERNAL_MEMORY;
+import static in.birdvision.equibiz.buyer.product.ProductListActivity.EXTRA_PRO_ID;
+import static in.birdvision.equibiz.buyer.product.ProductListActivity.EXTRA_RAM;
+
 public class BuyerHomeFragment extends Fragment {
 
+    public static final String BRAND_NAME = "brand_name";
     Equibiz_API_Interface equibiz_api_interface;
     AdapterBanner adapterBanner;
     AdapterBrands adapterBrands;
@@ -79,7 +92,12 @@ public class BuyerHomeFragment extends Fragment {
         recyclerViewBestDeals.setAdapter(adapterBestDeals);
         adapterBestDeals.setOnItemClickListener(position -> {
             Bestdeal bestdeal = bestdealList.get(position);
-            Toast.makeText(context, bestdeal.getOrderscount().toString(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), ProductActivity.class);
+            intent.putExtra(EXTRA_COLOR, bestdeal.getSellerproductinfo().getColor());
+            intent.putExtra(EXTRA_RAM, bestdeal.getSellerproductinfo().getRamMob());
+            intent.putExtra(EXTRA_INTERNAL_MEMORY, bestdeal.getSellerproductinfo().getInternalMemory());
+            intent.putExtra(EXTRA_PRO_ID, bestdeal.getSellerproductinfo().getProductId());
+            startActivity(intent);
         });
 
         recyclerViewBrands = root.findViewById(R.id.FBH_rv_buyer_brands);
@@ -88,28 +106,18 @@ public class BuyerHomeFragment extends Fragment {
         recyclerViewBrands.setAdapter(adapterBrands);
         adapterBrands.setOnItemClickListener(position -> {
             Branddatum branddatum = branddatumList.get(position);
-            Toast.makeText(context, branddatum.getBrandinfo().getBrandname(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), ProductListActivity.class);
+            intent.putExtra(BRAND_NAME, branddatum.getBrandinfo().getBrandname());
+            startActivity(intent);
         });
 
-        tvBestDealsViewAll = root.findViewById(R.id.tvFBH_bestDealsViewAll);
         tvBrandsViewAll = root.findViewById(R.id.tvFBH_brandsViewAll);
 
-        tvBrandsViewAll.setOnClickListener(v -> startActivity(new Intent(getActivity(), ProductListActivity.class)));
-
-        final int speedScroll = 150;
-        final Handler handler = new Handler();
-        final Runnable runnable = new Runnable() {
-            int count = 0;
-
-            @Override
-            public void run() {
-                if (count < adapterBanner.getItemCount()) {
-                    recyclerViewBanner.scrollToPosition(count++);
-                    handler.postDelayed(this, speedScroll);
-                }
-            }
-        };
-        handler.postDelayed(runnable, speedScroll);
+        tvBrandsViewAll.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ProductListActivity.class);
+            intent.putExtra(BRAND_NAME, "All");
+            startActivity(intent);
+        });
 
         getBuyerHomeResponse();
 
@@ -149,4 +157,5 @@ public class BuyerHomeFragment extends Fragment {
             }
         });
     }
+
 }

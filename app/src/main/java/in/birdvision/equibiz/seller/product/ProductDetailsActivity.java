@@ -1,3 +1,10 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.seller.product;
 
 import android.annotation.SuppressLint;
@@ -10,14 +17,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.bumptech.glide.Glide;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -28,6 +36,7 @@ import in.birdvision.equibiz.API.equibizAPI.EquibizSeller_API_interface;
 import in.birdvision.equibiz.API.equibizAPI.seller.Productinfo;
 import in.birdvision.equibiz.API.equibizAPI.seller.adminProductDetails.AdminProductDetailsResponse;
 import in.birdvision.equibiz.R;
+import in.birdvision.equibiz.userInfo.ViewPagerAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,13 +62,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     Button btnSaveSubmit;
 
-    ImageView productImg1;
-
     String encryptedUserID, encryptedProductID;
     byte[] cipherUserID, cipherProductID;
 
     EquibizSeller_API_interface equibizSeller_api_interface;
     ProgressDialog progressDialog;
+
+    ViewPager2 viewPager2;
+    TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,8 +133,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private void changeUIData(AdminProductDetailsResponse response1) {
         Productinfo productinfo = response1.getAdminproductdetails().get(0).getProductinfo();
 
-        String IMG_URL = "https://equibase.s3.ap-south-1.amazonaws.com/" + productinfo.getpImages().get(0);
-        Glide.with(this).load(IMG_URL).into(productImg1);
+        viewPager2.setAdapter(new ViewPagerAdapter(this, productinfo.getpImages()));
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, true, (tab, position) -> {
+        });
+        tabLayoutMediator.attach();
 
         String brandname = response1.getAdminproductdetails().get(0).getBrandinfo().getBrandname();
         String modelname = productinfo.getpModelNo();
@@ -148,7 +160,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
     }
 
     private void initializeIDs() {
-        productImg1 = findViewById(R.id.ASPD_img1);
+        viewPager2 = findViewById(R.id.ASPD_viewPager2);
+        tabLayout = findViewById(R.id.ASPD_tab_layout);
 
         toolbarTitle = findViewById(R.id.tvASPD_seller_product);
         tvProductName = findViewById(R.id.tvASPD_product_name);
@@ -182,7 +195,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         spinnerInternalStorage.setOnItemSelectedListener(new StorageSpinnerClass());
         ArrayAdapter<String> internalStorage = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, productInternalStorage);
         internalStorage.setDropDownViewResource(R.layout.dropdown_menu);
-        spinnerInternalStorage.setAdapter(rams);
+        spinnerInternalStorage.setAdapter(internalStorage);
 
         spinnerColor = findViewById(R.id.spinnerSP_color);
         spinnerColor.setOnItemSelectedListener(new ColorSpinnerClass());

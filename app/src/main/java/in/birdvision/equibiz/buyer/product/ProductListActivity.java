@@ -1,3 +1,10 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.buyer.product;
 
 import android.app.ProgressDialog;
@@ -37,6 +44,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static in.birdvision.equibiz.buyer.ui.home.BuyerHomeFragment.BRAND_NAME;
 import static in.birdvision.equibiz.userInfo.encryption.Encryption.encoderFunction;
 import static in.birdvision.equibiz.userInfo.encryption.Encryption.encrypt;
 
@@ -57,7 +65,7 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
     List<String> menuFilterItems;
     ImageView imgBack;
     TextView noResultProduct;
-    String encryptedSearchText, encryptedBrand, selectedBrand = "All", AuthToken;
+    String encryptedSearchText, encryptedBrand, selectedBrand, AuthToken;
     byte[] cipherSearchText, cipherBrand;
 
 
@@ -87,6 +95,10 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
         noResultProduct = findViewById(R.id.tvPL_noResults);
         imgBack = findViewById(R.id.img_back_buyer_productList);
         imgBack.setOnClickListener(v -> startActivity(new Intent(this, BuyerHomeActivity.class)));
+
+        Intent intent = getIntent();
+        selectedBrand = intent.getStringExtra(BRAND_NAME);
+
         productListResponse();
 
     }
@@ -104,7 +116,6 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
             @Override
             public boolean onQueryTextSubmit(String query) {
                 getSearchResults(query);
-                Toast.makeText(ProductListActivity.this, query, Toast.LENGTH_SHORT).show();
                 searchView.clearFocus();
                 return true;
             }
@@ -132,7 +143,6 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
             e.printStackTrace();
         }
 
-//        Toast.makeText(getActivity(), query, Toast.LENGTH_SHORT).show();
         final SearchProductResponse searchProductResponse = new SearchProductResponse(encryptedSearchText);
 
         Call<SearchProductResponse> responseCall = equibiz_api_interface.searchProductResponse(searchProductResponse, "Bearer " + AuthToken);
@@ -145,7 +155,14 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
                     SearchProductResponse productListResponse = response.body();
                     assert productListResponse != null;
                     getProductdata = productListResponse.getProductdata();
-                    adapterProductList.setProductdata(getProductdata);
+                    if (getProductdata.isEmpty()) {
+                        noResultProduct.setVisibility(View.VISIBLE);
+                        productRecyclerView.setVisibility(View.GONE);
+                    } else {
+                        productRecyclerView.setVisibility(View.VISIBLE);
+                        noResultProduct.setVisibility(View.GONE);
+                        adapterProductList.setProductdata(getProductdata);
+                    }
                 }
             }
 
@@ -161,8 +178,8 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
     }
 
     private void productListResponse() {
-
         try {
+            assert selectedBrand != null;
             cipherBrand = encrypt(selectedBrand.getBytes());
             encryptedBrand = encoderFunction(cipherBrand);
         } catch (Exception e) {
@@ -180,7 +197,7 @@ public class ProductListActivity extends AppCompatActivity implements AdapterPro
                     assert productListResponse != null;
                     getProductdata = productListResponse.getProducts();
 
-                    if (getProductdata == null) {
+                    if (getProductdata.isEmpty()) {
                         noResultProduct.setVisibility(View.VISIBLE);
                         productRecyclerView.setVisibility(View.GONE);
                     } else {
