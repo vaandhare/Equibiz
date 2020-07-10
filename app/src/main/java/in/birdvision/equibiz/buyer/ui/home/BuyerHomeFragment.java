@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Created by Vaibhav Andhare on 10/7/20 10:07 AM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -12,6 +12,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +63,7 @@ public class BuyerHomeFragment extends Fragment {
     TextView tvBrandsViewAll, tvBestDealsViewAll;
     Context context;
     private String AuthToken;
+    private LinearLayoutManager layoutManagerBestDeals;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,9 +90,40 @@ public class BuyerHomeFragment extends Fragment {
         });
 
         recyclerViewBestDeals = root.findViewById(R.id.FBH_rv_buyer_best_deals);
-        recyclerViewBestDeals.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        layoutManagerBestDeals = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewBestDeals.setLayoutManager(layoutManagerBestDeals);
         adapterBestDeals = new AdapterBestDeals(context);
         recyclerViewBestDeals.setAdapter(adapterBestDeals);
+
+        final int duration = 10;
+        final int pixelsToMove = 150;
+        final Handler mHandler = new Handler(Looper.getMainLooper());
+        final Runnable SCROLLING_RUNNABLE = new Runnable() {
+            @Override
+            public void run() {
+                recyclerViewBestDeals.smoothScrollBy(pixelsToMove, 0);
+                mHandler.postDelayed(this, duration);
+            }
+        };
+
+        recyclerViewBestDeals.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NotNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int lastItem = layoutManagerBestDeals.findLastCompletelyVisibleItemPosition();
+                if (lastItem == layoutManagerBestDeals.getItemCount() - 1) {
+                    mHandler.removeCallbacks(SCROLLING_RUNNABLE);
+                    Handler postHandler = new Handler();
+                    postHandler.postDelayed(() -> {
+                        recyclerViewBestDeals.setAdapter(null);
+                        recyclerViewBestDeals.setAdapter(adapterBestDeals);
+                        mHandler.postDelayed(SCROLLING_RUNNABLE, 5000);
+                    }, 5000);
+                }
+            }
+        });
+        mHandler.postDelayed(SCROLLING_RUNNABLE, 2000);
+
         adapterBestDeals.setOnItemClickListener(position -> {
             Bestdeal bestdeal = bestdealList.get(position);
             Intent intent = new Intent(getActivity(), ProductActivity.class);
