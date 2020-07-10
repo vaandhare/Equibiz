@@ -1,3 +1,10 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 10/7/20 9:44 AM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.API.equibizAPI.userInfo;
 
 import com.google.gson.annotations.SerializedName;
@@ -45,8 +52,8 @@ public class BusinessDetailsResponse {
     private String status;
     @SerializedName("businessverified")
     private String businessverified;
-    //    @SerializedName("bankdetails")
-//    private BankDetails bankdetails;
+    @SerializedName("bankdetails")
+    private BankDetails bankdetails;
     @SerializedName("businessdetails")
     private BusinessDetails businessdetails;
     @SerializedName("hublocation")

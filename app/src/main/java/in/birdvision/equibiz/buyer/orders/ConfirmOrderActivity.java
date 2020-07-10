@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Created by Vaibhav Andhare on 10/7/20 9:44 AM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -75,7 +75,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
     ProgressDialog progressDialog;
 
     Integer totalCost;
-    long pre_book_amount;
+    Integer pre_book_amount;
     Integer insuranceValue = 0;
     ArrayList<Allratecard> allratecards;
     String walletBalance;
@@ -294,7 +294,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements AdapterVi
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         orderDeliveryAdditionalTime.setText("T + " + allratecards.get(position).getDeltime() + "\n(After Confirmed transaction)");
         orderDeliveryCharges.setText(String.valueOf(allratecards.get(position).getDelcharges()));
-        pre_book_amount = (totalCost / 10) + allratecards.get(position).getDelcharges();
+        pre_book_amount = (totalCost / 10) + Integer.parseInt(allratecards.get(position).getDelcharges());
         orderPreBookAmount.setText(String.valueOf(pre_book_amount));
 
         amountDeduction.setText("₹" + (pre_book_amount + 50) + " will be deducted from your wallet Balance.");

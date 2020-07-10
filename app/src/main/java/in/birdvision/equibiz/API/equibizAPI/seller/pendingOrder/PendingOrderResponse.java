@@ -1,3 +1,10 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 10/7/20 9:44 AM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.API.equibizAPI.seller.pendingOrder;
 
 import com.google.gson.annotations.Expose;
@@ -7,7 +14,7 @@ import java.util.List;
 public class PendingOrderResponse {
 
     @Expose
-    private int count;
+    private String count;
     @Expose
     private List<Orderslist> orderslist;
     @Expose
@@ -19,7 +26,7 @@ public class PendingOrderResponse {
         this.userid = userid;
     }
 
-    public int getCount() {
+    public String getCount() {
         return count;
     }
 

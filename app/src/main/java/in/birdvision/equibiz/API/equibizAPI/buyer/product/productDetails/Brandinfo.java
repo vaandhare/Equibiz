@@ -1,4 +1,11 @@
 
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 10/7/20 9:44 AM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.API.equibizAPI.buyer.product.productDetails;
 
 import com.google.gson.annotations.SerializedName;
@@ -6,12 +13,12 @@ import com.google.gson.annotations.SerializedName;
 public class Brandinfo {
 
     @SerializedName("__v")
-    private long _V;
+    private String _V;
     private String _id;
     private String brandname;
-    private long brandstatus;
+    private String brandstatus;
 
-    public long get_V() {
+    public String get_V() {
         return _V;
     }
 
@@ -23,7 +30,7 @@ public class Brandinfo {
         return brandname;
     }
 
-    public long getBrandstatus() {
+    public String getBrandstatus() {
         return brandstatus;
     }
 }

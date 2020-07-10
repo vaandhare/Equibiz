@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Created by Vaibhav Andhare on 10/7/20 9:44 AM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -201,9 +201,9 @@ public class ProductActivity extends AppCompatActivity {
             COProID = sellerList1.getProductId();
             COSellerID = sellerList1.getUserId();
             COSellerProID = sellerList1.get_id();
-            COTotalQuantity = sellerList1.getAvailableStock();
+            COTotalQuantity = Integer.parseInt(sellerList1.getAvailableStock());
             sellerTotalQuantity.setText(String.valueOf(COTotalQuantity));
-            COMinQuantity = sellerList1.getMinqty();
+            COMinQuantity = Integer.parseInt(sellerList1.getMinqty());
             sellerMinQuantity.setText(String.valueOf(COMinQuantity));
             sellerOrderQuantity.setHint(String.valueOf(sellerList1.getMinqty()));
             sellerPPU.setText(COPPU);

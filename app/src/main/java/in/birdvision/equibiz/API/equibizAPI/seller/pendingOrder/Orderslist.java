@@ -1,7 +1,7 @@
 
 /*
  * *
- *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Created by Vaibhav Andhare on 10/7/20 9:44 AM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -17,13 +17,13 @@ import in.birdvision.equibiz.API.equibizAPI.seller.Productinfo;
 public class Orderslist {
 
     @SerializedName("__v")
-    private Long _V;
+    private String _V;
     @Expose
     private String _id;
     @Expose
-    private int adminconfirmation;
-    //    @Expose
-//    private int amount10percent;
+    private String adminconfirmation;
+    @Expose
+    private String amount10percent;
     @SerializedName("brand_id")
     private String brandId;
     @Expose
@@ -36,18 +36,18 @@ public class Orderslist {
     private String expdelforbuyer;
     @Expose
     private String expdelforseller;
-    //    @Expose
-//    private int finalpricetodeduct;
+    @Expose
+    private String finalpricetodeduct;
     @Expose
     private String fullpaymentdate;
     @Expose
-    private int insurance;
+    private String insurance;
     @SerializedName("order_date")
     private String orderDate;
     @SerializedName("order_id")
     private String orderId;
     @SerializedName("order_status")
-    private int orderStatus;
+    private String orderStatus;
     @Expose
     private String prebookpaymentdate;
     @SerializedName("pro_id")
@@ -57,7 +57,7 @@ public class Orderslist {
     @Expose
     private Productinfo productinfo;
     @SerializedName("qty_ordered")
-    private int qtyOrdered;
+    private String qtyOrdered;
     @Expose
     private String ratecardid;
     @Expose
@@ -71,13 +71,13 @@ public class Orderslist {
     @Expose
     private String sellertime;
     @SerializedName("total_price")
-    private int totalPrice;
+    private String totalPrice;
     @SerializedName("unit_price")
-    private int unitPrice;
+    private String unitPrice;
     @SerializedName("updated_date")
     private String updatedDate;
 
-    public Long get_V() {
+    public String get_V() {
         return _V;
     }
 
@@ -165,27 +165,27 @@ public class Orderslist {
         return updatedDate;
     }
 
-    public int getAdminconfirmation() {
+    public String getAdminconfirmation() {
         return adminconfirmation;
     }
 
-    public int getInsurance() {
+    public String getInsurance() {
         return insurance;
     }
 
-    public int getOrderStatus() {
+    public String getOrderStatus() {
         return orderStatus;
     }
 
-    public int getQtyOrdered() {
+    public String getQtyOrdered() {
         return qtyOrdered;
     }
 
-    public int getTotalPrice() {
+    public String getTotalPrice() {
         return totalPrice;
     }
 
-    public int getUnitPrice() {
+    public String getUnitPrice() {
         return unitPrice;
     }
 }

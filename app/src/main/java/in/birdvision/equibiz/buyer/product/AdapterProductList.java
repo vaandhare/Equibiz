@@ -1,3 +1,10 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 10/7/20 9:44 AM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.buyer.product;
 
 import android.annotation.SuppressLint;
@@ -56,21 +63,21 @@ public class AdapterProductList extends RecyclerView.Adapter<AdapterProductList.
     public void onBindViewHolder(@NonNull ProductListViewHolder holder, int position) {
         Productdatum productdatum = productdata.get(position);
 
-        String IMG_URL = "https://equibase.s3.ap-south-1.amazonaws.com/" + productdatum.getProductinfo().getPImages().get(0);
+        String IMG_URL = "https://equibase.s3.ap-south-1.amazonaws.com/" + productdatum.getProductinfo().getpImages().get(0);
         Glide.with(context).load(IMG_URL).into(holder.thumbnail);
         String brandName = productdatum.getBrandinfo().getBrandname();
-        String modelName = productdatum.getProductinfo().getPModelNo();
+        String modelName = productdatum.getProductinfo().getpModelNo();
         String ram = productdatum.get_id().getRamMob() + " GB";
         String internalMemory = productdatum.get_id().getInternalMemory() + " GB";
         String mobColor = productdatum.get_id().getColor();
 
-        Long totalStock = productdatum.getStocksum();
-        Long avgPrice = productdatum.getAvgsum();
+        String totalStock = productdatum.getStocksum();
+        String avgPrice = productdatum.getAvgsum();
 
         holder.productSpecifications.setText(ram + "/ " + internalMemory + "/ " + mobColor);
         holder.productName.setText(brandName + " " + modelName);
-        holder.totalStock.setText(totalStock.toString());
-        holder.avgPRice.setText(avgPrice.toString());
+        holder.totalStock.setText(totalStock);
+        holder.avgPRice.setText(avgPrice);
     }
 
     @Override

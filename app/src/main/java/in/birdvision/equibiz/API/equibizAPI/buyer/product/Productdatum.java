@@ -1,4 +1,11 @@
 
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 10/7/20 9:44 AM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.API.equibizAPI.buyer.product;
 
 import com.google.gson.annotations.Expose;
@@ -9,37 +16,37 @@ public class Productdatum {
     @Expose
     private in.birdvision.equibiz.API.equibizAPI.buyer.product._id _id;
     @Expose
-    private Long asum;
+    private String asum;
     @Expose
-    private Long avgsum;
+    private String avgsum;
     @Expose
     private Brandinfo brandinfo;
     @Expose
     private Productinfo productinfo;
     @Expose
-    private Long prostatus;
+    private String prostatus;
     @Expose
-    private Long stocksum;
+    private String stocksum;
     @Expose
-    private Long sum;
+    private String sum;
 
     @SerializedName("search")
     private String mSearch;
     @SerializedName("searchres")
-    private Boolean mSearchres;
+    private String mSearchres;
 
     @SerializedName("modelno")
-    private Boolean mModelno;
+    private String mModelno;
 
     public in.birdvision.equibiz.API.equibizAPI.buyer.product._id get_id() {
         return _id;
     }
 
-    public Long getAsum() {
+    public String getAsum() {
         return asum;
     }
 
-    public Long getAvgsum() {
+    public String getAvgsum() {
         return avgsum;
     }
 
@@ -51,15 +58,15 @@ public class Productdatum {
         return productinfo;
     }
 
-    public Long getProstatus() {
+    public String getProstatus() {
         return prostatus;
     }
 
-    public Long getStocksum() {
+    public String getStocksum() {
         return stocksum;
     }
 
-    public Long getSum() {
+    public String getSum() {
         return sum;
     }
 
@@ -67,11 +74,11 @@ public class Productdatum {
         return mSearch;
     }
 
-    public Boolean getmSearchres() {
+    public String getmSearchres() {
         return mSearchres;
     }
 
-    public Boolean getmModelno() {
+    public String getmModelno() {
         return mModelno;
     }
 }

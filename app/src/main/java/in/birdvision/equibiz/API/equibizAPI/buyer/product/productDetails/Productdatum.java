@@ -1,4 +1,11 @@
 
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 10/7/20 9:44 AM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.API.equibizAPI.buyer.product.productDetails;
 
 import com.google.gson.annotations.SerializedName;
@@ -6,9 +13,9 @@ import com.google.gson.annotations.SerializedName;
 public class Productdatum {
 
     private in.birdvision.equibiz.API.equibizAPI.buyer.product.productDetails._id _id;
-    private long asum;
-    private long avgpricesum;
-    private long avgsum;
+    private String asum;
+    private String avgpricesum;
+    private String avgsum;
     @SerializedName("brand_id")
     private String brandId;
     private Brandinfo brandinfo;
@@ -21,24 +28,13 @@ public class Productdatum {
     private Productinfo productinfo;
     @SerializedName("ram_mob")
     private String ramMob;
-    private long stocksum;
-    private long sum;
+    private String stocksum;
+    private String sum;
 
     public in.birdvision.equibiz.API.equibizAPI.buyer.product.productDetails._id get_id() {
         return _id;
     }
 
-    public long getAsum() {
-        return asum;
-    }
-
-    public long getAvgpricesum() {
-        return avgpricesum;
-    }
-
-    public long getAvgsum() {
-        return avgsum;
-    }
 
     public String getBrandId() {
         return brandId;
@@ -72,11 +68,23 @@ public class Productdatum {
         return ramMob;
     }
 
-    public long getStocksum() {
+    public String getAsum() {
+        return asum;
+    }
+
+    public String getAvgpricesum() {
+        return avgpricesum;
+    }
+
+    public String getAvgsum() {
+        return avgsum;
+    }
+
+    public String getStocksum() {
         return stocksum;
     }
 
-    public long getSum() {
+    public String getSum() {
         return sum;
     }
 }

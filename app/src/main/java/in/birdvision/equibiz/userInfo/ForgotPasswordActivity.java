@@ -1,3 +1,10 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 10/7/20 9:44 AM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.userInfo;
 
 import android.app.ProgressDialog;
@@ -142,7 +149,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 assert response1 != null;
                 if (response1.getStatus().equals("success")) {
                     alertDialog("Verification code", "Verification code is send to your register email. \nComplete the process to recover your account.");
-                    responseCode = response1.getCode();
+                    responseCode = Integer.parseInt(response1.getCode());
                     TIL_email.setEnabled(false);
                     btnRecoverAcc.setVisibility(View.GONE);
                     tvCancel.setVisibility(View.GONE);

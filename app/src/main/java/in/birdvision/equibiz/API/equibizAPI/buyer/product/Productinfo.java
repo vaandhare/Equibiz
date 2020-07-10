@@ -1,4 +1,11 @@
 
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 10/7/20 9:44 AM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.API.equibizAPI.buyer.product;
 
 import com.google.gson.annotations.Expose;
@@ -9,15 +16,15 @@ import java.util.List;
 public class Productinfo {
 
     @SerializedName("__v")
-    private Long _V;
+    private String _V;
     @Expose
     private String _id;
     @SerializedName("p_base_high")
-    private Double pBaseHigh;
+    private String pBaseHigh;
     @SerializedName("p_base_low")
-    private Double pBaseLow;
+    private String pBaseLow;
     @SerializedName("p_base_price")
-    private Double pBasePrice;
+    private String pBasePrice;
     @SerializedName("p_battery_power")
     private String pBatteryPower;
     @SerializedName("p_brand")
@@ -29,9 +36,9 @@ public class Productinfo {
     @SerializedName("p_dimensions")
     private String pDimensions;
     @SerializedName("p_expandable_memory")
-    private Long pExpandableMemory;
+    private String pExpandableMemory;
     @SerializedName("p_front_camera")
-    private Long pFrontCamera;
+    private String pFrontCamera;
     @SerializedName("p_images")
     private List<String> pImages;
     @SerializedName("p_model_no")
@@ -41,19 +48,19 @@ public class Productinfo {
     @SerializedName("p_os_type")
     private String pOsType;
     @SerializedName("p_primary_camera")
-    private Long pPrimaryCamera;
+    private String pPrimaryCamera;
     @SerializedName("p_processor")
     private String pProcessor;
     @SerializedName("p_screen_size")
     private String pScreenSize;
     @SerializedName("p_sim_slots")
-    private Long pSimSlots;
+    private String pSimSlots;
     @SerializedName("p_status")
-    private Long pStatus;
+    private String pStatus;
     @SerializedName("p_updated_date")
     private String pUpdatedDate;
 
-    public Long get_V() {
+    public String get_V() {
         return _V;
     }
 
@@ -61,83 +68,83 @@ public class Productinfo {
         return _id;
     }
 
-    public Double getpBaseHigh() {
+    public String getpBaseHigh() {
         return pBaseHigh;
     }
 
-    public Double getpBaseLow() {
+    public String getpBaseLow() {
         return pBaseLow;
     }
 
-    public Double getpBasePrice() {
+    public String getpBasePrice() {
         return pBasePrice;
     }
 
-    public String getPBatteryPower() {
+    public String getpBatteryPower() {
         return pBatteryPower;
     }
 
-    public String getPBrand() {
+    public String getpBrand() {
         return pBrand;
     }
 
-    public String getPCreatedDate() {
+    public String getpCreatedDate() {
         return pCreatedDate;
     }
 
-    public String getPDesc() {
+    public String getpDesc() {
         return pDesc;
     }
 
-    public String getPDimensions() {
+    public String getpDimensions() {
         return pDimensions;
     }
 
-    public Long getPExpandableMemory() {
+    public String getpExpandableMemory() {
         return pExpandableMemory;
     }
 
-    public Long getPFrontCamera() {
+    public String getpFrontCamera() {
         return pFrontCamera;
     }
 
-    public List<String> getPImages() {
+    public List<String> getpImages() {
         return pImages;
     }
 
-    public String getPModelNo() {
+    public String getpModelNo() {
         return pModelNo;
     }
 
-    public String getPNetworkType() {
+    public String getpNetworkType() {
         return pNetworkType;
     }
 
-    public String getPOsType() {
+    public String getpOsType() {
         return pOsType;
     }
 
-    public Long getPPrimaryCamera() {
+    public String getpPrimaryCamera() {
         return pPrimaryCamera;
     }
 
-    public String getPProcessor() {
+    public String getpProcessor() {
         return pProcessor;
     }
 
-    public String getPScreenSize() {
+    public String getpScreenSize() {
         return pScreenSize;
     }
 
-    public Long getPSimSlots() {
+    public String getpSimSlots() {
         return pSimSlots;
     }
 
-    public Long getPStatus() {
+    public String getpStatus() {
         return pStatus;
     }
 
-    public String getPUpdatedDate() {
+    public String getpUpdatedDate() {
         return pUpdatedDate;
     }
 

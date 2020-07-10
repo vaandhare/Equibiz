@@ -1,4 +1,11 @@
 
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 10/7/20 9:44 AM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.API.equibizAPI.buyer.product.productDetails;
 
 import com.google.gson.annotations.SerializedName;
@@ -7,9 +14,9 @@ public class Sellerlist {
 
     private String _id;
     @SerializedName("available_stock")
-    private int availableStock;
+    private String availableStock;
     @SerializedName("avg_price")
-    private long avgPrice;
+    private String avgPrice;
     private String color;
     @SerializedName("internal_memory")
     private String internalMemory;
@@ -19,13 +26,13 @@ public class Sellerlist {
     private String productId;
     @SerializedName("ram_mob")
     private String ramMob;
-    private long sellerindex;
+    private String sellerindex;
     @SerializedName("time_to_del")
     private String timeToDel;
     @SerializedName("user_id")
     private String userId;
     @SerializedName("minqty")
-    private int minqty;
+    private String minqty;
     @SerializedName("forexport")
     private Boolean forexport;
     @SerializedName("soldout")
@@ -36,14 +43,6 @@ public class Sellerlist {
 
     public String get_id() {
         return _id;
-    }
-
-    public int getAvailableStock() {
-        return availableStock;
-    }
-
-    public long getAvgPrice() {
-        return avgPrice;
     }
 
     public String getColor() {
@@ -66,10 +65,6 @@ public class Sellerlist {
         return ramMob;
     }
 
-    public long getSellerindex() {
-        return sellerindex;
-    }
-
     public String getTimeToDel() {
         return timeToDel;
     }
@@ -78,7 +73,19 @@ public class Sellerlist {
         return userId;
     }
 
-    public int getMinqty() {
+    public String getAvailableStock() {
+        return availableStock;
+    }
+
+    public String getAvgPrice() {
+        return avgPrice;
+    }
+
+    public String getSellerindex() {
+        return sellerindex;
+    }
+
+    public String getMinqty() {
         return minqty;
     }
 

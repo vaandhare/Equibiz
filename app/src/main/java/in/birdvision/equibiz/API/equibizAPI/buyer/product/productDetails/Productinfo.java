@@ -1,4 +1,11 @@
 
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 10/7/20 9:44 AM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.API.equibizAPI.buyer.product.productDetails;
 
 import com.google.gson.annotations.SerializedName;
@@ -8,14 +15,14 @@ import java.util.List;
 public class Productinfo {
 
     @SerializedName("__v")
-    private long _V;
+    private String _V;
     private String _id;
     @SerializedName("p_base_high")
-    private long pBaseHigh;
+    private String pBaseHigh;
     @SerializedName("p_base_low")
-    private long pBaseLow;
+    private String pBaseLow;
     @SerializedName("p_base_price")
-    private long pBasePrice;
+    private String pBasePrice;
     @SerializedName("p_battery_power")
     private String pBatteryPower;
     @SerializedName("p_brand")
@@ -27,9 +34,9 @@ public class Productinfo {
     @SerializedName("p_dimensions")
     private String pDimensions;
     @SerializedName("p_expandable_memory")
-    private long pExpandableMemory;
+    private String pExpandableMemory;
     @SerializedName("p_front_camera")
-    private long pFrontCamera;
+    private String pFrontCamera;
     @SerializedName("p_images")
     private List<String> pImages;
     @SerializedName("p_model_no")
@@ -39,19 +46,19 @@ public class Productinfo {
     @SerializedName("p_os_type")
     private String pOsType;
     @SerializedName("p_primary_camera")
-    private long pPrimaryCamera;
+    private String pPrimaryCamera;
     @SerializedName("p_processor")
     private String pProcessor;
     @SerializedName("p_screen_size")
     private String pScreenSize;
     @SerializedName("p_sim_slots")
-    private long pSimSlots;
+    private String pSimSlots;
     @SerializedName("p_status")
-    private long pStatus;
+    private String pStatus;
     @SerializedName("p_updated_date")
     private String pUpdatedDate;
 
-    public long get_V() {
+    public String get_V() {
         return _V;
     }
 
@@ -59,15 +66,15 @@ public class Productinfo {
         return _id;
     }
 
-    public long getpBaseHigh() {
+    public String getpBaseHigh() {
         return pBaseHigh;
     }
 
-    public long getpBaseLow() {
+    public String getpBaseLow() {
         return pBaseLow;
     }
 
-    public long getpBasePrice() {
+    public String getpBasePrice() {
         return pBasePrice;
     }
 
@@ -91,11 +98,11 @@ public class Productinfo {
         return pDimensions;
     }
 
-    public long getpExpandableMemory() {
+    public String getpExpandableMemory() {
         return pExpandableMemory;
     }
 
-    public long getpFrontCamera() {
+    public String getpFrontCamera() {
         return pFrontCamera;
     }
 
@@ -115,7 +122,7 @@ public class Productinfo {
         return pOsType;
     }
 
-    public long getpPrimaryCamera() {
+    public String getpPrimaryCamera() {
         return pPrimaryCamera;
     }
 
@@ -127,11 +134,11 @@ public class Productinfo {
         return pScreenSize;
     }
 
-    public long getpSimSlots() {
+    public String getpSimSlots() {
         return pSimSlots;
     }
 
-    public long getpStatus() {
+    public String getpStatus() {
         return pStatus;
     }
 

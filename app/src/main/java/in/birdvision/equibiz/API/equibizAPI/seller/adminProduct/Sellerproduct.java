@@ -1,4 +1,11 @@
 
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 10/7/20 9:44 AM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.API.equibizAPI.seller.adminProduct;
 
 import com.google.gson.annotations.Expose;
@@ -12,7 +19,7 @@ public class Sellerproduct {
     @Expose
     private String _id;
     @Expose
-    private Long bpchangenotify;
+    private String bpchangenotify;
     @SerializedName("brand_id")
     private String brandId;
     @Expose
@@ -22,7 +29,7 @@ public class Sellerproduct {
     @SerializedName("internal_memory")
     private String internalMemory;
     @SerializedName("pro_status")
-    private Long proStatus;
+    private String proStatus;
     @Expose
     private Productinfo productinfo;
     @Expose
@@ -34,7 +41,7 @@ public class Sellerproduct {
         return _id;
     }
 
-    public Long getBpchangenotify() {
+    public String getBpchangenotify() {
         return bpchangenotify;
     }
 
@@ -54,7 +61,7 @@ public class Sellerproduct {
         return internalMemory;
     }
 
-    public Long getProStatus() {
+    public String getProStatus() {
         return proStatus;
     }
 

@@ -1,4 +1,11 @@
 
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 10/7/20 9:44 AM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.API.equibizAPI.buyer.product.productDetails;
 
 import com.google.gson.annotations.SerializedName;
@@ -8,14 +15,14 @@ import java.io.Serializable;
 public class Allratecard implements Serializable {
 
     @SerializedName("__v")
-    private long _V;
+    private String _V;
     @SerializedName("_id")
     private String _id;
-    private long delcharges;
-    private long deltime;
+    private String delcharges;
+    private String deltime;
     private String location;
 
-    public long get_V() {
+    public String get_V() {
         return _V;
     }
 
@@ -23,11 +30,11 @@ public class Allratecard implements Serializable {
         return _id;
     }
 
-    public long getDelcharges() {
+    public String getDelcharges() {
         return delcharges;
     }
 
-    public long getDeltime() {
+    public String getDeltime() {
         return deltime;
     }
 

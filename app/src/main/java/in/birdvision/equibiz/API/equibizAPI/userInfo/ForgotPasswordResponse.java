@@ -1,3 +1,10 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 10/7/20 9:44 AM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.API.equibizAPI.userInfo;
 
 public class ForgotPasswordResponse {
@@ -5,7 +12,7 @@ public class ForgotPasswordResponse {
     private String email;
     private String role;
     private String status;
-    private int code;
+    private String code;
 
     public ForgotPasswordResponse(String email, String role) {
         this.email = email;
@@ -24,7 +31,7 @@ public class ForgotPasswordResponse {
         return status;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 }
