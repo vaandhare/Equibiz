@@ -1,6 +1,6 @@
 <!--
   ~ /**
-  ~  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+  ~  * Created by Vaibhav Andhare on 10/7/20 4:38 PM
   ~  * Copyright (c) 2020 . All rights reserved.
   ~  */
   -->
@@ -216,4 +216,8 @@
     <string name="rate_card_details">Rate Card Details</string>
     <string name="seller_location">Seller Location :</string>
     <string name="average_price">Average Price</string>
+    <string name="all_orders">All Orders</string>
+    <string name="current_orders">Current Orders</string>
+    <string name="canceled_orders">Canceled Orders</string>
+    <string name="clock">clock</string>
 </resources>

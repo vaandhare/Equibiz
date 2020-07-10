@@ -1,3 +1,10 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 10/7/20 4:38 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.API.equibizAPI.buyer.orders.allOrders;
 
 import com.google.gson.annotations.SerializedName;
@@ -6,29 +13,53 @@ import java.util.List;
 
 public class AllOrdersResponse {
 
-    @SerializedName("userid")
-    private String userid;
-    @SerializedName("orderids")
-    private List<Orderid> mOrderids;
-    @SerializedName("orders")
-    private List<Order> mOrders;
     @SerializedName("status")
-    private String mStatus;
+    public String status;
+    @SerializedName("allorders")
+    public Allorders allorders;
+    @SerializedName("currentorders")
+    public Currentorders currentorders;
+    @SerializedName("pendingorders")
+    public Pendingorders pendingorders;
+    @SerializedName("cancelledorders")
+    public Cancelledorders cancelledorders;
+    @SerializedName("brandsonly")
+    public List<Brandsonly> brandsonly;
+    @SerializedName("orderids")
+    public List<Orderids> orderids;
+
+    public String userid;
 
     public AllOrdersResponse(String userid) {
         this.userid = userid;
     }
 
-    public List<Orderid> getmOrderids() {
-        return mOrderids;
+    public String getStatus() {
+        return status;
     }
 
-    public List<Order> getmOrders() {
-        return mOrders;
+    public Allorders getAllorders() {
+        return allorders;
     }
 
-    public String getmStatus() {
-        return mStatus;
+    public Currentorders getCurrentorders() {
+        return currentorders;
+    }
+
+    public Pendingorders getPendingorders() {
+        return pendingorders;
+    }
+
+    public Cancelledorders getCancelledorders() {
+        return cancelledorders;
+    }
+
+    public List<Brandsonly> getBrandsonly() {
+        return brandsonly;
+    }
+
+    public List<Orderids> getOrderids() {
+        return orderids;
     }
 
     public String getUserid() {

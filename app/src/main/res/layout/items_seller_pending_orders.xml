@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ /**
-  ~  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+  ~  * Created by Vaibhav Andhare on 10/7/20 4:38 PM
   ~  * Copyright (c) 2020 . All rights reserved.
   ~  */
   -->
@@ -27,10 +27,8 @@
 
             <TextView
                 android:id="@+id/ISPO_product_name"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
                 android:text="@string/product_name"
                 android:textColor="@color/dark_blue"
                 android:textSize="18sp" />
@@ -39,8 +37,8 @@
                 android:id="@+id/ISPO_product_specifications"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingStart="10dp"
                 android:layout_gravity="center_vertical"
-                android:fontFamily="@font/montserrat"
                 android:text="@string/product_specifications"
                 android:textColor="@color/dark_blue"
                 android:textSize="15sp" />
@@ -63,17 +61,14 @@
 
                     <TextView
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text="@string/order_quantity"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/ISPO_order_quantity"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text=""
@@ -81,17 +76,14 @@
 
                     <TextView
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text="@string/price_per_unit"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/ISPO_ppu"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text=""
@@ -102,17 +94,14 @@
 
                     <TextView
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text="@string/dispatch_date"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/ISPO_dispatch_date"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text=""
@@ -120,17 +109,14 @@
 
                     <TextView
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text="@string/total_cost"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/ISPO_total_cost"
                         android:layout_weight="1"
-                        android:fontFamily="@font/montserrat"
                         android:gravity="center_vertical"
                         android:padding="5dp"
                         android:text=""
@@ -149,7 +135,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
                 android:gravity="center_vertical"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
@@ -160,14 +145,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:contentDescription="clock"
+                android:contentDescription="@string/clock"
                 android:src="@drawable/ic_baseline_timer" />
 
             <TextView
                 android:id="@+id/ISPO_timer"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/montserrat"
                 android:gravity="center"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
@@ -178,7 +162,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
                 android:gravity="center_vertical"
                 android:paddingStart="5dp"
                 android:paddingEnd="15dp"
@@ -194,13 +177,13 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/btn_ISPO_reject"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@color/red"
-                android:fontFamily="@font/montserrat"
                 android:gravity="center"
                 android:text="@string/reject_order"
                 android:textColor="@color/white"
@@ -208,12 +191,12 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/btn_ISPO_accept"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@color/green"
-                android:fontFamily="@font/montserrat"
                 android:gravity="center"
                 android:text="@string/accept_order"
                 android:textColor="@color/white"

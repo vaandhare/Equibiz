@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Created by Vaibhav Andhare on 10/7/20 4:38 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -28,8 +28,10 @@ import java.util.List;
 
 import in.birdvision.equibiz.API.equibizAPI.EquibizApiService;
 import in.birdvision.equibiz.API.equibizAPI.EquibizSeller_API_interface;
+import in.birdvision.equibiz.API.equibizAPI.seller.pendingOrder.AcceptResonse;
 import in.birdvision.equibiz.API.equibizAPI.seller.pendingOrder.Orderslist;
 import in.birdvision.equibiz.API.equibizAPI.seller.pendingOrder.PendingOrderResponse;
+import in.birdvision.equibiz.API.equibizAPI.seller.pendingOrder.RejectResponse;
 import in.birdvision.equibiz.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,23 +48,11 @@ public class PendingOrderFragment extends Fragment implements AdapterPendingOrde
     RecyclerView productRecyclerView;
     ProgressDialog progressDialog;
     List<Orderslist> orderslists;
-//    ProductListingFragment.adminFragmentToProductDetails fragment;
 
     TextView tvNoResults;
-    String AuthToken, userID, encryptedUserID;
-    byte[] cipherUserId;
+    String AuthToken, userID, encryptedUserID, encryptedOrderId;
+    byte[] cipherUserId, cipherOrderId;
     Context context;
-
-//    @Override
-//    public void onAttach(@NonNull Activity context) {
-//        super.onAttach(context);
-//        try {
-//            fragment = (ProductListingFragment.adminFragmentToProductDetails) context;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(context.toString() + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -82,16 +72,87 @@ public class PendingOrderFragment extends Fragment implements AdapterPendingOrde
 
         productRecyclerView = root.findViewById(R.id.rv_seller_pendingList);
         productRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapterProductList = new AdapterPendingOrders(context);
+        adapterProductList = new AdapterPendingOrders(context, new AdapterPendingOrders.PendingOrdersButtonsListener() {
+            @Override
+            public void acceptOnClick(View view, int position) {
+                progressDialog.show();
+                acceptResponse(orderslists.get(position).getOrderId());
+            }
+
+            @Override
+            public void rejectOnClick(View view, int position) {
+                progressDialog.show();
+                rejectResponse(orderslists.get(position).getOrderId());
+            }
+        });
         productRecyclerView.setAdapter(adapterProductList);
-        adapterProductList.setOnItemClickListener(this);
 
         tvNoResults = root.findViewById(R.id.tvFPO_noResults);
-
         pendingOrderResponse();
 
         return root;
     }
+
+    private void acceptResponse(String orderId) {
+        try {
+            cipherOrderId = encrypt(orderId.getBytes());
+            encryptedOrderId = encoderFunction(cipherOrderId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        final AcceptResonse acceptResonse = new AcceptResonse(encryptedOrderId);
+        Call<AcceptResonse> resonseCall = equibiz_api_interface.acceptPendingOrder(acceptResonse, "Bearer " + AuthToken);
+
+        resonseCall.enqueue(new Callback<AcceptResonse>() {
+            @Override
+            public void onResponse(@NotNull Call<AcceptResonse> call, @NotNull Response<AcceptResonse> response) {
+                progressDialog.dismiss();
+                AcceptResonse resonse1 = response.body();
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<AcceptResonse> call, @NotNull Throwable t) {
+                progressDialog.dismiss();
+                if (t instanceof SocketTimeoutException)
+                    Toast.makeText(context, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(context, t.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void rejectResponse(String orderId) {
+        try {
+            cipherOrderId = encrypt(orderId.getBytes());
+            encryptedOrderId = encoderFunction(cipherOrderId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        final RejectResponse rejectResponse = new RejectResponse(encryptedOrderId);
+        Call<RejectResponse> responseCall = equibiz_api_interface.rejectPendingOrder(rejectResponse, "Bearer " + AuthToken);
+
+        responseCall.enqueue(new Callback<RejectResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<RejectResponse> call, @NotNull Response<RejectResponse> response) {
+                progressDialog.dismiss();
+                RejectResponse resonse1 = response.body();
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<RejectResponse> call, @NotNull Throwable t) {
+                progressDialog.dismiss();
+                if (t instanceof SocketTimeoutException)
+                    Toast.makeText(context, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(context, t.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 
     private void pendingOrderResponse() {
         try {
@@ -139,7 +200,6 @@ public class PendingOrderFragment extends Fragment implements AdapterPendingOrde
 
     @Override
     public void onItemClick(int position) {
-//        Orderslist orderslist = orderslists.get(position);
-//        fragment.adminProductData(userID, orderslist.get_id(), AuthToken);
+
     }
 }

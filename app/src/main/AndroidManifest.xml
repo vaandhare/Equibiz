@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ /**
-  ~  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+  ~  * Created by Vaibhav Andhare on 10/7/20 4:38 PM
   ~  * Copyright (c) 2020 . All rights reserved.
   ~  */
   -->
@@ -37,7 +37,6 @@
             android:theme="@style/NoActionBarTheme.NoActionBar" />
         <activity android:name=".userInfo.ForgotPasswordActivity" />
         <activity android:name=".buyer.orders.ConfirmOrderActivity" />
-        <activity android:name=".buyer.orders.OrderActivity" />
         <activity android:name=".buyer.notifications.NotificationActivity" />
         <activity android:name=".userInfo.VerificationActivity" />
         <activity android:name=".userInfo.BusinessDetailsActivity" />

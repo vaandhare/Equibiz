@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Created by Vaibhav Andhare on 10/7/20 4:38 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -25,17 +25,14 @@ import in.birdvision.equibiz.R;
 
 public class AdapterPendingOrders extends RecyclerView.Adapter<AdapterPendingOrders.ProductListViewHolder> {
 
-    private static OnItemClickListener onItemClickListener;
     Context context;
     List<Orderslist> orderslists;
+    public PendingOrdersButtonsListener buttonsListener;
 
-    public AdapterPendingOrders(Context context) {
+    public AdapterPendingOrders(Context context, PendingOrdersButtonsListener listener) {
         this.context = context;
+        this.buttonsListener = listener;
         orderslists = new ArrayList<>();
-    }
-
-    public void setOnItemClickListener(OnItemClickListener itemClickListener) {
-        onItemClickListener = itemClickListener;
     }
 
     public void setOrderslists(List<Orderslist> orderslist) {
@@ -58,10 +55,19 @@ public class AdapterPendingOrders extends RecyclerView.Adapter<AdapterPendingOrd
         String brandName = orderslist.getBrandinfo().getBrandname();
         String modelName = orderslist.getProductinfo().getpModelNo();
         holder.productName.setText(brandName + " " + modelName);
-//        String ram = orderslist.getProductinfo().getRamMob();
+//        String ram = orderslist.getBrandinfo();
 //        String intMemory = sellerproduct.getInternalMemory();
 //        String color = sellerproduct.getColor();
 //        holder.productSpecification.setText(ram + " GB/ " + intMemory + " GB/ " + color);
+
+        holder.quantity.setText(orderslist.getQtyOrdered());
+        holder.price.setText(orderslist.getUnitPrice());
+        holder.totalCost.setText(orderslist.getTotalPrice());
+        holder.date.setText(orderslist.getExpdelforbuyer());
+
+        holder.btnAccept.setOnClickListener(v -> buttonsListener.acceptOnClick(v, position));
+
+        holder.btnReject.setOnClickListener(v -> buttonsListener.rejectOnClick(v, position));
 
     }
 
@@ -74,9 +80,16 @@ public class AdapterPendingOrders extends RecyclerView.Adapter<AdapterPendingOrd
         void onItemClick(int position);
     }
 
+    public interface PendingOrdersButtonsListener {
+        void acceptOnClick(View view, int position);
+
+        void rejectOnClick(View view, int position);
+    }
+
     public static class ProductListViewHolder extends RecyclerView.ViewHolder {
 
         TextView productName, productSpecification, quantity, price, date, totalCost, timer;
+        TextView btnAccept, btnReject;
 
         public ProductListViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,14 +101,8 @@ public class AdapterPendingOrders extends RecyclerView.Adapter<AdapterPendingOrd
             totalCost = itemView.findViewById(R.id.ISPO_total_cost);
             timer = itemView.findViewById(R.id.ISPO_timer);
 
-            itemView.setOnClickListener(v -> {
-                if (onItemClickListener != null) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        onItemClickListener.onItemClick(position);
-                    }
-                }
-            });
+            btnAccept = itemView.findViewById(R.id.btn_ISPO_accept);
+            btnReject = itemView.findViewById(R.id.btn_ISPO_reject);
         }
     }
 }
