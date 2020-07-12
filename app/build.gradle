@@ -1,3 +1,10 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 12/7/20 10:02 AM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 apply plugin: 'com.android.application'
 
 android {
@@ -52,5 +59,7 @@ dependencies {
     implementation "androidx.viewpager2:viewpager2:1.0.0"
 
     implementation 'androidx.biometric:biometric:1.0.1'
+
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
 
 }

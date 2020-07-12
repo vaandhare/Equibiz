@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Created by Vaibhav Andhare on 12/7/20 10:02 AM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -28,7 +29,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 
 import in.birdvision.equibiz.R;
-import in.birdvision.equibiz.buyer.product.ProductListActivity;
 
 public class BuyerHomeActivity extends AppCompatActivity {
 
@@ -79,7 +79,8 @@ public class BuyerHomeActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 searchQueryInterface.getQuery(query);
-                startActivity(new Intent(BuyerHomeActivity.this, ProductListActivity.class));
+                Toast.makeText(BuyerHomeActivity.this, query, Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(BuyerHomeActivity.this, ProductListActivity.class));
                 searchView.clearFocus();
                 return true;
             }

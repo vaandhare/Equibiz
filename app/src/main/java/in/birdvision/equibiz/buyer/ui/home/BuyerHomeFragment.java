@@ -1,13 +1,12 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 10/7/20 10:07 AM
+ *  * Created by Vaibhav Andhare on 12/7/20 10:02 AM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
 
 package in.birdvision.equibiz.buyer.ui.home;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,6 +22,8 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -58,12 +59,13 @@ public class BuyerHomeFragment extends Fragment {
     List<Bestdeal> bestdealList;
     List<Branddatum> branddatumList;
     RecyclerView recyclerViewBanner, recyclerViewBestDeals, recyclerViewBrands;
-    ProgressDialog progressDialog;
 
-    TextView tvBrandsViewAll, tvBestDealsViewAll;
+    TextView tvBrandsViewAll;
     Context context;
     private String AuthToken;
     private LinearLayoutManager layoutManagerBestDeals;
+
+    ShimmerFrameLayout shimmerFrameLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,9 +78,12 @@ public class BuyerHomeFragment extends Fragment {
         SharedPreferences mySharedPreferences = this.requireActivity().getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
         AuthToken = mySharedPreferences.getString("LoginToken", "");
 
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setProgressStyle(R.style.ProgressBar);
-        progressDialog.show();
+//        progressDialog = new ProgressDialog(context);
+//        progressDialog.setProgressStyle(R.style.ProgressBar);
+//        progressDialog.show();
+
+        shimmerFrameLayout = root.findViewById(R.id.shimmer_buyer_home);
+        shimmerFrameLayout.startShimmerAnimation();
 
         recyclerViewBanner = root.findViewById(R.id.FBH_rv_banners);
         recyclerViewBanner.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -165,7 +170,8 @@ public class BuyerHomeFragment extends Fragment {
         responseCall.enqueue(new Callback<BuyerHomeResponse>() {
             @Override
             public void onResponse(@NotNull Call<BuyerHomeResponse> call, @NotNull Response<BuyerHomeResponse> response) {
-                progressDialog.dismiss();
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
                 BuyerHomeResponse response1 = response.body();
                 assert response1 != null;
                 branddatumList = response1.getBranddata();
@@ -183,7 +189,8 @@ public class BuyerHomeFragment extends Fragment {
 
             @Override
             public void onFailure(@NotNull Call<BuyerHomeResponse> call, @NotNull Throwable t) {
-                progressDialog.dismiss();
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
                 if (t instanceof SocketTimeoutException)
                     Toast.makeText(context, "Socket Time out. Please try again.", Toast.LENGTH_LONG).show();
                 else

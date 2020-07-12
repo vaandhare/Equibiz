@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 10/7/20 4:38 PM
+ *  * Created by Vaibhav Andhare on 12/7/20 10:02 AM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -16,9 +16,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -45,6 +47,9 @@ public class AllOrdersFragment extends Fragment {
     Equibiz_API_Interface equibiz_api_interface;
     Context context;
     Spinner brandsSpinner;
+    RecyclerView recyclerViewAllOrders;
+    ViewPagerAdapter viewPagerAdapter;
+    TextView tvTemp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,7 +63,7 @@ public class AllOrdersFragment extends Fragment {
         AuthToken = mySharedPreferences.getString("LoginToken", "");
         userID = mySharedPreferences.getString(USER_ID, "");
         brandsSpinner = root.findViewById(R.id.spinner_FAO_brands);
-
+        tvTemp = root.findViewById(R.id.tvTemp);
         getAllOrdersResponse(userID);
 
         return root;
@@ -80,13 +85,8 @@ public class AllOrdersFragment extends Fragment {
             public void onResponse(@NotNull Call<AllOrdersResponse> call, @NotNull Response<AllOrdersResponse> response) {
                 AllOrdersResponse response1 = response.body();
                 assert response1 != null;
-                List<String> brandNames = new ArrayList<>();
-                int pos = 0;
-                while (pos < response1.brandsonly.size()) {
-                    brandNames.add(response1.brandsonly.get(pos).brandname);
-                    pos++;
-                }
-                changeData(brandNames);
+
+                changeData(response1);
 
             }
 
@@ -98,24 +98,51 @@ public class AllOrdersFragment extends Fragment {
                     Toast.makeText(context, t.toString(), Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
-    private void changeData(List<String> brandNames) {
+    private void changeData(AllOrdersResponse response1) {
+
+        final String[] brand = new String[1];
+        List<String> brandNames = new ArrayList<>();
+        int pos = 0;
+        while (pos < response1.brandsonly.size()) {
+            brandNames.add(response1.brandsonly.get(pos).brandname);
+            pos++;
+        }
         brandsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                brand[0] = brandNames.get(position);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                brand[0] = brandNames.get(0);
             }
         });
-
         ArrayAdapter<String> brands = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, brandNames);
         brands.setDropDownViewResource(R.layout.dropdown_menu);
         brandsSpinner.setAdapter(brands);
+
+//        List<String> brands = new ArrayList<>();
+//        List<Map<String, ArrayProduct>> products = new ArrayList<>();
+//        JSONObject jsonObject = new JSONObject(response1);
+//        for(JSONObject brand : jsonObject.get("brandsonly")){
+//            brands.add(brand.getString("brandname"));
+//        }
+//
+//        if(brands.size() > 0){
+//            for(String brandname: brands){
+//                HashMap<String, ArrayProduct> tempHash = new HashMap<>();
+//                JSONArray temp = jsonObject.getJSONArray(brandname);
+//                for(JSONObject x : temp){
+//                    ArrayProduct product = new ArrayProduct();
+//                    product.FromJSONObject(x);
+//                    temp.put(brandname, product);
+//                }
+//                products.add(tempHash);
+//            }
+//        }
+
     }
 }

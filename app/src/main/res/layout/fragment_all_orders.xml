@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ /**
-  ~  * Created by Vaibhav Andhare on 10/7/20 4:38 PM
+  ~  * Created by Vaibhav Andhare on 12/7/20 10:02 AM
   ~  * Copyright (c) 2020 . All rights reserved.
   ~  */
   -->
@@ -9,6 +9,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".buyer.ui.orders.AllOrdersFragment">
 
     <LinearLayout
@@ -30,6 +31,21 @@
             android:layout_gravity="end"
             android:gravity="end" />
     </LinearLayout>
+
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:id="@+id/rv_buyer_all_orders"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_weight="1"-->
+    <!--        android:layout_margin="5dp"-->
+    <!--        tools:listitem="@layout/item_buyer_order_history"/>-->
+
+    <TextView
+        android:id="@+id/tvTemp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:layout_weight="1" />
 
 
 </LinearLayout>
