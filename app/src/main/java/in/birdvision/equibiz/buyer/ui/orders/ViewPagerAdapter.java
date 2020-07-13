@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 10/7/20 4:38 PM
+ *  * Created by Vaibhav Andhare on 13/7/20 1:14 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -44,5 +44,6 @@ class ViewPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return mFragmentTitleList.get(position);
     }
+
 }
 

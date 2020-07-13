@@ -1,14 +1,16 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 10/7/20 4:38 PM
+ *  * Created by Vaibhav Andhare on 13/7/20 1:14 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
 
 package in.birdvision.equibiz.API.equibizAPI.buyer.orders.allOrders;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class AllOrdersResponse {
@@ -16,7 +18,9 @@ public class AllOrdersResponse {
     @SerializedName("status")
     public String status;
     @SerializedName("allorders")
-    public Allorders allorders;
+    @Expose
+    public HashMap<String, List<ArrayProduct>> allorders;
+    //public Allorders allorders;
     @SerializedName("currentorders")
     public Currentorders currentorders;
     @SerializedName("pendingorders")
@@ -34,12 +38,12 @@ public class AllOrdersResponse {
         this.userid = userid;
     }
 
-    public String getStatus() {
-        return status;
+    public AllOrdersResponse() {
+        this.allorders = new HashMap<>();
     }
 
-    public Allorders getAllorders() {
-        return allorders;
+    public String getStatus() {
+        return status;
     }
 
     public Currentorders getCurrentorders() {

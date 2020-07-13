@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ /**
-  ~  * Created by Vaibhav Andhare on 12/7/20 10:02 AM
+  ~  * Created by Vaibhav Andhare on 13/7/20 1:14 PM
   ~  * Copyright (c) 2020 . All rights reserved.
   ~  */
   -->
@@ -32,20 +32,26 @@
             android:gravity="end" />
     </LinearLayout>
 
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/rv_buyer_all_orders"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:layout_weight="1"-->
-    <!--        android:layout_margin="5dp"-->
-    <!--        tools:listitem="@layout/item_buyer_order_history"/>-->
-
     <TextView
-        android:id="@+id/tvTemp"
+        android:id="@+id/tv_no_results_buyer_all_orders"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="5dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="@color/gray"
+        android:gravity="center"
+        android:text="@string/no_orders_available"
+        android:textColor="@color/dark_blue"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_buyer_all_orders"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="5dp"
+        tools:listitem="@layout/item_buyer_order_history" />
 
 </LinearLayout>

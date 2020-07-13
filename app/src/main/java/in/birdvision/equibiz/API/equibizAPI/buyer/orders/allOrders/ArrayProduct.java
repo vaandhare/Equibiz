@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 12/7/20 10:02 AM
+ *  * Created by Vaibhav Andhare on 13/7/20 1:14 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -18,27 +18,27 @@ public class ArrayProduct {
     @SerializedName("order_id")
     public String orderId;
     @SerializedName("__v")
-    public int v;
+    public String v;
     @SerializedName("adminconfirmation")
-    public int adminconfirmation;
+    public String adminconfirmation;
     @SerializedName("amount10percent")
-    public int amount10percent;
+    public String amount10percent;
     @SerializedName("buyer_id")
     public String buyerId;
     @SerializedName("created_date")
     public String createdDate;
     @SerializedName("finalpricetodeduct")
-    public int finalpricetodeduct;
+    public String finalpricetodeduct;
     @SerializedName("insurance")
-    public int insurance;
+    public String insurance;
     @SerializedName("order_status")
-    public int orderStatus;
+    public String orderStatus;
     @SerializedName("prebookpaymentdate")
     public String prebookpaymentdate;
     @SerializedName("product_id")
     public String productId;
     @SerializedName("qty_ordered")
-    public int qtyOrdered;
+    public String qtyOrdered;
     @SerializedName("ratecardid")
     public String ratecardid;
     @SerializedName("seller_id")
@@ -48,9 +48,9 @@ public class ArrayProduct {
     @SerializedName("sellertime")
     public String sellertime;
     @SerializedName("total_price")
-    public int totalPrice;
+    public String totalPrice;
     @SerializedName("unit_price")
-    public int unitPrice;
+    public String unitPrice;
     @SerializedName("updated_date")
     public String updatedDate;
     @SerializedName("expdelforbuyer")
@@ -78,15 +78,15 @@ public class ArrayProduct {
         return orderId;
     }
 
-    public int getV() {
+    public String getV() {
         return v;
     }
 
-    public int getAdminconfirmation() {
+    public String getAdminconfirmation() {
         return adminconfirmation;
     }
 
-    public int getAmount10percent() {
+    public String getAmount10percent() {
         return amount10percent;
     }
 
@@ -98,15 +98,15 @@ public class ArrayProduct {
         return createdDate;
     }
 
-    public int getFinalpricetodeduct() {
+    public String getFinalpricetodeduct() {
         return finalpricetodeduct;
     }
 
-    public int getInsurance() {
+    public String getInsurance() {
         return insurance;
     }
 
-    public int getOrderStatus() {
+    public String getOrderStatus() {
         return orderStatus;
     }
 
@@ -118,7 +118,7 @@ public class ArrayProduct {
         return productId;
     }
 
-    public int getQtyOrdered() {
+    public String getQtyOrdered() {
         return qtyOrdered;
     }
 
@@ -138,11 +138,11 @@ public class ArrayProduct {
         return sellertime;
     }
 
-    public int getTotalPrice() {
+    public String getTotalPrice() {
         return totalPrice;
     }
 
-    public int getUnitPrice() {
+    public String getUnitPrice() {
         return unitPrice;
     }
 

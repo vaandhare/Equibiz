@@ -1,7 +1,18 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 13/7/20 1:14 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.API.equibizAPI;
+
+import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
 
+import in.birdvision.equibiz.API.equibizAPI.buyer.orders.allOrders.AllOrdersParser;
+import in.birdvision.equibiz.API.equibizAPI.buyer.orders.allOrders.AllOrdersResponse;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -27,6 +38,10 @@ public class EquibizApiService {
         });
 
         if (retrofit == null) {
+
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(AllOrdersResponse.class, new AllOrdersParser());
+
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .client(client.build())

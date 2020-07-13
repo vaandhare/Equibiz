@@ -1,6 +1,6 @@
 <!--
   ~ /**
-  ~  * Created by Vaibhav Andhare on 10/7/20 4:38 PM
+  ~  * Created by Vaibhav Andhare on 13/7/20 1:14 PM
   ~  * Copyright (c) 2020 . All rights reserved.
   ~  */
   -->
@@ -220,4 +220,5 @@
     <string name="current_orders">Current Orders</string>
     <string name="canceled_orders">Canceled Orders</string>
     <string name="clock">clock</string>
+    <string name="no_orders_available">No Orders available</string>
 </resources>

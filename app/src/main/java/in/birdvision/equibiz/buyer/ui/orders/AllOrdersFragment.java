@@ -1,12 +1,13 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 12/7/20 10:02 AM
+ *  * Created by Vaibhav Andhare on 13/7/20 1:14 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
 
 package in.birdvision.equibiz.buyer.ui.orders;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,22 +21,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import in.birdvision.equibiz.API.equibizAPI.EquibizApiService;
 import in.birdvision.equibiz.API.equibizAPI.Equibiz_API_Interface;
 import in.birdvision.equibiz.API.equibizAPI.buyer.orders.allOrders.AllOrdersResponse;
+import in.birdvision.equibiz.API.equibizAPI.buyer.orders.allOrders.ArrayProduct;
 import in.birdvision.equibiz.R;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.view.View.GONE;
 import static in.birdvision.equibiz.userInfo.LoginActivity.USER_ID;
 import static in.birdvision.equibiz.userInfo.encryption.Encryption.encoderFunction;
 import static in.birdvision.equibiz.userInfo.encryption.Encryption.encrypt;
@@ -48,8 +53,9 @@ public class AllOrdersFragment extends Fragment {
     Context context;
     Spinner brandsSpinner;
     RecyclerView recyclerViewAllOrders;
-    ViewPagerAdapter viewPagerAdapter;
-    TextView tvTemp;
+    AdapterAllOrders adapterAllOrders;
+    TextView noResults;
+    ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,7 +69,22 @@ public class AllOrdersFragment extends Fragment {
         AuthToken = mySharedPreferences.getString("LoginToken", "");
         userID = mySharedPreferences.getString(USER_ID, "");
         brandsSpinner = root.findViewById(R.id.spinner_FAO_brands);
-        tvTemp = root.findViewById(R.id.tvTemp);
+
+        recyclerViewAllOrders = root.findViewById(R.id.rv_buyer_all_orders);
+        recyclerViewAllOrders.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        adapterAllOrders = new AdapterAllOrders(context);
+        recyclerViewAllOrders.setAdapter(adapterAllOrders);
+        adapterAllOrders.setOnItemClickListener(position ->
+                Toast.makeText(context, position, Toast.LENGTH_SHORT).show());
+
+        noResults = root.findViewById(R.id.tv_no_results_buyer_all_orders);
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Please Wait...");
+
         getAllOrdersResponse(userID);
 
         return root;
@@ -85,9 +106,7 @@ public class AllOrdersFragment extends Fragment {
             public void onResponse(@NotNull Call<AllOrdersResponse> call, @NotNull Response<AllOrdersResponse> response) {
                 AllOrdersResponse response1 = response.body();
                 assert response1 != null;
-
                 changeData(response1);
-
             }
 
             @Override
@@ -101,7 +120,7 @@ public class AllOrdersFragment extends Fragment {
     }
 
     private void changeData(AllOrdersResponse response1) {
-
+        progressDialog.dismiss();
         final String[] brand = new String[1];
         List<String> brandNames = new ArrayList<>();
         int pos = 0;
@@ -113,6 +132,17 @@ public class AllOrdersFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 brand[0] = brandNames.get(position);
+                HashMap<String, List<ArrayProduct>> map = response1.allorders;
+                List<ArrayProduct> list = map.get(brand[0]);
+                if (list == null || list.isEmpty()) {
+                    noResults.setVisibility(View.VISIBLE);
+                    recyclerViewAllOrders.setVisibility(GONE);
+                } else {
+                    recyclerViewAllOrders.setVisibility(View.VISIBLE);
+                    adapterAllOrders.setProductdata(list);
+                    noResults.setVisibility(GONE);
+                }
+
             }
 
             @Override
@@ -124,25 +154,7 @@ public class AllOrdersFragment extends Fragment {
         brands.setDropDownViewResource(R.layout.dropdown_menu);
         brandsSpinner.setAdapter(brands);
 
-//        List<String> brands = new ArrayList<>();
-//        List<Map<String, ArrayProduct>> products = new ArrayList<>();
-//        JSONObject jsonObject = new JSONObject(response1);
-//        for(JSONObject brand : jsonObject.get("brandsonly")){
-//            brands.add(brand.getString("brandname"));
-//        }
-//
-//        if(brands.size() > 0){
-//            for(String brandname: brands){
-//                HashMap<String, ArrayProduct> tempHash = new HashMap<>();
-//                JSONArray temp = jsonObject.getJSONArray(brandname);
-//                for(JSONObject x : temp){
-//                    ArrayProduct product = new ArrayProduct();
-//                    product.FromJSONObject(x);
-//                    temp.put(brandname, product);
-//                }
-//                products.add(tempHash);
-//            }
-//        }
-
     }
 }
+
+
