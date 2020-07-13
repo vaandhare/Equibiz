@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by Vaibhav Andhare on 13/7/20 8:32 PM
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  */
+  -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -28,15 +35,12 @@
 
         <TableRow>
             <TextView
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:text="@string/color"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tvCO_color"
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:textColor="@color/black" />
         </TableRow>
@@ -44,15 +48,12 @@
         <TableRow>
 
             <TextView
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:text="@string/delivery_location"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tvCO_delivery_location"
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:textColor="@color/black" />
         </TableRow>
@@ -60,15 +61,12 @@
         <TableRow>
 
             <TextView
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:text="@string/time"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tvCO_time"
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:textColor="@color/black" />
         </TableRow>
@@ -76,11 +74,9 @@
         <TableRow>
 
             <TextView
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:text="@string/pickup_location"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textColor="@color/black" />
 
             <Spinner
                 android:id="@+id/spinner_pickup_locations"
@@ -91,15 +87,12 @@
         <TableRow>
 
             <TextView
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:text="@string/additional_time"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tvCO_additional_time"
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:textColor="@color/black" />
         </TableRow>
@@ -107,39 +100,33 @@
         <TableRow>
 
             <TextView
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:text="@string/delivery_charges"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tvCO_delivery_charges"
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:textColor="@color/black" />
         </TableRow>
 
         <TextView
             android:id="@+id/tvCO_rateCard"
-            android:fontFamily="@font/montserrat"
             android:gravity="center"
             android:padding="5dp"
+            android:textStyle="bold|italic"
             android:text="@string/delivery_charges_rate_card"
             android:textColor="@color/dark_blue" />
 
         <TableRow>
 
             <TextView
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:text="@string/order_quantity"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tvCO_order_quantity"
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:textColor="@color/black" />
         </TableRow>
@@ -147,15 +134,12 @@
         <TableRow>
 
             <TextView
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:text="@string/price_per_unit"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tvCO_PPU"
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:textColor="@color/black" />
         </TableRow>
@@ -163,15 +147,12 @@
         <TableRow>
 
             <TextView
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:text="@string/total_cost"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tvCO_total_cost"
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:textColor="@color/black" />
         </TableRow>
@@ -179,21 +160,17 @@
         <TableRow>
 
             <TextView
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:text="@string/pre_book_amount"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tvCO_pre_book_amount"
-                android:fontFamily="@font/montserrat"
                 android:padding="5dp"
                 android:textColor="@color/black" />
         </TableRow>
 
         <TextView
-            android:fontFamily="@font/montserrat"
             android:gravity="center"
             android:padding="5dp"
             android:text="@string/pre_book_amount_note"

@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 13/7/20 2:01 PM
+ *  * Created by Vaibhav Andhare on 13/7/20 8:32 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -76,7 +76,7 @@ public class AdapterBuyerOrders extends RecyclerView.Adapter<AdapterBuyerOrders.
 
     public static class ProductListViewHolder extends RecyclerView.ViewHolder {
 
-        TextView productName, quantity, unitPrice, dispatchDate, totalCost;
+        TextView productName, quantity, unitPrice, dispatchDate, totalCost, status;
 
         public ProductListViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -86,6 +86,7 @@ public class AdapterBuyerOrders extends RecyclerView.Adapter<AdapterBuyerOrders.
             unitPrice = itemView.findViewById(R.id.IBOH_ppu);
             dispatchDate = itemView.findViewById(R.id.IBOH_dispatch_date);
             totalCost = itemView.findViewById(R.id.IBOH_total_cost);
+            status = itemView.findViewById(R.id.IBOH_order_status);
 
             itemView.setOnClickListener(v -> {
                 if (onItemClickListener != null) {

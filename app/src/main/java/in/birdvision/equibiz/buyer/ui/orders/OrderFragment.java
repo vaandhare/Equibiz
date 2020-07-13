@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 10/7/20 4:38 PM
+ *  * Created by Vaibhav Andhare on 13/7/20 8:32 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -22,7 +22,6 @@ import in.birdvision.equibiz.R;
 
 public class OrderFragment extends Fragment {
 
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_order, container, false);
 
@@ -33,6 +32,7 @@ public class OrderFragment extends Fragment {
         return root;
     }
 
+
     private void setUpAdapter(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new AllOrdersFragment(), "All");
@@ -41,5 +41,6 @@ public class OrderFragment extends Fragment {
         adapter.addFragment(new CanceledOrdersFragment(), "Cancelled");
         viewPager.setAdapter(adapter);
     }
+
 
 }

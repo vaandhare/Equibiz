@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ /**
-  ~  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+  ~  * Created by Vaibhav Andhare on 13/7/20 8:32 PM
   ~  * Copyright (c) 2020 . All rights reserved.
   ~  */
   -->
@@ -35,4 +35,5 @@
         android:name="in.birdvision.equibiz.userInfo.profile.WalletFragment"
         android:label="@string/wallet_details"
         tools:layout="@layout/fragment_wallet" />
+
 </navigation>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ /**
-  ~  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+  ~  * Created by Vaibhav Andhare on 13/7/20 8:32 PM
   ~  * Copyright (c) 2020 . All rights reserved.
   ~  */
   -->
@@ -46,5 +46,27 @@
             android:title="@string/wallet_details" />
     </group>
 
+    <group
+        android:id="@+id/nav_bar_grp4"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_support"
+            android:title="@string/support" />
 
+        <item
+            android:id="@+id/nav_terms_and_conditions"
+            android:title="@string/terms_and_conditions" />
+
+        <item
+            android:id="@+id/nav_private_policy"
+            android:title="@string/private_policy" />
+
+        <item
+            android:id="@+id/nav_about_company"
+            android:title="@string/about_company" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:title="@string/logout" />
+    </group>
 </menu>

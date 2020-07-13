@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ /**
-  ~  * Created by Vaibhav Andhare on 13/7/20 1:14 PM
+  ~  * Created by Vaibhav Andhare on 13/7/20 8:32 PM
   ~  * Copyright (c) 2020 . All rights reserved.
   ~  */
   -->
@@ -114,11 +114,13 @@
         </TableLayout>
 
         <TextView
+            android:id="@+id/IBOH_order_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:padding="5dp"
+            android:textStyle="bold"
             android:textColor="@color/dark_blue"
             android:textSize="15sp" />
     </LinearLayout>

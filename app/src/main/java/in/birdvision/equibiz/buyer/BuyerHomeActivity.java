@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 12/7/20 10:02 AM
+ *  * Created by Vaibhav Andhare on 13/7/20 8:32 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -29,6 +29,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 
 import in.birdvision.equibiz.R;
+import in.birdvision.equibiz.userInfo.LoginActivity;
 
 public class BuyerHomeActivity extends AppCompatActivity {
 
@@ -56,10 +57,15 @@ public class BuyerHomeActivity extends AppCompatActivity {
         textView.setText("Hello, " + UserFName);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_buyer_home, R.id.nav_profile, R.id.nav_orders, R.id.nav_wallet, R.id.nav_logout)
+                R.id.nav_buyer_home, R.id.nav_profile, R.id.nav_orders, R.id.nav_wallet)
                 .setDrawerLayout(drawer)
                 .build();
 
+
+        navigationView.getMenu().findItem(R.id.nav_logout).setOnMenuItemClickListener(item -> {
+            startActivity(new Intent(BuyerHomeActivity.this, LoginActivity.class));
+            return true;
+        });
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_buyer);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);

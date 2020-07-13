@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Created by Vaibhav Andhare on 13/7/20 8:32 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -26,6 +26,7 @@ import com.google.android.material.navigation.NavigationView;
 import in.birdvision.equibiz.R;
 import in.birdvision.equibiz.seller.product.ProductDetailsActivity;
 import in.birdvision.equibiz.seller.ui.product_listing.ProductListingFragment;
+import in.birdvision.equibiz.userInfo.LoginActivity;
 
 public class SellerHomeActivity extends AppCompatActivity implements ProductListingFragment.adminFragmentToProductDetails {
 
@@ -54,6 +55,13 @@ public class SellerHomeActivity extends AppCompatActivity implements ProductList
                 R.id.nav_pending_orders, R.id.nav_profile, R.id.nav_wallet)
                 .setDrawerLayout(drawer)
                 .build();
+
+        navigationView.getMenu().findItem(R.id.nav_logout).setOnMenuItemClickListener(item -> {
+            startActivity(new Intent(SellerHomeActivity.this, LoginActivity.class));
+            return true;
+        });
+
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_seller);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);

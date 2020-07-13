@@ -1,13 +1,12 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 13/7/20 2:01 PM
+ *  * Created by Vaibhav Andhare on 13/7/20 8:32 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
 
 package in.birdvision.equibiz.buyer.ui.orders;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -55,7 +54,6 @@ public class AllOrdersFragment extends Fragment {
     RecyclerView recyclerViewAllOrders;
     AdapterBuyerOrders adapterAllOrders;
     TextView noResults;
-    ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,12 +76,6 @@ public class AllOrdersFragment extends Fragment {
                 Toast.makeText(context, position, Toast.LENGTH_SHORT).show());
 
         noResults = root.findViewById(R.id.tv_no_results_buyer_all_orders);
-
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setCancelable(false);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Please Wait...");
 
         getAllOrdersResponse(userID);
 
@@ -120,7 +112,6 @@ public class AllOrdersFragment extends Fragment {
     }
 
     private void changeData(AllOrdersResponse response1) {
-        progressDialog.dismiss();
         final String[] brand = new String[1];
         List<String> brandNames = new ArrayList<>();
         int pos = 0;
@@ -155,6 +146,11 @@ public class AllOrdersFragment extends Fragment {
         brandsSpinner.setAdapter(brands);
 
     }
+
+    public interface PassDataBetweenViewPager {
+        void passData(AllOrdersResponse allOrdersResponse);
+    }
+
 }
 
 

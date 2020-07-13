@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 10/7/20 9:44 AM
+ *  * Created by Vaibhav Andhare on 13/7/20 8:32 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -214,10 +214,15 @@ public class ProductActivity extends AppCompatActivity {
 
         addToCartBtn.setOnClickListener(v -> {
             COOrderQuantity = sellerOrderQuantity.getText().toString();
-            int quantity = Integer.parseInt(COOrderQuantity);
+            int quantity = 0;
+            try {
+                quantity = Integer.parseInt(COOrderQuantity);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             if (sellerlist.isEmpty())
                 showCustomDialog("No Seller Available", "No seller is available for this product. Come back again to check availability or Contact Admin.");
-            else if (COOrderQuantity.isEmpty() || quantity < COMinQuantity || quantity > COTotalQuantity) {
+            else if (COOrderQuantity.isEmpty() || quantity < COMinQuantity || quantity > COTotalQuantity || quantity == 0 || COOrderQuantity.equals(" ")) {
                 showCustomDialog("Invalid Input", "Quantity cannot be Empty or Less than Minimum Quantity or Greater than Total Quantity given by seller.");
             } else {
                 Intent intent = new Intent(ProductActivity.this, ConfirmOrderActivity.class);
