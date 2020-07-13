@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 13/7/20 1:14 PM
+ *  * Created by Vaibhav Andhare on 13/7/20 2:01 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -17,16 +17,23 @@ public class AllOrdersResponse {
 
     @SerializedName("status")
     public String status;
+
     @SerializedName("allorders")
     @Expose
     public HashMap<String, List<ArrayProduct>> allorders;
-    //public Allorders allorders;
+
     @SerializedName("currentorders")
-    public Currentorders currentorders;
+    @Expose
+    public HashMap<String, List<ArrayProduct>> currentorders;
+
     @SerializedName("pendingorders")
-    public Pendingorders pendingorders;
+    @Expose
+    public HashMap<String, List<ArrayProduct>> pendingorders;
+
     @SerializedName("cancelledorders")
-    public Cancelledorders cancelledorders;
+    @Expose
+    public HashMap<String, List<ArrayProduct>> cancelledorders;
+
     @SerializedName("brandsonly")
     public List<Brandsonly> brandsonly;
     @SerializedName("orderids")
@@ -40,21 +47,28 @@ public class AllOrdersResponse {
 
     public AllOrdersResponse() {
         this.allorders = new HashMap<>();
+        this.currentorders = new HashMap<>();
+        this.pendingorders = new HashMap<>();
+        this.cancelledorders = new HashMap<>();
     }
 
     public String getStatus() {
         return status;
     }
 
-    public Currentorders getCurrentorders() {
+    public HashMap<String, List<ArrayProduct>> getAllorders() {
+        return allorders;
+    }
+
+    public HashMap<String, List<ArrayProduct>> getCurrentorders() {
         return currentorders;
     }
 
-    public Pendingorders getPendingorders() {
+    public HashMap<String, List<ArrayProduct>> getPendingorders() {
         return pendingorders;
     }
 
-    public Cancelledorders getCancelledorders() {
+    public HashMap<String, List<ArrayProduct>> getCancelledorders() {
         return cancelledorders;
     }
 

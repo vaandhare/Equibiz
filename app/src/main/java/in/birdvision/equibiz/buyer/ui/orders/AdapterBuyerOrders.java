@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 13/7/20 1:14 PM
+ *  * Created by Vaibhav Andhare on 13/7/20 2:01 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -23,13 +23,13 @@ import java.util.List;
 import in.birdvision.equibiz.API.equibizAPI.buyer.orders.allOrders.ArrayProduct;
 import in.birdvision.equibiz.R;
 
-public class AdapterAllOrders extends RecyclerView.Adapter<AdapterAllOrders.ProductListViewHolder> {
+public class AdapterBuyerOrders extends RecyclerView.Adapter<AdapterBuyerOrders.ProductListViewHolder> {
 
     private static OnItemClickListener onItemClickListener;
     Context context;
     List<ArrayProduct> productdata;
 
-    public AdapterAllOrders(Context context) {
+    public AdapterBuyerOrders(Context context) {
         this.context = context;
         productdata = new ArrayList<>();
     }
@@ -47,7 +47,7 @@ public class AdapterAllOrders extends RecyclerView.Adapter<AdapterAllOrders.Prod
     @NonNull
     @Override
     public ProductListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new AdapterAllOrders.ProductListViewHolder(LayoutInflater.from(context).
+        return new AdapterBuyerOrders.ProductListViewHolder(LayoutInflater.from(context).
                 inflate(R.layout.item_buyer_order_history, parent, false));
     }
 

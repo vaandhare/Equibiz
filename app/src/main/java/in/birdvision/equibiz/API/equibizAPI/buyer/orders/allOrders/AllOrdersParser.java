@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 13/7/20 1:14 PM
+ *  * Created by Vaibhav Andhare on 13/7/20 2:01 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -27,8 +27,12 @@ public class AllOrdersParser implements JsonDeserializer<AllOrdersResponse> {
         AllOrdersResponse allOrdersResponse = new AllOrdersResponse();
         try {
             final HashMap<String, List<ArrayProduct>> map = readServiceUrlMap(json.getAsJsonObject());
-            if (map != null)
+            if (map != null) {
                 allOrdersResponse.allorders = map;
+                allOrdersResponse.currentorders = map;
+                allOrdersResponse.pendingorders = map;
+                allOrdersResponse.cancelledorders = map;
+            }
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 13/7/20 1:14 PM
+ *  * Created by Vaibhav Andhare on 13/7/20 2:01 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -53,7 +53,7 @@ public class AllOrdersFragment extends Fragment {
     Context context;
     Spinner brandsSpinner;
     RecyclerView recyclerViewAllOrders;
-    AdapterAllOrders adapterAllOrders;
+    AdapterBuyerOrders adapterAllOrders;
     TextView noResults;
     ProgressDialog progressDialog;
 
@@ -72,7 +72,7 @@ public class AllOrdersFragment extends Fragment {
 
         recyclerViewAllOrders = root.findViewById(R.id.rv_buyer_all_orders);
         recyclerViewAllOrders.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        adapterAllOrders = new AdapterAllOrders(context);
+        adapterAllOrders = new AdapterBuyerOrders(context);
         recyclerViewAllOrders.setAdapter(adapterAllOrders);
         adapterAllOrders.setOnItemClickListener(position ->
                 Toast.makeText(context, position, Toast.LENGTH_SHORT).show());
@@ -132,7 +132,7 @@ public class AllOrdersFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 brand[0] = brandNames.get(position);
-                HashMap<String, List<ArrayProduct>> map = response1.allorders;
+                HashMap<String, List<ArrayProduct>> map = response1.getAllorders();
                 List<ArrayProduct> list = map.get(brand[0]);
                 if (list == null || list.isEmpty()) {
                     noResults.setVisibility(View.VISIBLE);
