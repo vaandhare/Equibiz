@@ -1,6 +1,6 @@
 <!--
   ~ /**
-  ~  * Created by Vaibhav Andhare on 13/7/20 1:14 PM
+  ~  * Created by Vaibhav Andhare on 15/7/20 12:53 PM
   ~  * Copyright (c) 2020 . All rights reserved.
   ~  */
   -->
@@ -221,4 +221,6 @@
     <string name="canceled_orders">Canceled Orders</string>
     <string name="clock">clock</string>
     <string name="no_orders_available">No Orders available</string>
+    <string name="email_mobile_no">Email/Mobile No.</string>
+    <string name="cheque_book_image">Cheque Book Image</string>
 </resources>

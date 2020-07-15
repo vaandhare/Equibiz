@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 9/7/20 5:15 PM
+ *  * Created by Vaibhav Andhare on 15/7/20 12:53 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -12,6 +12,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -54,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     SwitchCompat rememberSwitch;
     LoginResponse response1;
+    String mob_number, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +73,42 @@ public class LoginActivity extends AppCompatActivity {
         tvLoginError = findViewById(R.id.tv_login_error);
         tvForgotPass = findViewById(R.id.tv_forgot_pass);
         rememberSwitch = findViewById(R.id.switchCompat);
+
+        Objects.requireNonNull(TIL_Mobile_Number.getEditText()).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mob_number = TIL_Mobile_Number.getEditText().getText().toString();
+                TIL_Mobile_Number.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        Objects.requireNonNull(TIL_Password.getEditText()).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                password = TIL_Password.getEditText().getText().toString();
+                TIL_Password.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         equibiz_api_interface = EquibizApiService.getClient().create(Equibiz_API_Interface.class);
 
@@ -128,17 +167,19 @@ public class LoginActivity extends AppCompatActivity {
                 progressDialog.dismiss();
                 response1 = response.body();
                 assert response1 != null;
-//                if(response1.getStatus().equals("success") && response1.getData().getEmailverified().equals("false")) {
-//                    checkEmailVerification();
-//                } else   handle email verification in each case
-                if (response1.getStatus().equals("success")) {
+                if (response1.getStatus().equals("success") && response1.getData().getEmailverified().equals("false")) {
+                    checkEmailVerification();
+                } else if (response1.getStatus().equals("success")) {
+
                     if (response1.getData().getBusinessverified().equals("false")) {
                         Intent intent = new Intent(LoginActivity.this, BusinessDetailsActivity.class);
                         intent.putExtra("EncUserRole", encryptedRole);
                         startActivity(intent);
                     } else if (response1.getData().getBankverified().equals("false"))
                         startActivity(new Intent(LoginActivity.this, VerificationActivity.class));
+
                     else if (response1.getData().getBusinessverified().equals("true") && response1.getData().getBankverified().equals("true")) {
+
                         if (response1.getData().getUsertype().equals(String.valueOf(1))) {
                             SharedPreferences mySharedPreferences = LoginActivity.this.getSharedPreferences("FromLogin", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = mySharedPreferences.edit();
@@ -181,8 +222,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean validateInputs() {
-        String mob_number = Objects.requireNonNull(TIL_Mobile_Number.getEditText()).getText().toString();
-        String password = Objects.requireNonNull(TIL_Password.getEditText()).getText().toString();
+        mob_number = Objects.requireNonNull(TIL_Mobile_Number.getEditText()).getText().toString();
+        password = Objects.requireNonNull(TIL_Password.getEditText()).getText().toString();
+
         if (mob_number.isEmpty()) {
             TIL_Mobile_Number.setError("Invalid Mobile Number");
             return false;
@@ -190,27 +232,16 @@ public class LoginActivity extends AppCompatActivity {
             TIL_Password.setError("Incorrect Password");
             return false;
         } else {
-            //Encrypt Password
             try {
                 cipherText = encrypt(password.getBytes());
                 encryptedPassword = encoderFunction(cipherText);
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            //Encrypt Mobile Number
-            try {
                 cipherText = encrypt(mob_number.getBytes());
                 encryptedMobileNo = encoderFunction(cipherText);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
-            //Encrypt Role
-            try {
                 cipherText = encrypt(userRole.toString().getBytes());
                 encryptedRole = encoderFunction(cipherText);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -1,3 +1,10 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 15/7/20 12:53 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.userInfo;
 
 import android.content.Context;
@@ -81,15 +88,35 @@ public class BusinessDetailsActivity extends AppCompatActivity {
         encryptedUserRole = mySharedPreferences.getString("encryptedUserRole", "xxxxx");
 
         String bname = Objects.requireNonNull(TIL_b_name.getEditText()).getText().toString();
+        if (bname.isEmpty())
+            TIL_b_name.setError("Name should not be empty");
         String btype = Objects.requireNonNull(TIL_b_type_spinner.getEditText()).getText().toString();
+        if (btype.isEmpty())
+            TIL_b_type_spinner.setError("Please select business type.");
         String bnature = Objects.requireNonNull(TIL_b_nature_spinner.getEditText()).getText().toString();
+        if (bnature.isEmpty())
+            TIL_b_nature_spinner.setError("Please select business Nature.");
         String hublocation = Objects.requireNonNull(TIL_b_hub_loc_spinner.getEditText()).getText().toString();
+        if (hublocation.isEmpty())
+            TIL_b_hub_loc_spinner.setError("Please select hub location.");
         String address = Objects.requireNonNull(TIL_reg_add.getEditText()).getText().toString();
+        if (address.isEmpty())
+            TIL_reg_add.setError("Address should not be empty");
         String pincode = Objects.requireNonNull(TIL_pin_code.getEditText()).getText().toString();
+        if (pincode.isEmpty())
+            TIL_pin_code.setError("Pincode should not be empty");
         String pdfname = Objects.requireNonNull(TIL_PD_fName.getEditText()).getText().toString();
+        if (pdfname.isEmpty())
+            TIL_PD_fName.setError("First Name should not be empty");
         String pdlname = Objects.requireNonNull(TIL_PD_fName.getEditText()).getText().toString();
+        if (pdlname.isEmpty())
+            TIL_PD_lname.setError("Last Name should not be empty");
         String pdCC = Objects.requireNonNull(TIL_PD_CC.getEditText()).getText().toString();
+        if (pdCC.isEmpty())
+            TIL_PD_CC.setError("Code should not be empty");
         String pdMob = Objects.requireNonNull(TIL_PD_mob.getEditText()).getText().toString();
+        if (pdMob.length() != 10)
+            TIL_PD_mob.setError("Incorrect Mobile number.");
         String poc1name = Objects.requireNonNull(TIL_POC1_name.getEditText()).getText().toString();
         if (poc1name.isEmpty()) poc1name = "";
         String poc1cc = Objects.requireNonNull(TIL_POC1_CC.getEditText()).getText().toString();

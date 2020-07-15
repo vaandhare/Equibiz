@@ -1,9 +1,18 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 15/7/20 12:53 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.userInfo;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -42,6 +51,8 @@ public class RegisterActivity extends AppCompatActivity {
     Integer userRole = 1;
     String encryptedFirstName, encryptedLastName, encryptedEmailID, encryptedCountryCode, encryptedMobileNo,
             encryptedOTP, encryptedPassword, encryptedUserRole;
+
+    String first_name, last_name, email_id, country_code, mobile_no, password, confirm_password;
 
     String otpServerResponse, userOtp, userPassword, userObjId;
     byte[] cipherTextFN, cipherTextLN, cipherTextE, cipherTextCC, cipherTextMN, cipherTextUR, cipherOTP, cipherPW;
@@ -99,15 +110,17 @@ public class RegisterActivity extends AppCompatActivity {
                 TIL_country_code.setEnabled(false);
                 TIL_mobile_no.setEnabled(false);
                 Toast.makeText(RegisterActivity.this, "Mobile Number Verified", Toast.LENGTH_SHORT).show();
-            }
+            } else
+                Toast.makeText(RegisterActivity.this, "Incorrect OTP", Toast.LENGTH_SHORT).show();
+
         });
 
         BTN_register.setOnClickListener(v -> {
-            String password = Objects.requireNonNull(TIL_password.getEditText()).getText().toString();
-            String confirm_password = Objects.requireNonNull(TIL_confirm_pass.getEditText()).getText().toString();
+            password = Objects.requireNonNull(TIL_password.getEditText()).getText().toString();
+            confirm_password = Objects.requireNonNull(TIL_confirm_pass.getEditText()).getText().toString();
 
             if (password.isEmpty() || password.length() < 6)
-                TIL_password.setError("Password should be less than 6 chars");
+                TIL_password.setError("Password should be more than 6 chars");
             else {
                 if (confirm_password.equals(password)) {
                     userPassword = confirm_password;
@@ -224,14 +237,141 @@ public class RegisterActivity extends AppCompatActivity {
         TIL_password = findViewById(R.id.register_etv_password);
         TIL_confirm_pass = findViewById(R.id.register_etv_confirm_password);
         TIL_otp = findViewById(R.id.register_etv_otp);
+
+        Objects.requireNonNull(TIL_first_name.getEditText()).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                first_name = TIL_first_name.getEditText().getText().toString();
+                TIL_first_name.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        Objects.requireNonNull(TIL_last_name.getEditText()).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                last_name = TIL_last_name.getEditText().getText().toString();
+                TIL_last_name.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        Objects.requireNonNull(TIL_email.getEditText()).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                email_id = TIL_email.getEditText().getText().toString();
+                TIL_email.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        Objects.requireNonNull(TIL_country_code.getEditText()).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                country_code = TIL_country_code.getEditText().getText().toString();
+                TIL_country_code.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        Objects.requireNonNull(TIL_mobile_no.getEditText()).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mobile_no = TIL_mobile_no.getEditText().getText().toString();
+                TIL_mobile_no.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        Objects.requireNonNull(TIL_password.getEditText()).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                password = TIL_password.getEditText().getText().toString();
+                TIL_password.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        Objects.requireNonNull(TIL_confirm_pass.getEditText()).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                confirm_password = TIL_confirm_pass.getEditText().getText().toString();
+                TIL_confirm_pass.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
     private boolean validateInputs() {
-        String first_name = Objects.requireNonNull(TIL_first_name.getEditText()).getText().toString();
-        String last_name = Objects.requireNonNull(TIL_last_name.getEditText()).getText().toString();
-        String email_id = Objects.requireNonNull(TIL_email.getEditText()).getText().toString();
-        String country_code = Objects.requireNonNull(TIL_country_code.getEditText()).getText().toString();
-        String mobile_no = Objects.requireNonNull(TIL_mobile_no.getEditText()).getText().toString();
+        first_name = Objects.requireNonNull(TIL_first_name.getEditText()).getText().toString();
+        last_name = Objects.requireNonNull(TIL_last_name.getEditText()).getText().toString();
+        email_id = Objects.requireNonNull(TIL_email.getEditText()).getText().toString();
+        country_code = Objects.requireNonNull(TIL_country_code.getEditText()).getText().toString();
+        mobile_no = Objects.requireNonNull(TIL_mobile_no.getEditText()).getText().toString();
 
         if (first_name.isEmpty()) {
             TIL_first_name.setError("Enter First Name");
@@ -245,7 +385,7 @@ public class RegisterActivity extends AppCompatActivity {
         } else if (country_code.isEmpty()) {
             TIL_country_code.setError("Invalid Country");
             return false;
-        } else if (mobile_no.isEmpty()) {
+        } else if (mobile_no.length() != 10) {
             TIL_mobile_no.setError("Enter valid mobile number");
             return false;
         } else {

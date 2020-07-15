@@ -1,3 +1,10 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 15/7/20 12:53 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.userInfo;
 
 import android.annotation.SuppressLint;
@@ -8,6 +15,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,8 +26,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -30,9 +38,13 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.net.SocketTimeoutException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -49,7 +61,6 @@ import in.birdvision.equibiz.API.ifsc_api.RasorpayApiService;
 import in.birdvision.equibiz.R;
 import in.birdvision.equibiz.buyer.BuyerHomeActivity;
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,19 +73,18 @@ public class VerificationActivity extends AppCompatActivity {
 
     private static final String PAN_CARD_MATCHER = "[A-Z]{5}[0-9]{4}[A-Z]";
     private static final String GSTIN_NUMBER = "[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z][1-9A-Za-z][Z][0-9a-zA-Z]";
-    AutoCompleteTextView etvACBankName, etvACBankBranchName;
+    AutoCompleteTextView etvACBankName;
     private static final String IFSC_CODE = "[A-Z]{4}[0-9]{6,7}";
-    TextInputLayout TIL_spinner_bank_name, TIL_spinner_bank_branch_name, TIL_pan_card, TIL_gstin_number,
+    TextInputLayout TIL_spinner_bank_name, TIL_bank_branch_name, TIL_pan_card, TIL_gstin_number,
             TIL_ifsc_code, TIL_account_no, TIL_acc_holder_name;
-    Button BTN_gstin_img, BTN_pan_img, BTN_save_submit, BTN_previous, BTN_verify_ifsc;
+    Button BTN_gstin_img, BTN_pan_img, BTN_save_submit, BTN_previous, BTN_verify_ifsc, BTN_cheque_img;
     String et_value_pan_card, et_value_gstin, et_ifsc_code, spinnerGstinValue;
     String encryptedAccHolderName, encryptedAccNum, encryptedBankBranch, encryptedBankCity, encryptedBankName,
             encryptedIfscCode, encryptedRole, encryptedUserObjId, encryptedSpinnerBankBranch, encryptedWhichType,
-            encryptedLabel, encryptedGstinSpinnner;
+            encryptedLabel, encryptedGstinSpinner;
     byte[] cipherAccHolderName, cipherAccNum, cipherBankBranch, cipherBankCity, cipherBankName,
             cipherIfscCode, cipherUserObjId, cipherSpinnerBankBranch, cipherWhichType,
             cipherLabel, cipherGstinSpinner;
-    TextView TV_bank_branch_details;
 
     Spinner spinnerGSTIN;
     String[] gstinValidity = {"Monthly", "Quarterly"};
@@ -84,8 +94,10 @@ public class VerificationActivity extends AppCompatActivity {
     IFSC_API_Interface IFSCApiInterface;
     Equibiz_API_Interface equibiz_api_interface;
     ProgressDialog progressDialog;
-    Integer whichType;
+    Integer whichType, statusGSTIN = 0, statusPAN = 0, statusIFSC = 0, statusCheque = 0;
     private String AuthToken, labelValue, userObjId;
+
+    ImageView imageGSTIN, imagePan, imageChequeBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,9 +127,18 @@ public class VerificationActivity extends AppCompatActivity {
 
     private void registerBankDetails() {
         String acc_no = Objects.requireNonNull(TIL_account_no.getEditText()).getText().toString();
+        if (statusGSTIN == 0)
+            TIL_gstin_number.setError("Enter GSTIN Number");
+        if (statusPAN == 0)
+            TIL_pan_card.setError("Enter PAN Number");
+        if (statusIFSC == 0)
+            TIL_ifsc_code.setError("Enter IFSC Code");
+        if (acc_no.isEmpty())
+            TIL_account_no.setError("Enter valid account number.");
         String acc_holder_name = Objects.requireNonNull(TIL_acc_holder_name.getEditText()).getText().toString();
-        String spinner_bank_branch = Objects.requireNonNull(TIL_spinner_bank_branch_name.getEditText()).getText().toString();
-
+        if (acc_holder_name.isEmpty())
+            TIL_acc_holder_name.setError("Enter Acc. holder name.");
+        String bank_branch = Objects.requireNonNull(TIL_bank_branch_name.getEditText()).getText().toString();
 
         try {
             cipherAccHolderName = encrypt(acc_holder_name.getBytes());
@@ -138,7 +159,7 @@ public class VerificationActivity extends AppCompatActivity {
             cipherIfscCode = encrypt(et_ifsc_code.getBytes());
             encryptedIfscCode = encoderFunction(cipherIfscCode);
 
-            cipherSpinnerBankBranch = encrypt(spinner_bank_branch.getBytes());
+            cipherSpinnerBankBranch = encrypt(bank_branch.getBytes());
             encryptedSpinnerBankBranch = encoderFunction(cipherSpinnerBankBranch);
         } catch (Exception e) {
             e.printStackTrace();
@@ -155,8 +176,8 @@ public class VerificationActivity extends AppCompatActivity {
                 progressDialog.dismiss();
                 BankDetailsResponse response1 = response.body();
                 assert response1 != null;
-                Toast.makeText(VerificationActivity.this, response1.getBankverified(), Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(VerificationActivity.this, BuyerHomeActivity.class));
+                if (response1.getStatus().equals("success"))
+                    startActivity(new Intent(VerificationActivity.this, BuyerHomeActivity.class));
             }
 
             @Override
@@ -242,32 +263,52 @@ public class VerificationActivity extends AppCompatActivity {
             encryptedWhichType = encoderFunction(cipherWhichType);
 
             cipherGstinSpinner = encrypt(spinnerGstinValue.getBytes());
-            encryptedGstinSpinnner = encoderFunction(cipherGstinSpinner);
+            encryptedGstinSpinner = encoderFunction(cipherGstinSpinner);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         File file = new File(imagePath);
+        byte[] bytes = new byte[(int) file.length()];
 
-        RequestBody requestFile = RequestBody.create(file, MediaType.parse("multipart/form-data"));
+        if (file.exists()) {
+            Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+            if (statusGSTIN == 1) {
+                imageGSTIN.setImageBitmap(myBitmap);
+                imageGSTIN.setVisibility(View.VISIBLE);
+            } else if (statusPAN == 1) {
+                imagePan.setImageBitmap(myBitmap);
+                imagePan.setVisibility(View.VISIBLE);
+            }
+        }
 
-        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+        try {
+            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+            DataInputStream dis = new DataInputStream(bis);
+            dis.readFully(bytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        RequestBody requestFile = RequestBody.create(file, MediaType.parse("multipart/form-data"));
+
+//        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
 
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
         requestBodyMap.put("label", RequestBody.create(encryptedLabel, MediaType.parse("multipart/form-data")));
         requestBodyMap.put("role", RequestBody.create(encryptedRole, MediaType.parse("multipart/form-data")));
         requestBodyMap.put("userobjid", RequestBody.create(encryptedUserObjId, MediaType.parse("multipart/form-data")));
         requestBodyMap.put("whichtype", RequestBody.create(encryptedWhichType, MediaType.parse("multipart/form-data")));
-        requestBodyMap.put("gsttype", RequestBody.create(encryptedGstinSpinnner, MediaType.parse("multipart/form-data")));
+        requestBodyMap.put("gsttype", RequestBody.create(encryptedGstinSpinner, MediaType.parse("multipart/form-data")));
+        requestBodyMap.put("documentimages", RequestBody.create(bytes, MediaType.parse("multipart/form-data")));
 
         Log.d("label", encryptedLabel);
         Log.d("role", encryptedRole);
         Log.d("userobjid", encryptedUserObjId);
         Log.d("whichtype", encryptedWhichType);
-        Log.d("gsttype", encryptedGstinSpinnner);
+        Log.d("gsttype", encryptedGstinSpinner);
+        Log.d("documentimages", Arrays.toString(bytes));
 
-
-        Call<UploadDocuments> documentsCall = equibiz_api_interface.uploadDocuments(requestBodyMap, body, "Bearer " + AuthToken);
+        Call<UploadDocuments> documentsCall = equibiz_api_interface.uploadDocuments(requestBodyMap, "Bearer " + AuthToken);
         documentsCall.enqueue(new Callback<UploadDocuments>() {
             @Override
             public void onResponse(@NotNull Call<UploadDocuments> call, @NotNull Response<UploadDocuments> response) {
@@ -349,11 +390,7 @@ public class VerificationActivity extends AppCompatActivity {
                 R.layout.dropdown_menu, resources.getStringArray(R.array.bank_names));
         etvACBankName.setAdapter(adapter);
 
-        TIL_spinner_bank_branch_name = findViewById(R.id.spinner_bank_branch_name);
-        etvACBankBranchName = findViewById(R.id.autocomplete_bank_branch_name);
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(VerificationActivity.this,
-                R.layout.dropdown_menu, resources.getStringArray(R.array.bankBranchNames));
-        etvACBankBranchName.setAdapter(adapter1);
+        TIL_bank_branch_name = findViewById(R.id.etv_bank_branch_name);
 
         TIL_pan_card = findViewById(R.id.etv_pan_card_number);
         TIL_pan_card.setErrorEnabled(false);
@@ -375,11 +412,13 @@ public class VerificationActivity extends AppCompatActivity {
         BTN_save_submit = findViewById(R.id.btn_save_and_submit_va);
         BTN_previous = findViewById(R.id.btn_previous_va);
         BTN_verify_ifsc = findViewById(R.id.btn_verify_ifsc);
+        BTN_cheque_img = findViewById(R.id.btn_upload_cheque_book);
 
-        TV_bank_branch_details = findViewById(R.id.tv_av_bank_branch_details);
+        imagePan = findViewById(R.id.imgPanCard);
+        imageGSTIN = findViewById(R.id.imgGSTIN);
+        imageChequeBook = findViewById(R.id.imgChequeBook);
 
-        BTN_previous.setOnClickListener(v -> startActivity(new
-                Intent(VerificationActivity.this, BusinessDetailsActivity.class)));
+        BTN_previous.setOnClickListener(v -> startActivity(new Intent(VerificationActivity.this, BusinessDetailsActivity.class)));
 
         Objects.requireNonNull(TIL_pan_card.getEditText()).addTextChangedListener(new TextWatcher() {
             @Override
@@ -425,7 +464,6 @@ public class VerificationActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 et_ifsc_code = TIL_ifsc_code.getEditText().getText().toString();
                 BTN_verify_ifsc.setVisibility(View.VISIBLE);
-                TV_bank_branch_details.setVisibility(View.GONE);
             }
 
             @Override
@@ -436,6 +474,7 @@ public class VerificationActivity extends AppCompatActivity {
 
         BTN_gstin_img.setOnClickListener(v -> {
             whichType = 1;
+            statusGSTIN = 1;
             et_value_gstin = TIL_gstin_number.getEditText().getText().toString();
             if (GstinPatternMatchers()) {
                 labelValue = et_value_gstin;
@@ -445,6 +484,7 @@ public class VerificationActivity extends AppCompatActivity {
 
         BTN_pan_img.setOnClickListener(v -> {
             whichType = 2;
+            statusPAN = 1;
             et_value_pan_card = TIL_pan_card.getEditText().getText().toString();
             if (PanPatternMatchers()) {
                 labelValue = et_value_pan_card;
@@ -453,13 +493,16 @@ public class VerificationActivity extends AppCompatActivity {
         });
 
         BTN_verify_ifsc.setOnClickListener(v -> {
+            statusIFSC = 1;
             et_ifsc_code = TIL_ifsc_code.getEditText().getText().toString();
             if (IFSCPatternMatcher()) {
                 verifyIFSCode();
-                TV_bank_branch_details.setVisibility(View.VISIBLE);
                 BTN_verify_ifsc.setVisibility(View.GONE);
             }
         });
+
+        BTN_cheque_img.setOnClickListener(v -> statusCheque = 1);
+
 
     }
 
@@ -471,13 +514,18 @@ public class VerificationActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Call<IFSC> call, @NotNull Response<IFSC> response) {
                 IFSC ifsc = response.body();
-                assert ifsc != null;
-                str_bank_city = ifsc.getCITY();
-                str_bank_branch = ifsc.getBRANCH();
-                str_bank_address = ifsc.getADDRESS();
-                str_bank_name = ifsc.getBANK();
+                if (response.isSuccessful() || ifsc != null) {
+                    assert ifsc != null;
+                    str_bank_city = ifsc.getCITY();
+                    str_bank_branch = ifsc.getBRANCH();
+                    str_bank_address = ifsc.getADDRESS();
+                    str_bank_name = ifsc.getBANK();
 
-                TV_bank_branch_details.setText("Branch Name: " + str_bank_branch);
+                    Objects.requireNonNull(TIL_bank_branch_name.getEditText()).setText(str_bank_branch);
+                } else {
+                    TIL_ifsc_code.setError("Invalid IFSC Number");
+                    BTN_verify_ifsc.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override

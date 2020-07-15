@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by Vaibhav Andhare on 15/7/20 12:53 PM
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  */
+  -->
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -46,6 +53,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="25dp"
             android:hint="@string/business_name"
+            app:errorEnabled="true"
             app:layout_constraintTop_toBottomOf="@id/tv_sub_business_details">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -68,6 +76,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="25dp"
             android:hint="@string/business_type"
+            app:errorEnabled="true"
             app:layout_constraintTop_toBottomOf="@id/etv_business_name">
 
             <AutoCompleteTextView
@@ -85,6 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginTop="10dp"
+            app:errorEnabled="true"
             android:layout_marginEnd="25dp"
             android:hint="@string/business_nature"
             app:layout_constraintTop_toBottomOf="@id/business_type_spinner">
@@ -104,6 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginTop="10dp"
+            app:errorEnabled="true"
             android:layout_marginEnd="25dp"
             android:hint="@string/hub_location"
             app:layout_constraintTop_toBottomOf="@id/business_nature_spinner">
@@ -122,6 +133,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
+            app:errorEnabled="true"
             android:layout_marginTop="10dp"
             android:layout_marginRight="25dp"
             android:hint="@string/address_of_registered_office"
@@ -144,6 +156,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="15dp"
+            app:errorEnabled="true"
             android:layout_marginRight="25dp"
             android:hint="@string/pincode"
             app:layout_constraintStart_toStartOf="parent"
@@ -206,6 +219,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
+                app:errorEnabled="true"
                 android:layout_weight="1"
                 android:hint="@string/first_name">
 
@@ -226,6 +240,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                app:errorEnabled="true"
                 android:layout_marginEnd="25dp"
                 android:layout_weight="1"
                 android:hint="@string/last_name">
@@ -247,6 +262,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
             android:layout_marginStart="25dp"
             android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -271,6 +287,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
             android:layout_marginStart="95dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="25dp"

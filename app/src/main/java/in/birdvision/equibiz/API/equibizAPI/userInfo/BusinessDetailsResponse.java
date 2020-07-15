@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 10/7/20 9:44 AM
+ *  * Created by Vaibhav Andhare on 15/7/20 12:53 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -47,15 +47,6 @@ public class BusinessDetailsResponse {
     private String savelater;
     @SerializedName("userobjid")
     private String userobjid;
-
-    @SerializedName("status")
-    private String status;
-    @SerializedName("businessverified")
-    private String businessverified;
-    @SerializedName("bankdetails")
-    private BankDetails bankdetails;
-    @SerializedName("businessdetails")
-    private BusinessDetails businessdetails;
     @SerializedName("hublocation")
     private String hublocation;
 
@@ -85,298 +76,159 @@ public class BusinessDetailsResponse {
         this.hublocation = hublocation;
     }
 
+    @SerializedName("status")
+    public String status;
+    @SerializedName("businessverified")
+    public boolean businessverified;
+    @SerializedName("bankdetails")
+    public String bankdetails;
+    @SerializedName("businessdetails")
+    public Businessdetails businessdetails;
+
     public String getStatus() {
         return status;
     }
 
-    public String getBusinessverified() {
+    public boolean isBusinessverified() {
         return businessverified;
     }
 
-//    public BankDetails getBankdetails() {
-//        return bankdetails;
-//    }
+    public String getBankdetails() {
+        return bankdetails;
+    }
 
-    public BusinessDetails getBusinessdetails() {
+    public Businessdetails getBusinessdetails() {
         return businessdetails;
     }
 
-    public String getBusinessname() {
-        return businessname;
-    }
-
-    public String getBusinessnature() {
-        return businessnature;
-    }
-
-    public String getBusinesstype() {
-        return businesstype;
-    }
-
-    public String getOwner_countrycode() {
-        return owner_countrycode;
-    }
-
-    public String getOwner_mobnumber() {
-        return owner_mobnumber;
-    }
-
-    public String getOwnerfname() {
-        return ownerfname;
-    }
-
-    public String getOwnerlname() {
-        return ownerlname;
-    }
-
-    public String getPincode() {
-        return pincode;
-    }
-
-    public String getPoc1_countrycode() {
-        return poc1_countrycode;
-    }
-
-    public String getPoc1_mobile() {
-        return poc1_mobile;
-    }
-
-    public String getPoc1_name() {
-        return poc1_name;
-    }
-
-    public String getPoc2_countrycode() {
-        return poc2_countrycode;
-    }
-
-    public String getPoc2_mobile() {
-        return poc2_mobile;
-    }
-
-    public String getPoc2_name() {
-        return poc2_name;
-    }
-
-    public String getRegd_address() {
-        return regd_address;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public String getSavelater() {
-        return savelater;
-    }
-
-    public String getUserobjid() {
-        return userobjid;
-    }
-
-    public String getHublocation() {
-        return hublocation;
-    }
-
-    private static class BankDetails {
-
+    public static class Businessdetails {
         @SerializedName("_id")
-        private String _id;
+        public String id;
         @SerializedName("userobjid")
-        private String userobjid;
+        public String userobjid;
         @SerializedName("__v")
-        private String __v;
-        @SerializedName("accholdername")
-        private String accholdername;
-        @SerializedName("accnumber")
-        private String accnumber;
-        @SerializedName("bankbranch")
-        private String bankbranch;
-        @SerializedName("bankcity")
-        private String bankcity;
-        @SerializedName("bankname")
-        private String bankname;
-        @SerializedName("createdDate")
-        private String createdDate;
-        @SerializedName("ifsccode")
-        private String ifsccode;
-        @SerializedName("updatedDate")
-        private String updatedDate;
-        @SerializedName("ifscbranch")
-        private String ifscbranch;
-
-        public String get_id() {
-            return _id;
-        }
-
-        public String getUserobjid() {
-            return userobjid;
-        }
-
-        public String get__v() {
-            return __v;
-        }
-
-        public String getAccholdername() {
-            return accholdername;
-        }
-
-        public String getAccnumber() {
-            return accnumber;
-        }
-
-        public String getBankbranch() {
-            return bankbranch;
-        }
-
-        public String getBankcity() {
-            return bankcity;
-        }
-
-        public String getBankname() {
-            return bankname;
-        }
-
-        public String getCreatedDate() {
-            return createdDate;
-        }
-
-        public String getIfsccode() {
-            return ifsccode;
-        }
-
-        public String getUpdatedDate() {
-            return updatedDate;
-        }
-
-        public String getIfscbranch() {
-            return ifscbranch;
-        }
-
-    }
-
-    public static class BusinessDetails {
-        @SerializedName("_id")
-        private String _id;
-        @SerializedName("userobjid")
-        private String userobjid;
-        @SerializedName("__v")
-        private String __v;
+        public String v;
         @SerializedName("buyer_b_name")
-        private String buyer_b_name;
+        public String buyerBName;
         @SerializedName("buyer_b_nature")
-        private String buyer_b_nature;
+        public String buyerBNature;
         @SerializedName("buyer_b_type")
-        private String buyer_b_type;
+        public String buyerBType;
         @SerializedName("createdDate")
-        private String createdDate;
+        public String createdDate;
         @SerializedName("hublocation")
-        private String hublocation;
+        public String hublocation;
         @SerializedName("owner_countrycode")
-        private String owner_countrycode;
+        public String ownerCountrycode;
         @SerializedName("owner_fname")
-        private String owner_fname;
+        public String ownerFname;
         @SerializedName("owner_lname")
-        private String owner_lname;
+        public String ownerLname;
         @SerializedName("owner_mobile")
-        private String owner_mobile;
+        public String ownerMobile;
         @SerializedName("pincode")
-        private String pincode;
+        public String pincode;
         @SerializedName("poc1_countrycode")
-        private String poc1_countrycode;
+        public String poc1Countrycode;
         @SerializedName("poc1_mobile")
-        private String poc1_mobile;
+        public Object poc1Mobile;
         @SerializedName("poc1_name")
-        private String poc1_name;
+        public String poc1Name;
         @SerializedName("poc2_countrycode")
-        private String poc2_countrycode;
+        public String poc2Countrycode;
         @SerializedName("poc2_mobile")
-        private String poc2_mobile;
+        public Object poc2Mobile;
         @SerializedName("poc2_name")
-        private String poc2_name;
+        public String poc2Name;
         @SerializedName("regd_address")
-        private String regd_address;
+        public String regdAddress;
         @SerializedName("savelater")
-        private String savelater;
+        public boolean savelater;
         @SerializedName("updatedDate")
-        private String updatedDate;
+        public String updatedDate;
 
-        public String get_id() {
-            return _id;
+
+        public String getId() {
+            return id;
         }
 
         public String getUserobjid() {
             return userobjid;
         }
 
-        public String get__v() {
-            return __v;
+        public String getV() {
+            return v;
         }
 
-        public String getBuyer_b_name() {
-            return buyer_b_name;
+        public String getBuyerBName() {
+            return buyerBName;
         }
 
-        public String getBuyer_b_nature() {
-            return buyer_b_nature;
+        public String getBuyerBNature() {
+            return buyerBNature;
         }
 
-        public String getBuyer_b_type() {
-            return buyer_b_type;
+        public String getBuyerBType() {
+            return buyerBType;
         }
 
         public String getCreatedDate() {
             return createdDate;
         }
 
-        public String getOwner_countrycode() {
-            return owner_countrycode;
+        public String getHublocation() {
+            return hublocation;
         }
 
-        public String getOwner_fname() {
-            return owner_fname;
+        public String getOwnerCountrycode() {
+            return ownerCountrycode;
         }
 
-        public String getOwner_lname() {
-            return owner_lname;
+        public String getOwnerFname() {
+            return ownerFname;
         }
 
-        public String getOwner_mobile() {
-            return owner_mobile;
+        public String getOwnerLname() {
+            return ownerLname;
+        }
+
+        public String getOwnerMobile() {
+            return ownerMobile;
         }
 
         public String getPincode() {
             return pincode;
         }
 
-        public String getPoc1_countrycode() {
-            return poc1_countrycode;
+        public String getPoc1Countrycode() {
+            return poc1Countrycode;
         }
 
-        public String getPoc1_mobile() {
-            return poc1_mobile;
+        public Object getPoc1Mobile() {
+            return poc1Mobile;
         }
 
-        public String getPoc1_name() {
-            return poc1_name;
+        public String getPoc1Name() {
+            return poc1Name;
         }
 
-        public String getPoc2_countrycode() {
-            return poc2_countrycode;
+        public String getPoc2Countrycode() {
+            return poc2Countrycode;
         }
 
-        public String getPoc2_mobile() {
-            return poc2_mobile;
+        public Object getPoc2Mobile() {
+            return poc2Mobile;
         }
 
-        public String getPoc2_name() {
-            return poc2_name;
+        public String getPoc2Name() {
+            return poc2Name;
         }
 
-        public String getRegd_address() {
-            return regd_address;
+        public String getRegdAddress() {
+            return regdAddress;
         }
 
-        public String getSavelater() {
+        public boolean isSavelater() {
             return savelater;
         }
 

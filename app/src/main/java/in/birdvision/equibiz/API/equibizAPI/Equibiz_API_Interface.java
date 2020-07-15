@@ -1,3 +1,10 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 15/7/20 12:53 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.API.equibizAPI;
 
 import java.util.Map;
@@ -22,7 +29,6 @@ import in.birdvision.equibiz.API.equibizAPI.userInfo.OtpResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.RegistrationResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.SetPasswordResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.UploadDocuments;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -30,7 +36,6 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 
 public interface Equibiz_API_Interface {
@@ -59,7 +64,7 @@ public interface Equibiz_API_Interface {
     @Multipart
     @POST("uploaddoc")
     Call<UploadDocuments> uploadDocuments(@PartMap Map<String, RequestBody> requestBodyMap,
-                                          @Part MultipartBody.Part file,
+//                                          @Part MultipartBody.Part file,
                                           @Header("Authorization") String auth);
 
     //Product

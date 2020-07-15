@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by Vaibhav Andhare on 15/7/20 12:53 PM
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  */
+  -->
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,22 +14,21 @@
     android:theme="@style/NoActionBarTheme"
     tools:context=".userInfo.VerificationActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_account_verification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/playfair_display"
             android:text="@string/account_verification"
             android:textColor="@color/dark_blue"
-            android:textSize="35sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="35sp" />
 
         <TextView
             android:id="@+id/tv_sub_account_verification"
@@ -33,10 +39,7 @@
             android:paddingEnd="25dp"
             android:text="@string/share_the_following_details_to_have_a_verified_account"
             android:textColor="@color/dark_blue"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_account_verification" />
+            android:textSize="15sp" />
 
         <LinearLayout
             android:id="@+id/linear_layout_document_upload"
@@ -44,8 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/tv_sub_account_verification">
+            android:orientation="horizontal">
 
             <View
                 android:layout_width="0dp"
@@ -76,8 +78,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="25dp"
             app:errorTextColor="@color/red"
-            android:hint="@string/gstin_number"
-            app:layout_constraintTop_toBottomOf="@id/linear_layout_document_upload">
+            android:hint="@string/gstin_number">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -98,8 +99,7 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:gravity="end"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/etv_gstin_number">
+            android:orientation="horizontal">
 
             <Spinner
                 android:id="@+id/spinner_gstin"
@@ -112,9 +112,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:background="@drawable/button_bg"
                 android:text="@string/upload" />
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgGSTIN"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="10dp"
+            android:contentDescription="@string/gstin_number"
+            android:visibility="gone" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etv_pan_card_number"
@@ -125,8 +132,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="25dp"
             app:errorTextColor="@color/red"
-            android:hint="@string/pan_number"
-            app:layout_constraintTop_toBottomOf="@id/linear_layout_gstin_upload">
+            android:hint="@string/pan_number">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -147,17 +153,23 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:gravity="end"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/etv_pan_card_number">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_pan_card_upload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:background="@drawable/button_bg"
                 android:text="@string/upload" />
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgPanCard"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="10dp"
+            android:contentDescription="@string/pan_number"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_file_upload_instruction"
@@ -169,10 +181,7 @@
             android:paddingEnd="25dp"
             android:text="@string/file_type_should_be_png_jpg_jpeg_size_500kb"
             android:textColor="@color/red"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linear_layout_pan_card_upload" />
+            android:textSize="13sp" />
 
 
         <LinearLayout
@@ -182,8 +191,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/tv_file_upload_instruction">
+            android:orientation="horizontal">
 
             <View
                 android:layout_width="0dp"
@@ -213,8 +221,7 @@
             android:layout_marginStart="25dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="25dp"
-            android:hint="@string/bank_name"
-            app:layout_constraintTop_toBottomOf="@id/linear_layout_bank_details">
+            android:hint="@string/bank_name">
 
             <AutoCompleteTextView
                 android:id="@+id/autocomplete_bank_name"
@@ -222,73 +229,6 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 tools:ignore="LabelFor" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/spinner_bank_branch_name"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="25dp"
-            android:hint="@string/bank_branch_name"
-            app:layout_constraintTop_toBottomOf="@id/spinner_bank_name">
-
-            <AutoCompleteTextView
-                android:id="@+id/autocomplete_bank_branch_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                tools:ignore="LabelFor" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etv_account_holder_name"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="25dp"
-            android:hint="@string/account_holder_name"
-            app:layout_constraintTop_toBottomOf="@id/spinner_bank_branch_name">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:gravity="center_vertical"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:singleLine="true"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etv_account_number"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="25dp"
-            android:hint="@string/account_number"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etv_account_holder_name">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:gravity="center_vertical"
-                android:inputType="number"
-                android:maxLength="18"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:singleLine="true"
-                android:textColor="@color/black" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -301,8 +241,7 @@
             android:layout_marginRight="25dp"
             android:hint="@string/ifsc_number"
             app:errorTextColor="@color/red"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etv_account_number">
+            app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -324,28 +263,127 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:gravity="end"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/etv_ifsc_number">
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_av_bank_branch_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/dark_blue"
                 android:textSize="20sp"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/etv_ifsc_number" />
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btn_verify_ifsc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:background="@drawable/button_bg"
                 android:text="@string/verify" />
 
         </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etv_bank_branch_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:hint="@string/bank_branch_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etv_account_holder_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="25dp"
+            android:hint="@string/account_holder_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etv_account_number"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="25dp"
+            android:hint="@string/account_number">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center_vertical"
+                android:inputType="number"
+                android:maxLength="18"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_upload_cheque_book"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_chequeBook"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_blue"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:text="@string/cheque_book_image" />
+
+            <Button
+                android:id="@+id/btn_upload_cheque_book"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/upload" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgChequeBook"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="10dp"
+            android:contentDescription="@string/pan_number"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/linear_layout_checkbox"
@@ -353,8 +391,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/linerar_layout_verify_ifsc">
+            android:orientation="horizontal">
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/checkbox"
@@ -394,8 +431,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/linear_layout_checkbox">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_previous_va"
@@ -414,5 +450,5 @@
                 android:text="@string/save_submit" />
 
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </ScrollView>

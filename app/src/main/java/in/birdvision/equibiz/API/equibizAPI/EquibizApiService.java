@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 13/7/20 1:14 PM
+ *  * Created by Vaibhav Andhare on 15/7/20 12:53 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -21,7 +21,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EquibizApiService {
 
-    private static final String BASE_URL = "http://equibiz.birdvisiontech.com:3000/";
+//    private static final String BASE_URL = "http://10.0.2.2:3000/";
+private static final String BASE_URL = "http://equibiz.birdvisiontech.com:3000/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
