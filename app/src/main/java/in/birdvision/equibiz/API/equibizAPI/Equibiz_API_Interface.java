@@ -1,13 +1,11 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 15/7/20 12:53 PM
+ *  * Created by Vaibhav Andhare on 19/7/20 11:12 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
 
 package in.birdvision.equibiz.API.equibizAPI;
-
-import java.util.Map;
 
 import in.birdvision.equibiz.API.equibizAPI.buyer.home.BuyerHomeResponse;
 import in.birdvision.equibiz.API.equibizAPI.buyer.orders.PreBookingResponse;
@@ -29,14 +27,11 @@ import in.birdvision.equibiz.API.equibizAPI.userInfo.OtpResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.RegistrationResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.SetPasswordResponse;
 import in.birdvision.equibiz.API.equibizAPI.userInfo.UploadDocuments;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.PartMap;
 
 public interface Equibiz_API_Interface {
 
@@ -60,12 +55,14 @@ public interface Equibiz_API_Interface {
     Call<BankDetailsResponse> bankDetailsResponse(@Body BankDetailsResponse bankDetailsResponse,
                                                   @Header("Authorization") String auth);
 
+    //    @Multipart
     @Headers({"Content-Type: application/json;charset=UTF-8"})
-    @Multipart
     @POST("uploaddoc")
-    Call<UploadDocuments> uploadDocuments(@PartMap Map<String, RequestBody> requestBodyMap,
-//                                          @Part MultipartBody.Part file,
+    Call<UploadDocuments> uploadDocuments(@Body UploadDocuments uploadDocuments,
+//            @PartMap Map<String, RequestBody> requestBodyMap,
+//                                          @Part MultipartBody.Part[] file,
                                           @Header("Authorization") String auth);
+
 
     //Product
     @Headers({"Content-Type: application/json;charset=UTF-8"})

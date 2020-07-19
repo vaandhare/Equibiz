@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by Vaibhav Andhare on 19/7/20 11:12 PM
+  ~  * Copyright (c) 2020 . All rights reserved.
+  ~  */
+  -->
+
 <resources>
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
@@ -10,11 +17,15 @@
     <color name="yellow">#FFC107</color>
     <color name="light_yellow">#F3F3A0</color>
     <color name="dark_blue">#112c56</color>
-<!--    <color name="dark_blue">#1e88e5</color>-->
+    <!--    <color name="dark_blue">#1e88e5</color>-->
     <color name="light_dark_blue">#E8EDF4</color>
     <color name="red">#F44336</color>
     <color name="light_red">#FBD4D1</color>
     <color name="green">#4CAF50</color>
     <color name="light_green">#9DCF9F</color>
     <color name="blue">#1e88e5</color>
+
+    <color name="pie_pink">#ffcdd2</color>
+    <color name="pie_blue">#bbdefb</color>
+    <color name="pie_yellow">#ffecb3</color>
 </resources>

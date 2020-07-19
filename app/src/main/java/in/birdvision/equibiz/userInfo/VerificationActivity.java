@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 15/7/20 12:53 PM
+ *  * Created by Vaibhav Andhare on 19/7/20 11:12 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -40,13 +39,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.SocketTimeoutException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -60,8 +57,6 @@ import in.birdvision.equibiz.API.ifsc_api.IFSC_API_Interface;
 import in.birdvision.equibiz.API.ifsc_api.RasorpayApiService;
 import in.birdvision.equibiz.R;
 import in.birdvision.equibiz.buyer.BuyerHomeActivity;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -165,9 +160,12 @@ public class VerificationActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        ArrayList<String> chequebookimages = new ArrayList<>();
+        chequebookimages.add(" ");
+
         final BankDetailsResponse bankDetailsResponse = new BankDetailsResponse(encryptedAccHolderName,
                 encryptedAccNum, encryptedSpinnerBankBranch, encryptedBankCity, encryptedBankName, encryptedBankBranch,
-                encryptedIfscCode, encryptedRole, encryptedUserObjId);
+                encryptedIfscCode, encryptedRole, encryptedUserObjId, chequebookimages);
         Call<BankDetailsResponse> bankDetailsResponseCall = equibiz_api_interface.bankDetailsResponse(bankDetailsResponse, "Bearer " + AuthToken);
 
         bankDetailsResponseCall.enqueue(new Callback<BankDetailsResponse>() {
@@ -176,7 +174,7 @@ public class VerificationActivity extends AppCompatActivity {
                 progressDialog.dismiss();
                 BankDetailsResponse response1 = response.body();
                 assert response1 != null;
-                if (response1.getStatus().equals("success"))
+                if (response1.getStatus().equals("success") || response1.getStatus().equals("error"))
                     startActivity(new Intent(VerificationActivity.this, BuyerHomeActivity.class));
             }
 
@@ -269,7 +267,14 @@ public class VerificationActivity extends AppCompatActivity {
         }
 
         File file = new File(imagePath);
-        byte[] bytes = new byte[(int) file.length()];
+        byte[] bytesFile = new byte[(int) file.length()];
+        try {
+            BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file));
+            buf.read(bytesFile, 0, bytesFile.length);
+            buf.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         if (file.exists()) {
             Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
@@ -282,39 +287,46 @@ public class VerificationActivity extends AppCompatActivity {
             }
         }
 
-        try {
-            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
-            DataInputStream dis = new DataInputStream(bis);
-            dis.readFully(bytes);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 //        RequestBody requestFile = RequestBody.create(file, MediaType.parse("multipart/form-data"));
+//        MultipartBody.Part[] body = new MultipartBody.Part[1];
+//
+//        body[0] = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+//
+//        Map<String, RequestBody> requestBodyMap = new HashMap<>();
+//        requestBodyMap.put("label", RequestBody.create(encryptedLabel, MediaType.parse("multipart/form-data")));
+//        requestBodyMap.put("role", RequestBody.create(encryptedRole, MediaType.parse("multipart/form-data")));
+//        requestBodyMap.put("userobjid", RequestBody.create(encryptedUserObjId, MediaType.parse("multipart/form-data")));
+//        requestBodyMap.put("whichtype", RequestBody.create(encryptedWhichType, MediaType.parse("multipart/form-data")));
+//        requestBodyMap.put("gsttype", RequestBody.create(encryptedGstinSpinner, MediaType.parse("multipart/form-data")));
+//
+//        Log.d("label", encryptedLabel);
+//        Log.d("role", encryptedRole);
+//        Log.d("userobjid", encryptedUserObjId);
+//        Log.d("whichtype", encryptedWhichType);
+//        Log.d("gsttype", encryptedGstinSpinner);
 
-//        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+        ArrayList<byte[]> arrayList = new ArrayList<>();
+        arrayList.add(bytesFile);
 
-        Map<String, RequestBody> requestBodyMap = new HashMap<>();
-        requestBodyMap.put("label", RequestBody.create(encryptedLabel, MediaType.parse("multipart/form-data")));
-        requestBodyMap.put("role", RequestBody.create(encryptedRole, MediaType.parse("multipart/form-data")));
-        requestBodyMap.put("userobjid", RequestBody.create(encryptedUserObjId, MediaType.parse("multipart/form-data")));
-        requestBodyMap.put("whichtype", RequestBody.create(encryptedWhichType, MediaType.parse("multipart/form-data")));
-        requestBodyMap.put("gsttype", RequestBody.create(encryptedGstinSpinner, MediaType.parse("multipart/form-data")));
-        requestBodyMap.put("documentimages", RequestBody.create(bytes, MediaType.parse("multipart/form-data")));
+        final UploadDocuments uploadDocuments = new UploadDocuments(encryptedLabel, encryptedRole, encryptedUserObjId, encryptedWhichType, encryptedGstinSpinner,
+                arrayList);
 
-        Log.d("label", encryptedLabel);
-        Log.d("role", encryptedRole);
-        Log.d("userobjid", encryptedUserObjId);
-        Log.d("whichtype", encryptedWhichType);
-        Log.d("gsttype", encryptedGstinSpinner);
-        Log.d("documentimages", Arrays.toString(bytes));
-
-        Call<UploadDocuments> documentsCall = equibiz_api_interface.uploadDocuments(requestBodyMap, "Bearer " + AuthToken);
+        Call<UploadDocuments> documentsCall = equibiz_api_interface.uploadDocuments(uploadDocuments, "Bearer " + AuthToken);
         documentsCall.enqueue(new Callback<UploadDocuments>() {
             @Override
             public void onResponse(@NotNull Call<UploadDocuments> call, @NotNull Response<UploadDocuments> response) {
                 UploadDocuments uploadDocuments1 = response.body();
                 assert uploadDocuments1 != null;
-                Toast.makeText(VerificationActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful())
+                    Toast.makeText(VerificationActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                else {
+                    try {
+                        assert response.errorBody() != null;
+                        Toast.makeText(VerificationActivity.this, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override
@@ -501,7 +513,10 @@ public class VerificationActivity extends AppCompatActivity {
             }
         });
 
-        BTN_cheque_img.setOnClickListener(v -> statusCheque = 1);
+        BTN_cheque_img.setOnClickListener(v -> {
+            statusCheque = 1;
+            requestImage();
+        });
 
 
     }

@@ -1,6 +1,15 @@
+/*
+ * *
+ *  * Created by Vaibhav Andhare on 19/7/20 11:12 PM
+ *  * Copyright (c) 2020 . All rights reserved.
+ *
+ */
+
 package in.birdvision.equibiz.API.equibizAPI.userInfo;
 
 import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
 
 public class BankDetailsResponse {
 
@@ -28,8 +37,11 @@ public class BankDetailsResponse {
     @SerializedName("bankverified")
     private String bankverified;
 
+    private ArrayList<String> chequebookimages;
+
     public BankDetailsResponse(String accholdername, String accnumber, String bankbranch, String bankcity,
-                               String bankname, String ifscbranch, String ifsccode, String role, String userobjid) {
+                               String bankname, String ifscbranch, String ifsccode, String role, String userobjid,
+                               ArrayList<String> chequebookimages) {
         this.accholdername = accholdername;
         this.accnumber = accnumber;
         this.bankbranch = bankbranch;
@@ -39,6 +51,7 @@ public class BankDetailsResponse {
         this.ifsccode = ifsccode;
         this.role = role;
         this.userobjid = userobjid;
+        this.chequebookimages = chequebookimages;
     }
 
     public String getAccholdername() {

@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 12/7/20 10:02 AM
+ *  * Created by Vaibhav Andhare on 19/7/20 11:12 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -61,5 +61,7 @@ dependencies {
     implementation 'androidx.biometric:biometric:1.0.1'
 
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 }

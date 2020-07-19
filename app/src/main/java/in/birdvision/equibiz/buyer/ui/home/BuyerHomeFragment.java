@@ -1,6 +1,6 @@
 /*
  * *
- *  * Created by Vaibhav Andhare on 12/7/20 10:02 AM
+ *  * Created by Vaibhav Andhare on 19/7/20 11:12 PM
  *  * Copyright (c) 2020 . All rights reserved.
  *
  */
@@ -100,14 +100,14 @@ public class BuyerHomeFragment extends Fragment {
         adapterBestDeals = new AdapterBestDeals(context);
         recyclerViewBestDeals.setAdapter(adapterBestDeals);
 
-        final int duration = 10;
+        final int duration = 20;
         final int pixelsToMove = 150;
         final Handler mHandler = new Handler(Looper.getMainLooper());
         final Runnable SCROLLING_RUNNABLE = new Runnable() {
             @Override
             public void run() {
-                recyclerViewBestDeals.smoothScrollBy(pixelsToMove, 0);
-                mHandler.postDelayed(this, duration);
+                recyclerViewBestDeals.smoothScrollBy(100, 0);
+                mHandler.postDelayed(this, 10);
             }
         };
 
